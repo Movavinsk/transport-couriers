@@ -1,0 +1,58 @@
+.bid-card {
+
+  .panel-body {
+    margin-top: @table-cell-padding-v;
+    position: relative;
+    background-color: fade(@black, 10%);
+    .border-left-radius(@border-radius-base);
+    .border-right-radius(@border-radius-base);
+
+    .arrow {
+      position: static;
+      display: block;
+
+      &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 0;
+        left: 50%;
+        border-style: solid;
+        border-color: transparent;
+        border-bottom: 0;
+      }
+
+      &:after {
+        margin-left: -13px;
+        top: -1px;
+        border-top-color: @white;
+        border-width: 14px;
+      }
+    }
+  }
+
+  .bid_details {
+    margin-top: 1rem;
+      .panel-body {
+        div.ng-binding {
+          white-space: normal;
+        }
+      }
+  }
+
+  .price-tag {
+    text-align: right;
+    h2 {
+      font-size: 32px;
+    }
+  }
+
+  .date {
+    color: @gray-dark;
+
+    @media (min-width: @screen-md-min) {
+      text-align: right;
+    }
+  }
+}

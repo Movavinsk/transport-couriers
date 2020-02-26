@@ -1,0 +1,150 @@
+<div class="panel panel-default panel-sm">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span>My SDCN</span>
+        </h3>
+    </div>
+
+    <div class="panel-collapse">
+        <div class="panel-body">
+            <div class="clearfix hidden-xs text-center" id="aside-user">
+                <div class="dropdown" dropdown>
+                    <span class="thumb-lg w-auto-folded avatar m-t-sm">
+                        <img data-ng-src="{{$auth.user().getAvatar()}}" class="img-full" alt="{{$auth.user().name_full}}">
+                    </span>
+                    <span class="clear">
+                        <span class="block m-t-sm">
+                          <p class="font-bold text-lt m-b-none">{{$auth.user().name_first}} - {{$auth.user().team_info.company_name}}</p>
+                          <p class="font-bold text-lt m-b-none">(Member ID: SDN-{{$auth.user().team_id}})</p>
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+            <ul class="nav nav-pills nav-stacked nav-pills-secondary m-t">
+                <li data-ui-sref-active="active" data-ng-controller="LoginController">
+                    <a ui-sref="user.benefits" title="Member Benefits">
+                        <span class="glyphicon glyphicon-heart"></span>  Member Benefits
+                    </a>
+                </li>
+                <li data-ui-sref-active="active">
+                    <a href data-ui-sref="user.account.jobs" title="My Jobs">
+                        <span class="glyphicon glyphicon-folder-open"></span>  Jobs Posted
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-ng-class="{'active': !tableParams.filter()['status']}">
+                            <a href data-ng-click="tableParams.filter()['status'] = null" title="Active">
+                                <i class="fa fa-circle text-warning"></i>
+                                All
+                            </a>
+                        </li>
+                        <li data-ng-class="{'active': tableParams.filter()['status'] == key}" data-ng-repeat="(key, value) in statuses" data-ng-show="richStatuses[key].count > 0">
+                            <a href data-ng-click="tableParams.filter()['status'] = key" title="value.name">
+                                <i class="fa fa-circle text-{{key}}"></i>
+                                {{value.name}} ({{richStatuses[key].count}})
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-ui-sref-active="active">
+                    <a href data-ui-sref="user.account.work" title="My Work">
+                        <span class="glyphicon glyphicon-briefcase"></span>  My Work
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-ng-class="{'active': !tableParams.filter()['status']}">
+                            <a href data-ng-click="tableParams.filter()['status'] = null" title="Active">
+                                <i class="fa fa-circle text-warning"></i>
+                                All
+                            </a>
+                        </li>
+                        <li data-ng-class="{'active': tableParams.filter()['status'] == key}" data-ng-repeat="(key, value) in statuses" data-ng-show="richStatuses[key].count > 0">
+                            <a href data-ng-click="tableParams.filter()['status'] = key" title="value.name">
+                                <i class="fa fa-circle text-{{key}}"></i>
+                                {{value.name}} ({{richStatuses[key].count}})
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" data-ui-sref-active="active">
+                    <a href data-ui-sref="user.account.team" title="My Users">
+                        <span class="fa fa-users"></span> My Users
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-ui-sref-active="active">
+                            <a href data-ui-sref="user.account.team.work" title="Our Work">
+                                Our Work
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a href data-ui-sref="user.account.team.jobs" title="Our Jobs">
+                                Our Jobs Posted
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active" ng-if="$auth.user().hasRole('team.member.primary')">
+                            <a href data-ui-sref="user.account.team.edit" title="Edit Team">
+                                Company Details
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active" ng-if="$auth.user().hasRole('team.member.primary')">
+                            <a href data-ui-sref="user.account.team.documents" title="Our Documents">
+                                Our Documents
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active" ng-if="$auth.user().hasRole('team.member.primary')">
+                            <a href data-ui-sref="user.account.team.locations" title="Our Locations">
+                                Our Locations
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active" ng-if="$auth.user().hasRole('team.member.primary')">
+                            <a href data-ui-sref="user.account.team.feedback" title="Our Feedback">
+                                Our Feedback
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-ui-sref-active="active">
+                    <a href data-ui-sref="user.account.feedback" title="Feedback">
+                        <span class="fa fa-comments"></span>  Feedback
+                    </a>
+                </li>
+                <li class="dropdown" data-ui-sref-active="active">
+                    <a href data-ui-sref="user.account.profile" title="Profile">
+                        <span class="glyphicon glyphicon-user"></span> Profile
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-ui-sref-active="active">
+                            <a href data-ui-sref="user.account.profile.documents" title="My Documents">
+                                Documents
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a href data-ui-sref="user.account.profile.locations" title="My Locations">
+                                Locations
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a href data-ui-sref="user.account.profile.vehicles" title="My Vehicles">
+                                Vehicles
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a href data-ui-sref="user.account.profile.notifications" title="Notifications">
+                                Notifications
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-ui-sref-active="active" data-ng-if="$auth.isAdmin()">
+                    <a href data-ui-sref="admin.dashboard" title="Admin Dashboard">
+                        <span class="fa fa-gears"></span>  Admin Dashboard
+                    </a>
+                </li>
+                <li data-ui-sref-active="active" data-ng-controller="LoginController">
+                    <a href ng-click="logout()" title="Logout">
+                        <span class="glyphicon glyphicon-log-out"></span>  Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

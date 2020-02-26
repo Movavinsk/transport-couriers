@@ -1,0 +1,46 @@
+<!-- list -->
+
+
+<ul class="nav" data-menus="menuItems" data-type="tree" data-tag="admin">
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span>Admin Area</span>
+    </li>
+
+    <li data-ng-repeat="menu in menuItems | orderBy: '-priority'" data-ui-sref-active="active">
+
+        <a href class="auto" data-ng-if="menu.hasChild">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="{{menu.class}} icon text-primary-dker"></i>
+            <span class="font-bold">{{ menu.name }}</span>
+        </a>
+        <ul class="nav nav-sub dk" data-ng-if="menu.hasChild">
+            <li data-ng-repeat="child in menu.children | orderBy: '-priority'" data-ui-sref-active-eq="active">
+                <a data-ui-sref="{{ child.state.name }}">
+                    <span>{{ child.name }}</span>
+                </a>
+            </li>
+        </ul>
+
+        <a data-ui-sref="{{menu.state.name}}" data-ng-if="!menu.hasChild">
+            <i class="{{menu.class}} icon text-info-dker"></i>
+            <span class="font-bold">{{menu.name}}</span>
+        </a>
+
+    </li>
+
+    <li class="line dk"></li>
+
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span>User Area</span>
+    </li>
+    <li>
+        <a data-ui-sref="user.dashboard">
+            <i class="icon-home icon text-info-dker"></i>
+            <span class="font-bold">User Dashboard</span>
+        </a>
+    </li>
+</ul>
+<!-- / list -->

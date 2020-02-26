@@ -1,0 +1,420 @@
+<form class="form-horizontal form-validation" name="form">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{mode}} User</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group" data-ng-if="isEdit()">
+
+                <div class="col-sm-12">
+                    <label class="pull-left m-t-xs">Feedback rating:</label>
+                    <div class="ratings pull-left m-t-xs m-l-xs">
+                        <rating class="rating read-only" ng-model="data.score" max="5"
+                                state-on="'glyphicon glyphicon-star text-info'"
+                                state-off="'glyphicon glyphicon-star-empty text-info'" data-readonly="true"></rating>
+                    </div>
+                    <label class="pull-left m-t-xs m-l-xs text-muted"><small><i>({{data.score}}) from {{data.ratings_count}} reviews</i></small></label>
+                    <label class="i-switch m-t-xs m-l pull-right">
+                        <input type="checkbox" data-ng-model="data.is_driver" data-ng-change="toggleBidding()">
+                        <i></i>
+                    </label>
+                    <label class="pull-right m-t-xs">Ability to bid on jobs</label>
+                    <span class="spacer pull-right">&nbsp;&nbsp;&nbsp;</span>
+                    <label class="i-switch m-t-xs m-l pull-right">
+                        <input type="checkbox" data-ng-model="data.can_use_client_api">
+                        <i></i>
+                    </label>
+                    <label class="pull-right m-t-xs">Ability to use Client API</label>
+                </div>
+            </div>
+
+            <tabset>
+                <!--User details-->
+                <tab heading="User details">
+                    <div class="wrapper no-padder-h">
+                        <h4 class="page-header m-t-none  m-t-none">User details</h4>
+
+                        <div class="form-group" ng-if="isEdit()">
+                            <label class="col-sm-3 control-label">User ID</label>
+                            <div class="col-sm-9">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="User ID"
+                                    ng-model="data.id"
+                                    disabled="true"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">First Name *</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="First Name"
+                                       ng-model="data.name_first"
+                                       required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Last Name</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Last Name"
+                                       ng-model="data.name_last"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Email *</label>
+
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" placeholder="Email" ng-model="data.email"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Phone *</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Phone" ng-model="data.phone"
+                                       required/>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-show="isEdit()">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <div class="checkbox checkbox-primary">
+                                    <label>
+                                        <input type="checkbox" data-ng-model="changePass"/>
+                                        Change password
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-if="isEdit()" data-ng-show="changePass"  ng-class="{
+                                        'has-error': form.$error.minlength,
+                                        'has-success': form.password.$valid,
+                                        'has-feedback': form.password.$valid || form.$error.minlength
+                                    }">
+                            <label class="col-sm-3 control-label">Password:</label>
+
+                            <div class="col-sm-9 col-md-5">
+                                <input type="password" placeholder="Password" class="form-control" data-ng-minlength="6"
+                                       ng-model="data.password" name="password" data-ng-required="changePass">
+                                <span class="fa fa-check-circle form-control-feedback"
+                                     aria-hidden="true"
+                                     data-ng-show="form.password.$valid"></span>
+                                <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                                      data-ng-show="form.$error.minlength"></span>
+                                <span class="label label-danger"
+                                      data-ng-show="form.$error.minlength">Passwords must be a minimum of 6 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-if="isEdit()" data-ng-show="changePass"  ng-class="{
+                                        'has-error': form.password_confirmation.$error.matchTo,
+                                        'has-success': form.password_confirmation.$valid,
+                                        'has-feedback': form.password_confirmation.$valid || form.password_confirmation.$error.matchTo,
+                                    }">
+                            <label class="col-sm-3 control-label">Retype password:</label>
+
+                            <div class="col-sm-9 col-md-5">
+                                <input type="password" placeholder="Retype password" class="form-control"
+                                       ng-model="data.password_confirmation" name="password_confirmation"
+                                       data-match-to="form.password" data-ng-required="changePass">
+                                <span class="fa fa-check-circle form-control-feedback" aria-hidden="true"
+                                      data-ng-show="form.password_confirmation.$valid"></span>
+                                <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                                      data-ng-show="form.password_confirmation.$error.matchTo"></span>
+                                <span class="label label-danger"
+                                      data-ng-show="form.password_confirmation.$error.matchTo">Passwords do not match.</span>
+                            </div>
+                        </div>
+
+                        <h4 class="page-header">Company details</h4>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Company name*</label>
+                            <div class="col-sm-9 col-md-5">
+                                <ui-select
+                                    ng-disabled="data.hasRole('team.member.primary')"
+                                    ng-model="data.team_id"
+                                    data-search-enabled="true"
+                                    style="width: 100%"
+                                    required
+                                >
+                                    <ui-select-match allow-clear="false" placeholder="Select a team...">
+                                        {{$select.selected.company_name}}
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="value.id as value in teams | propsFilter: {company_name: $select.search}"
+                                        ui-disable-choice="_.where(value.members, {inactivated: 0}).length >= 10"
+                                    >
+                                        <div ng-bind-html="value.company_name"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <p ng-if="data.hasRole('team.member.primary')" class="help-block text-danger">This user is the Primary Member of his team and can't be currently transferred.</p>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <!--User Documents-->
+                <tab heading="Documents" data-disable="isAdd()">
+                    <div class="wrapper no-padder-h">
+                        <h4 class="page-header m-t-none">
+                            User documents
+                            <a class="btn btn-secondary btn-xs pull-right" href data-ui-sref=".adddocument"><span
+                                    class="fa fa-plus"></span> Add Document</a>
+
+                            <div class="clearfix"></div>
+                        </h4>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped text-left" data-ng-table="documents"
+                                   template-pagination="src/user/layout/elements/tfoot.html">
+                                <tbody>
+                                <tr class="odd gradeX" data-ng-repeat="data in $data">
+                                    <form name="document{{document.id}}">
+                                        <td data-title="'Type'"> {{data.type.name}} </td>
+                                        <td class="text-u-f" data-title="'Status'"> {{data.status}} </td>
+                                        <td data-title="'Expiry'">
+                                            <span ng-if="data.expiry != '0000-00-00' && data.type.expiry_required">{{createDate(data.expiry) | date: 'dd/MM/yyyy'}}</span>
+                                            <span ng-if="data.expiry == '0000-00-00'">N/A</span>
+                                        </td>
+                                        <td data-title="'Insured Amount'">
+                                            <span ng-if="data.type.amount_required">{{ data.insured_amount | currency : 'GBP' }}</span>
+                                            <span ng-if="!data.type.amount_required">N/A</span>
+                                        </td>
+                                        <td data-title="" class="text-right">
+                                            <a class="btn btn-sm btn-success" href
+                                               data-ng-click="approveDocument(data)"
+                                               data-ng-show="data.status != 'approved'">
+                                                <span class="fa fa-check"></span> Approve
+                                            </a>
+                                            <a class="btn btn-sm btn-secondary" href="{{data.upload}}"
+                                               download="{{data.upload | split:'/':'last'}}" target="_self">
+                                                <span class="fa fa-download"></span> Download
+                                            </a>
+
+                                            <a
+                                                class="btn btn-sm btn-primary"
+                                                ui-sref="admin.users.edit.editdocument({ id: data.user_id, document_id: data.id })"
+                                            >
+                                                <!-- ui-sref="admin.teams.edit.editdocument({ id: data.team_id, document_id: data.id })" -->
+                                                <span class="fa fa-download"></span> Edit
+                                            </a>
+
+                                            <a class="btn btn-sm btn-danger" href
+                                               confirm-delete="destroyDocument(data)">
+                                                <span class="fa fa-trash"></span> Delete
+                                            </a>
+                                        </td>
+                                    </form>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </tab>
+
+                <!--User Locations-->
+                <tab heading="Locations" data-disable="isAdd()">
+                    <div class="wrapper no-padder-h">
+                        <h4 class="page-header m-t-none">
+                            User locations
+                            <a class="btn btn-secondary btn-xs pull-right" href data-ui-sref=".addlocation"><span
+                                    class="fa fa-plus"></span> Add Location</a>
+
+                            <div class="clearfix"></div>
+                        </h4>
+
+                        <table class="table table-striped text-left" data-ng-table="locations"
+                               template-pagination="src/user/layout/elements/tfoot.html">
+                            <tbody>
+                            <tr class="odd gradeX" data-ng-repeat="data in $data">
+                                <td data-title="'Location'">
+                                    {{data.location}}
+                                </td>
+                                <td data-title="'Accept jobs within'">
+                                    {{data.miles}} miles
+                                </td>
+                                <td data-title="''" class="text-right">
+                                    <a class="btn btn-sm btn-primary" href
+                                       data-ui-sref=".editlocation({location_id: data.id})"><span
+                                            class="fa fa-pencil"></span> Edit</a>
+                                    <a class="btn btn-sm btn-danger" href
+                                       confirm-delete="destroyLocation(data)"><span
+                                            class="fa fa-trash"></span> Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </tab>
+
+                <!--User Feedback-->
+                <tab heading="Feedback" data-disable="isAdd()">
+                    <div class="wrapper no-padder-h">
+                        <h4 class="page-header m-t-none">
+                            User feedback
+                        </h4>
+
+                        <div class="streamline b-l b-default m-l-lg m-b padder-v">
+                            <div data-ng-repeat="fb in feedback">
+                                <div class="pull-left thumb-sm avatar m-l-n-md m-t">
+                                    <img data-ng-src="{{fb.sender.avatar_url}}" alt="{{fb.sender.name_full}}">
+                                </div>
+                                <div class="m-l-lg m-b-lg panel b-a bg-light pos-rlt">
+                                    <span class="arrow arrow-light left"></span>
+                                    <div class="panel-body" data-ng-if="fb">
+                                        <div class="m-b"><i>“{{fb.comment}}”</i></div>
+                                        <rating class="rating read-only" ng-model="fb.rating" max="5" state-on="'glyphicon glyphicon-star text-info'" state-off="'glyphicon glyphicon-star-empty text-info'" data-readonly="true"></rating><small class="text-muted"> - {{fb.sender.name_full}} ({{fb.sender.team_info.company_name}}) - <i>{{fb.created_at | amDateFormat:'DD/MM/YYYY HH:mm'}}</i></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <!--User capabilities-->
+                <tab heading="Capabilities" data-disable="isAdd()">
+                    <div class="wrapper no-padder-h">
+                        <h4 class="page-header m-t-none">User capabilities</h4>
+
+<!--                         <div class="form-group" data-ng-if="isEdit()">
+                            <label class="col-sm-3 control-label">Ability to bid on jobs</label>
+
+                            <div class="col-sm-9">
+                                <label class="i-switch m-t-xs m-r">
+                                    <input type="checkbox" data-ng-model="data.is_driver" data-ng-change="toggleBidding()">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+ -->
+                        <div class="form-group" data-ng-if="isEdit()">
+                            <label class="col-sm-3 control-label">Administrator</label>
+
+                            <div class="col-sm-9">
+                                <label class="i-switch m-t-xs m-r">
+                                    <input type="checkbox" data-ng-model="data.is_admin" data-ng-change="toggleAdmin()">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <!--Settings -->
+                <tab heading="Notifications" data-disable="isAdd()">
+                    <div class="wrapper no-padder-h">
+                        <h4 class="page-header m-t-none">New Job Notifications</h4>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Job Vehicle</label>
+
+                            <div class="col-sm-9">
+                                <select
+                                    class="form-control"
+                                    ng-options="setting.value as setting.label for setting in settings.vehicle_type"
+                                    ng-model="data.settings.vehicle_type"
+                                ></select>
+                            </div>
+                            <div class="col-sm-12 form-group" ng-if="data.settings.vehicle_type === 'custom'">
+                                <div>
+                                    <label class="col-sm-3">Custom Range</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="col-sm-12" style="margin-top: 0.6rem">
+                                        <div class="col-sm-6"><strong>From</strong> {{ vehiclesList[(data.settings.custom_min/100) - 1].name }} <strong>To</strong> {{ vehiclesList[(data.settings.custom_max/100) - 1].name }}</div>
+                                    </div>
+                                    <div
+                                        class="col-sm-12"
+                                        range-slider
+                                        min="min"
+                                        max="max"
+                                        model-min="data.settings.custom_min"
+                                        model-max="data.settings.custom_max"
+                                        step="100"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Job Location</label>
+
+                            <div class="col-sm-9">
+                                <select
+                                    class="form-control"
+                                    ng-options="setting.value as setting.label for setting in settings.location"
+                                    ng-model="data.settings.location"
+                                ></select>
+                            </div>
+                        </div>
+
+                    </div>
+                </tab>
+                <!-- Vehicles -->
+                <tab heading="Vehicles" data-disable="isAdd()">
+                    <div class="wrapper no-padder-h">
+                        <h4 class="page-header m-t-none">Vehicles</h4>
+                        <div class="form-group" data-ng-if="isEdit()">
+                            <div class="col-sm-12">
+
+                                <table class="table table-striped text-left" data-ng-table="vehicles"
+                                       template-pagination="src/admin/layout/pagination.html">
+                                    <tbody>
+                                    <tr class="odd gradeX" data-ng-repeat="data in $data">
+                                        <td data-title="'Type'">
+                                            <svg-image class="vehicle" data-ng-src="data.icon" title="{{ data.name }}"></svg-image>
+                                        </td>
+                                        <td class="text-u-f" data-title="'Status'">
+                                            {{ data.name }}
+                                        </td>
+                                        <td data-title="''" class="text-right">
+                                            <a
+                                                ng-if="owns(data.id)"
+                                                ng-click="toggleVehicle(data)"
+                                                href
+                                                class="btn btn-sm btn-success"
+                                            > In Fleet </a>
+                                            <a
+                                                ng-if="! owns(data.id)"
+                                                ng-click="toggleVehicle(data)"
+                                                href
+                                                class="btn btn-sm btn-primary"
+                                            > Add to Fleet </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <!--API details-->
+                <tab heading="API" data-disable="isAdd()" data-ng-show="can_use_client_api">
+                    <div class="wrapper no-padder-h">
+                        <h3>Client ID</h3>
+                        <pre>{{ api.id }}</pre>
+                        <h3>API Key</h3>
+                        <pre>{{ api.secret }}</pre>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+        <footer class="panel-footer text-right">
+            <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="store()" ng-if="isAdd()"
+                    ng-disabled="form.$invalid || userCreated">Save
+            </button>
+            <!--<button type="button" class="btn btn-sm btn-danger" confirm-delete="destroy()" ng-if="isEdit()">-->
+                <!--Delete-->
+            <!--</button>-->
+            <button type="button" class="btn btn-sm btn-primary" ng-click="update()" ng-if="isEdit()"
+                    ng-disabled="form.$invalid">Save
+            </button>
+        </footer>
+    </div>
+</form>

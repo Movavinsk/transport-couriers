@@ -1,0 +1,17 @@
+<nav class="navbar navbar-primary" role="navigation" ng-controller="NavController">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="brand" href="/login">
+                <img src="/assets/img/logo-sdcn.png" title="Same Day Courier Network" alt="Same Day Courier Network"/>
+            </a>
+        </div>
+        <div id="navbar">
+            <ul class="nav navbar-nav">
+                <li ng-class="{ active: isActive('/register') }"><a>Your Details</a></li>
+                <li ng-class="{ active: isActive('/register/company') }"><a>Company</a></li>
+                <li ng-class="{ active: isActive('/register/invoice') }"><a>Invoice Details</a></li>
+                <li ng-class="{ active: isActive('/register/documents') }"><a>Documents</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

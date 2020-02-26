@@ -1,0 +1,439 @@
+.form {
+
+  label {
+    font-size: 13px;
+
+    &.label-info {
+      color: @brand-info;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: none;
+    }
+
+    small {
+      font-size: 12px;
+      font-style: italic;
+    }
+  }
+
+  .checkbox,
+  .radio {
+    margin: 0 0 5px;
+  }
+
+  .form-footer {
+
+    .btn {
+      margin-right: 8px;
+
+      &.pull-right {
+        margin-left: 8px;
+        margin-right: 0;
+      }
+    }
+
+    .info {
+      color: @gray-dark;
+      font-size: 15px;
+      font-style: italic;
+
+      @media (min-width: @screen-md-min) {
+        font-size: 17px;
+      }
+    }
+  }
+}
+
+.input-group-addon {
+  background-color: @input-group-addon-bg;
+}
+
+.has-error,
+.has-feedback {
+
+  .form-control-feedback {
+    line-height: 34px;
+    right: 0;
+
+    &.fa {
+      font-size: 20px;
+    }
+  }
+
+  &.has-append {
+    .form-control {
+      padding-right: @padding-base-horizontal;
+    }
+
+    .form-control-feedback{
+      right: -30px;
+    }
+  }
+}
+
+.has-success {
+  .form-control-validation(@state-success-text, @state-success-border, @state-success-bg);
+
+  .control-label {
+    color: @text-color;
+  }
+
+  .form-control {
+    box-shadow: none !important;
+  }
+
+  .input-group-addon {
+    color: @text-color;
+    border-color: @input-group-addon-border-color;
+    background-color: @input-group-addon-bg;
+  }
+}
+
+.has-error {
+  .form-control {
+    box-shadow: none !important;
+    border-color: @brand-danger;
+  }
+}
+
+.form-horizontal {
+  .control-label {
+    @media (max-width: @screen-xs-max) {
+      margin-bottom: 0;
+    }
+  }
+
+  .form-control-static {
+    @media (max-width: @screen-xs-max) {
+      padding-top: 0;
+      padding-bottom: 15px;
+    }
+  }
+}
+
+.input-group-btn {
+
+  > .btn {
+    .border-left-radius(0);
+
+    &.btn-default {
+      .button-variant(darken(@input-border, 30%), @input-border, @input-border)
+    }
+  }
+}
+
+.radio {
+
+  input[type=radio] {
+    display: none;
+
+    &:checked + label:before {
+      background: @input-border;
+      border-color: @input-border;
+    }
+  }
+
+  label {
+    padding-left: 23px !important;
+    position: relative;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      background: @input-bg;
+      border: 1px solid @input-border;
+      border-radius: 50px;
+    }
+  }
+
+  &.radio-vehicle {
+    line-height: 40px;
+
+    label:before {
+      margin-top: -7.5px;
+      top: 50%;
+    }
+
+    .vehicle {
+      margin-right: 5px;
+    }
+  }
+
+  &.radio-primary input[type=radio]:checked + label{
+    color: @brand-primary;
+
+    &:before {
+      background: @brand-primary;
+      border-color: @brand-primary;
+    }
+
+    .vehicle rect,
+    .vehicle path {
+      fill: @brand-primary;
+    }
+  }
+
+  &.radio-secondary input[type=radio]:checked + label{
+    color: @brand-secondary;
+
+    &:before {
+      background: @brand-secondary;
+      border-color: @brand-secondary;
+    }
+
+    .vehicle rect,
+    .vehicle path {
+      fill: @brand-secondary;
+    }
+  }
+
+  &.radio-warning input[type=radio]:checked + label{
+    color: @brand-warning;
+
+    &:before {
+      background: @brand-warning;
+      border-color: @brand-warning;
+    }
+
+    .vehicle rect,
+    .vehicle path {
+      fill: @brand-warning;
+    }
+  }
+
+  &.radio-danger input[type=radio]:checked + label{
+    color: @brand-danger;
+
+    &:before {
+      background: @brand-danger;
+      border-color: @brand-danger;
+    }
+
+    .vehicle rect,
+    .vehicle path {
+      fill: @brand-danger;
+    }
+  }
+
+  &.radio-info input[type=radio]:checked + label{
+    color: @brand-info;
+
+    &:before {
+      background: @brand-info;
+      border-color: @brand-info;
+    }
+
+    .vehicle rect,
+    .vehicle path {
+      fill: @brand-info;
+    }
+  }
+
+  &.radio-success input[type=radio]:checked + label{
+    color: @brand-success;
+
+    &:before {
+      background: @brand-success;
+      border-color: @brand-success;
+    }
+
+    .vehicle rect,
+    .vehicle path {
+      fill: @brand-success;
+    }
+  }
+}
+
+.checkbox {
+
+  input[type=checkbox] {
+    display: none;
+
+    &:checked + i:before {
+      background: @input-border;
+      border-color: @input-border;
+    }
+  }
+
+  label {
+    padding-left: 23px !important;
+    position: relative;
+    font-size: 14px;
+    cursor: pointer;
+
+    i:before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      background: @input-bg;
+      border: 1px solid @input-border;
+      border-radius: 3px;
+    }
+  }
+
+  &.checkbox-primary input[type=checkbox]:checked + i{
+    color: @brand-primary;
+
+    &:before {
+      background: @brand-primary;
+      border-color: @brand-primary;
+    }
+  }
+
+  &.checkbox-secondary input[type=checkbox]:checked + i{
+    color: @brand-secondary;
+
+    &:before {
+      background: @brand-secondary;
+      border-color: @brand-secondary;
+    }
+  }
+
+  &.checkbox-warning input[type=checkbox]:checked + i{
+    color: @brand-warning;
+
+    &:before {
+      background: @brand-warning;
+      border-color: @brand-warning;
+    }
+  }
+
+  &.checkbox-danger input[type=checkbox]:checked + i{
+    color: @brand-danger;
+
+    &:before {
+      background: @brand-danger;
+      border-color: @brand-danger;
+    }
+  }
+
+  &.checkbox-info input[type=checkbox]:checked + i{
+    color: @brand-info;
+
+    &:before {
+      background: @brand-info;
+      border-color: @brand-info;
+    }
+  }
+
+  &.checkbox-success input[type=checkbox]:checked + i{
+    color: @brand-success;
+
+    &:before {
+      background: @brand-success;
+      border-color: @brand-success;
+    }
+  }
+}
+
+//== Datepicker ==//
+.i-dtp {
+
+  ul.dropdown-menu {
+    padding: 10px;
+  }
+
+  .datepicker {
+
+    table {
+
+      thead {
+
+        th {
+          padding: 1px;
+        }
+
+        .btn {
+          float: none !important;
+        }
+
+        .btn-default {
+          .button-variant(@white, @brand-primary, @brand-primary);
+        }
+      }
+
+      tbody {
+
+        tr {
+
+          td {
+
+            .btn {
+              border-radius: 0;
+            }
+
+            .btn-default {
+              .button-variant(@input-color, darken(@input-bg, 5%), darken(@input-bg, 5%));
+
+              &.active {
+                .button-variant(@white, @brand-info, @brand-info);
+              }
+
+              &:disabled[disabled] {
+                color: lighten(@input-color, 10%) !important;
+                background-color: @input-bg !important;
+              }
+
+              .text-muted {
+                color: lighten(@input-color, 40%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .timepicker {
+    margin: 10px 0;
+
+    tbody {
+
+      tr {
+
+        td {
+
+          .form-control {
+            border-radius: @border-radius-base;
+          }
+        }
+      }
+    }
+  }
+}
+
+//== Select 2 ==//
+.ui-select-bootstrap {
+
+  .ui-select-match.ng-hide {
+    display: block !important;
+  }
+
+  .btn-default {
+    .button-variant(@input-color, @input-bg, @input-border);
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .ui-select-choices-row.active > a {
+    background-color: @brand-secondary;
+  }
+}
+
+.ui-google-maps {
+  .angular-google-map-container {
+    height: 400px;
+  }
+}

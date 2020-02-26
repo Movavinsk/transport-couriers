@@ -1,0 +1,44 @@
+<div data-ui-view>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            List of bids for Job #{{job_id}}
+        </div>
+        <div class="pane-body no-padder">
+            <div class="row wrapper">
+                <div class="col-sm-4">
+                    <div class="form-group m-l-none m-r-none m-b-none">
+                        <input class="form-control input-sm" type="search" placeholder="Search..."
+                               ng-model="tableParams.filter()['search']"/>
+                    </div>
+                </div>
+                <div class="col-sm-8 text-right">
+                    <a class="btn btn-secondary btn-sm" data-ui-sref=".add({job_id:job_id})"><i class="icon-plus"></i> Add</a>
+                    <a class="btn btn-success btn-sm" data-ng-click="tableParams.reload()"><i class="icon-refresh"></i>
+                        Refresh</a>
+                    <a class="btn btn-warning btn-sm" data-ng-click="tableParams.sorting({bid_date: 'desc'})"><i class="fa fa-eraser"></i> Clear
+                        sorting</a>
+                    <a class="btn btn-danger btn-sm" data-ng-click="tableParams.filter({job_id: job_id})"><i class="fa fa-eraser"></i> Clear
+                        filter</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light text-left" data-ng-table="tableParams"
+                       template-pagination="src/admin/layout/pagination.html">
+                    <tbody>
+                    <tr class="odd gradeX" data-ng-repeat="data in $data">
+                        <td data-title="'Date'">{{data.bid_date | date:short}}</td>
+                        <td data-title="'Amount'">{{data.amount | currency:'£'}}</td>
+                        <td data-title="'Driver'">{{data.user.name_full}}</td>
+                        <td data-title="'Email'">{{data.user.email}}</td>
+                        <td data-title="'Phone'">{{data.user.phone}}</td>
+                        <td class="text-right">
+                            <a class="btn btn-primary btn-sm" data-ui-sref=".edit({bid_id:data.id})"><i
+                                    class="fa fa-edit"></i> Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

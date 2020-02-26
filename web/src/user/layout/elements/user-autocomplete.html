@@ -1,0 +1,11 @@
+<a>
+    <div class="pull-left thumb-sm avatar m-r">
+        <img data-ng-src="{{match.model.avatar_url}}"/>
+    </div>
+    <p class="m-b-none font-bold" bind-html-unsafe="match.model.name_full | typeaheadHighlight:query"></p>
+    <small class="m-b-none" bind-html-unsafe="match.model.team.company_name | typeaheadHighlight:query"></small><br/>
+    <div class="m-b-none m-l m-l-2">User ID: #
+    	<small bind-html-unsafe="match.model.id | typeaheadHighlight:query"></small>
+    </div>
+    <div class="clearfix"></div>
+</a>

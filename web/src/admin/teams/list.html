@@ -1,0 +1,101 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-light h3"><i class="icon-users"></i> Members</h1>
+</div>
+<div class="wrapper-md" data-ui-view>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">List of members</h3>
+		</div>
+		<div class="panel-body no-padder">
+			<div class="row wrapper">
+				<div class="col-sm-4">
+					<div class="form-group m-b-none">
+						<input class="form-control input-sm" type="search" placeholder="Search..."
+						       ng-model="tableParams.filter()['search']"/>
+					</div>
+				</div>
+				<div class="col-sm-8 text-right">
+					<a class="btn btn-secondary btn-sm" data-ui-sref=".add"><i class="icon-plus"></i> Add</a>
+					<a class="btn btn-success btn-sm" data-ng-click="tableParams.reload()"><i class="icon-refresh"></i>
+						Refresh</a>
+					<a class="btn btn-warning btn-sm" data-ng-click="tableParams.sorting({name: 'asc'})"><i class="fa fa-eraser"></i> Clear
+						sorting</a>
+					<a class="btn btn-danger btn-sm" data-ng-click="tableParams.filter({})"><i class="fa fa-eraser"></i> Clear filter</a>
+					<a class="btn btn-primary btn-sm"
+					   ng-mousedown="csv.generate()" ng-href="{{ csv.link() }}"
+					   download="teams.csv"><i class="icon-arrow-down"></i> Export to CSV</a>
+				</div>
+			</div>
+
+			<div class="row wrapper b-t b-light">
+	            <div class="col-sm-3">
+	                Members expiring in:
+	            </div>
+	            <div class="col-sm-9 text-right">
+	                <div class="btn-group" ng-init="radioModel = 'Male'">
+	                    <label
+	                    	class="btn btn-xs btn-white"
+	                    	ng-class="{active: tableParams.filter()['expires_in'] === 'day'}"
+	                    	ng-click="tableParams.filter()['expires_in'] = 'day'"
+	                    > Day </label>
+	                    <label
+	                    	class="btn btn-xs btn-white"
+	                    	ng-class="{active: tableParams.filter()['expires_in'] === 'week'}"
+	                    	ng-click="tableParams.filter()['expires_in'] = 'week'"
+	                    > Week </label>
+	                    <label
+	                    	class="btn btn-xs btn-white"
+	                    	ng-class="{active: tableParams.filter()['expires_in'] === 'month'}"
+	                    	ng-click="tableParams.filter()['expires_in'] = 'month'"
+	                    > Month </label>
+	                    <label
+	                    	class="btn btn-xs btn-white"
+	                    	ng-class="{active: tableParams.filter()['expires_in'] === 'quarter'}"
+	                    	ng-click="tableParams.filter()['expires_in'] = 'quarter'"
+	                    > Quarter </label>
+	                    <label
+	                    	class="btn btn-xs btn-white"
+	                    	ng-class="{active: tableParams.filter()['expires_in'] === 'year'}"
+	                    	ng-click="tableParams.filter()['expires_in'] = 'year'"
+	                    > Year </label>
+	                </div>
+	            </div>
+	        </div>
+
+			<div class="table-responsive">
+				<table class="table table-striped b-t b-light text-left" data-ng-table="tableParams" export-csv="csv"
+				       template-pagination="src/admin/layout/pagination.html">
+					<tbody>
+
+					<tr class="odd gradeX" data-ng-repeat="data in $data">
+						<td data-title="'Company Name'" data-sortable="'company_name'">{{data.company_name}}</td>
+						<td data-title="'Primary Member'">{{data.primary_member.name_full}}</td>
+						<td data-title="'Expiry date'" data-sortable="'expire_at'">{{createDate(data.expire_at) | date: 'dd/MM/yyyy'}}</td>
+						<td data-title="'Allow Bidding'">
+						    <label class="i-switch">
+						        <input type="checkbox" data-ng-model="data.can_bid" data-ng-change="toggleBidding(data)">
+						        <i></i>
+						    </label>
+						</td>
+						<td data-title="'Town'" data-sortable="'city'">{{data.town}}</td>
+						<td data-title="'Postal Code'" data-sortable="'city'">{{data.postal_code}}</td>
+						<td data-title="'Type'" data-sortable="'type'">
+							<select data-ng-model="data.type" class="form-control" data-ng-change="updateType(data)">
+                                <option value="poster">Poster</option>
+                                <option value="taker">Taker</option>
+                                <option value="both">Both</option>
+                            </select>
+						</td>
+						<td data-title="'Created at'"  data-sortable="'created_at'">{{ createDate(data.created_at) | date: 'dd/MM/yyyy' }}</td>
+						<td data-title="'Actions'" class="text-right">
+							<a class="btn btn-primary btn-sm" data-ui-sref=".edit({id:data.id})"><i
+									class="fa fa-edit"></i> Edit</a>
+							<a class="btn btn-sm" confirm-modal="deactivate(data)" data-ng-class="{'btn-danger': !data.is_expired, 'btn-success': data.is_expired}"><i class="fa fa-trash-o"></i> {{data.is_expired ? 'Activate' : 'Deactivate'}}</a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

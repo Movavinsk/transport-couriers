@@ -1,0 +1,113 @@
+<div class="row row-offcanvas row-offcanvas-right app-profile">
+
+    <div class="content col-sm-8">
+        <form class="form" name="form">
+            <div class="panel panel-default" data-ui-view>
+                <div class="panel-heading buttons">
+                    <h3 class="panel-title">
+                        {{data.name_first}}'s {{$state.current.page.title}}
+                        <div class="panel-heading-buttons">
+                            <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <h4 class="page-header">Account Details:</h4>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">First Name *</label>
+
+                            <input type="text" class="form-control" placeholder="First Name *"
+                                   ng-model="data.name_first" required/>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Last Name</label>
+
+                            <input type="text" class="form-control" placeholder="Last Name" ng-model="data.name_last"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Email *</label>
+
+                            <input type="email" class="form-control" placeholder="Email *" ng-model="data.email"/>
+                        </div>
+                        <div class="form-group  col-sm-6">
+                            <label class="control-label">Phone *</label>
+
+                            <input type="text" class="form-control" placeholder="Phone *" ng-model="data.phone"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox checkbox-secondary">
+                            <label>
+                                <input type="checkbox" data-ng-model="changePass"/>
+                                Change my password
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-show="changePass">
+                        <div class="col-sm-6">
+                            <div class="form-group" ng-class="{
+                                        'has-error': form.$error.minlength,
+                                        'has-success': form.password.$valid,
+                                        'has-feedback': form.password.$valid || form.$error.minlength
+                                    }">
+                                <label class="control-label">Password:</label>
+
+                                <input type="password" placeholder="Password" class="form-control" data-ng-minlength="6" data-ng-model="data.password" name="password" data-ng-required="changePass">
+                                <span class="fa fa-check-circle form-control-feedback"
+                                      aria-hidden="true"
+                                      data-ng-show="form.password.$valid"></span>
+                                <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                                      data-ng-show="form.$error.minlength"></span>
+                                <span class="label label-danger"
+                                      data-ng-show="form.$error.minlength">Passwords must be a minimum of 6 characters</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" ng-class="{
+                                        'has-error': form.password_confirmation.$error.matchTo,
+                                        'has-success': form.password_confirmation.$valid,
+                                        'has-feedback': form.password_confirmation.$valid || form.password_confirmation.$error.matchTo,
+                                    }">
+                                <label class="control-label">Retype password:</label>
+
+                                <input type="password" placeholder="Retype password" class="form-control" ng-model="data.password_confirmation" name="password_confirmation" data-ng-required="changePass" data-match-to="form.password">
+                                <span class="fa fa-check-circle form-control-feedback"
+                                      aria-hidden="true"
+                                      data-ng-show="form.password_confirmation.$valid"></span>
+                                <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                                      data-ng-show="form.password_confirmation.$error.matchTo"></span>
+                                <span class="label label-danger"
+                                      data-ng-show="form.password_confirmation.$error.matchTo">Passwords do not match.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-secondary" href data-ui-sref=".avatar({user_id:data.id})" title="Add Profile Picture" role="button" data-ng-show="!data.avatar">Add Profile Picture</a>
+                        <a class="btn btn-secondary" href data-ui-sref=".avatar({user_id:data.id})" title="Edit Profile Picture" role="button" data-ng-show="data.avatar">Edit Profile Picture</a>
+                    </div>
+                </div>
+                <footer class="panel-footer text-right">
+                    <button type="button" class="btn btn-lg btn-primary" ng-click="update()"
+                            ng-disabled="form.$invalid || formSubmitted">
+                        <span data-ng-show="!formSubmitted">Save</span>
+                        <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Save</span>
+                    </button>
+                </footer>
+            </div>
+        </form>
+    </div>
+
+    <aside class="sidebar col-sm-4 sidebar-offcanvas" role="complementary">
+        <div class="widget widget-account" data-ng-controller="LoginController" data-ng-include="'src/user/layout/widgets/account.html'"></div>
+    </aside>
+
+</div>

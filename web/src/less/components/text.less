@@ -1,0 +1,63 @@
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  @color: text-color;
+  .roboto();
+}
+
+.text-text {
+  color: @text-color !important;
+}
+
+a.text-text {
+  &:hover {
+    color: lighten(@text-color, 10%) !important;
+  }
+}
+
+.text-white {
+  color: @white !important;
+}
+
+//== Status text colors ==//
+.text-active {
+  display: inline !important;
+  color: @status-active;
+}
+
+.text-progress {
+  color: @status-progress;
+}
+
+.text-delivered {
+  color: @status-delivered;
+}
+
+.text-invoice {
+  color: @status-invoiced;
+}
+
+.text-complete {
+  color: @status-complete;
+}
+
+.text-expire {
+  color: @status-expire;
+}
+
+.text-cancel {
+  color: @status-cancel;
+}
+
+.text-center-sm {
+  @media (min-width: @screen-sm-min) {
+    text-align: center;
+  }
+}
+
+.text-u-f {
+  text-transform: capitalize;
+}
+
+.text-small {
+  font-size: 10px;
+  font-weight: 400;
+}

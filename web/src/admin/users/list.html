@@ -1,0 +1,80 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-light h3"><i class="icon-user"></i> Users</h1>
+</div>
+<div class="wrapper-md" data-ui-view>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">List of users</h3>
+        </div>
+        <div class="panel-body no-padder">
+            <div class="row wrapper">
+                <div class="col-sm-4">
+                    <div class="form-group m-b-none">
+                        <input class="form-control input-sm" type="search" placeholder="Search..."
+                               ng-model="tableParams.filter()['search']"/>
+                    </div>
+                </div>
+                <div class="col-sm-8 text-right">
+                    <a class="btn btn-secondary btn-sm" data-ui-sref=".add"><i class="icon-plus"></i> Add</a>
+                    <a class="btn btn-success btn-sm" data-ng-click="tableParams.reload()"><i class="icon-refresh"></i>
+                        Refresh</a>
+                    <a class="btn btn-warning btn-sm" data-ng-click="tableParams.sorting({name: 'asc'})"><i class="fa fa-eraser"></i> Clear
+                        sorting</a>
+                    <a class="btn btn-danger btn-sm" data-ng-click="tableParams.filter({})"><i class="fa fa-eraser"></i> Clear filter</a>
+                    <a class="btn btn-primary btn-sm"
+                       ng-mousedown="csv.generate()" ng-href="{{ csv.link() }}"
+                       download="users.csv"><i class="icon-arrow-down"></i> Export to CSV</a>
+                </div>
+            </div>
+            <div class="row wrapper b-t b-light">
+                <div class="col-sm-3">
+                    Filters:
+                </div>
+                <div class="col-sm-9 text-right">
+                    <div class="btn-group" ng-init="radioModel = 'Male'">
+                        <label class="btn btn-xs btn-white"
+                               ng-model="tableParams.filter()['pending_documents_approval']"
+                               btn-checkbox>
+                            Pending documents approval
+                        </label>
+                        <label class="btn btn-xs btn-white"
+                               ng-model="tableParams.filter()['no_docs']"
+                               btn-checkbox>
+                            No documents uploaded
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light text-left" data-ng-table="tableParams" export-csv="csv"
+                       template-pagination="src/admin/layout/pagination.html">
+                    <tbody>
+                    <tr class="odd gradeX" data-ng-repeat="data in $data">
+                        <td data-title="'Name'" data-sortable="'name'">{{data.name_full}}</td>
+                        <td data-title="'Id'">{{data.id}}</td>
+                        <td data-title="'Email'" data-sortable="'email'"><a
+                                href="mailto:{{data.email}}">{{data.email}}</a></td>
+                        <td data-title="'Admin'">{{data.is_admin | checkmark}}</td>
+                        <td data-title="'Team'">{{ data.team_info.company_name }}</td>
+                        <td data-title="'Date created'"  data-sortable="'created_at'">{{ createDate(data.created_at) | date: 'dd/MM/yyyy' }}</td>
+                        <td data-title="'Registration Progress'">{{ capitalizeFirstLetter(data.registration_progress ? data.registration_progress : (data.registration_status == 'incomplete' ? 'Email not verified' : 'Added by Admin')) }}</td>
+                        <td class="text-right">
+                            <a class="btn btn-sm" confirm-modal="inactivate(data)" data-ng-if="!data.team_info.deactivated_at"
+                               data-ng-class="{'btn-danger': !data.inactivated, 'btn-success': data.inactivated}">
+                                <i class="{{data.inactivated ? 'fa fa-unlock' : 'fa fa-lock'}}"></i>
+                                {{data.inactivated ? 'Activate' : 'Deactivate'}}
+                            </a>
+                            <span class="btn btn-sm btn-warning disabled" data-ng-if="data.team_info.deactivated_at">
+                                <i class="fa fa-unlock"></i>
+                                Activate
+                            </span>
+                            <a class="btn btn-primary btn-sm" data-ui-sref=".edit({id:data.id})"><i
+                                    class="fa fa-edit"></i> Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

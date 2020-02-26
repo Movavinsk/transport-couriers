@@ -1,0 +1,112 @@
+#upload-doc {
+    .modal-body {
+        padding: 20px 40px;
+        h2 {
+            color: #153149;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.15px;
+        }
+        .close {
+            position: absolute;
+            top: 45px;
+            right: 36px;
+            font-size: 30px;
+            opacity: 1;
+        }
+
+        form {
+            .form-group {
+                .make-md-column(12);
+
+                .form-control-feedback {
+                    top: 6px;
+                    color: @registration-color;
+                    font-size: 25px;
+                }
+
+                .feedback-left {
+                    left: 6px;
+                    z-index: 4;
+                }
+
+                .form-control {
+                    height: 45px;
+                    line-height: 2;
+                    border: none;
+                    border-radius: 0;
+                    border-bottom: 1px solid @registration-color;
+                    background-color: @white;
+                    padding-left: 35px;
+                }
+
+                .btn-default-focus {
+                    border: none;
+                    background-color: @white;
+                    box-shadow: none;
+                    outline: none;
+                }
+
+                .btn-link {
+                    margin-right: 0;
+                    margin-top: 4px;
+                }
+
+                .btn-file {
+                    color: @registration-color;
+                    font-size: 18px;
+                    font-weight: 500;
+                    margin-top: 40px;
+                    cursor: pointer;
+                }
+                .caret {
+                    font: normal normal normal 14px/1 FontAwesome;
+                    border: none;
+                    top: 37%;
+                    right: 21px;
+                    &:before {
+                        content: '\f109';
+                        font-family: Same-Day-Courier-Network;
+                        font-size: 20px;
+                        color: @black;
+                    }
+                }
+
+                .input-group {
+                    display: block;
+                    width: 100%;
+                    .input-group-btn {
+                        position: absolute;
+                        right: 30px;
+                        top: 5px;
+                        z-index: 4;
+                        button {
+                            background-color: @white;
+                            border: none;
+
+                            .fa-calendar {
+                                &:before {
+                                    content: '\f109';
+                                    font-family: Same-Day-Courier-Network;
+                                    font-size: 20px;
+                                    color: @black;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            button[type='submit'] {
+                margin-top: 25px;
+                font-size: 15px;
+                font-weight: 700;
+                text-transform: none;
+                padding: 18px 10px;
+                width: 100%;
+                background-color: @registration-color;
+                border-color: @registration-color;
+                color: @white;
+            }
+        }
+    }
+}

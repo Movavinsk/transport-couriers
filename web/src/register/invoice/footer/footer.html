@@ -1,0 +1,76 @@
+<div class="container" ng-controller="FooterController" ui-view>
+    <div class="register-form m-t-md">
+        <form name="form" class="register-invoice">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="m-t-xs">Invoice Footer</h2>
+                    <p class="m-t-md">
+                        Please indicate any text you would like to appear in your invoice footers:
+                    </p>
+                    <div class="alert alert-danger" ng-show="errors">
+                        <p ng-repeat="(key, error) in errors">*{{ error }}</p>
+                    </div>
+                    <div class="row">
+                        <div
+                            class="m-t-sm">
+                            <i
+                                class="icons8-pencil form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Footer text"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_footer_text">
+                        </div>
+                        <div class="m-t-xl">
+                            <label class="form-checkbox">
+                                <span class="text">Invoice includes VAT?</span>
+                                <input
+                                    type="checkbox"
+                                    ng-model="formData.invoice_including_vat"
+                                    ng-change="isInvoiceIncluded()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default block-2">
+                <div class="panel-body">
+                    <div class="row">
+                        <div>
+                            <div class="invoice-logo-wrapper">
+                                <img class="img-responsive" ng-src="{{ myImage }}">
+                            </div>
+                            <a
+                                class="add-image"
+                                ng-click="openFileBrowser($event)">
+                                Add invoice logo +
+                            </a>
+                            <input
+                                type="file"
+                                class="ng-hide form-control"
+                                id="invoice-logo"
+                                name="invoice-logo"
+                                data-ng-model="upload"
+                                accept="image/*"
+                                nv-file-select=""
+                                uploader="uploader"
+                            />
+                        </div>
+                        <div>
+                            <button
+                                type="submit"
+                                class="btn btn-lg btn-info btn-block"
+                                ng-click="submit()">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <a class="skip" ng-click="nextStep()">Skip</a>
+    </div>
+</div>

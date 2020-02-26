@@ -1,0 +1,67 @@
+.registration-success {
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.15px;
+        text-align: center;
+
+        i {
+            color: @registration-color;
+            margin-right: 5px;
+        }
+    }
+
+    p {
+        a {
+           color: @registration-color;
+        }
+    }
+
+    .btn-secondary {
+        margin-top: 25px;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: none;
+        padding: 18px 10px;
+        width: 100%;
+        background-color: @registration-color;
+        border-color: @registration-color;
+
+        i {
+            font-size: 17px;
+            &:last-of-type {
+                margin-right: 7px;
+            }
+        }
+    }
+
+    .content-info {
+        color: @white;
+        padding: 40px 0 30px;
+        text-align: center;
+        border: none;
+
+        .copy {
+            @media (min-width: @screen-sm-min) {
+                text-align: left;
+            }
+        }
+        .footer-nav {
+            @media (min-width: @screen-sm-min) {
+                text-align: right;
+            }
+            .nav {
+                li {
+                    display: inline-block;
+                    a {
+                        padding: 0 5px;
+                        color: @white;
+                        &:hover {
+                            background-color: unset;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

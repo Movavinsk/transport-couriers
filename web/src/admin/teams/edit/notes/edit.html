@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left text-capitalize">{{ mode }} notes</h3>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" data-ng-click="$dismiss()">Cancel</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<form class="form form-horizontal" role="form" name="form">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label font-bold">Note:</label>
+            <div class="col-sm-9">
+                <textarea
+                    required
+                    class="form-control"
+                    placeholder="Note"
+                    ng-model="data.content">
+                </textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-right">
+        <button type="button" class="btn btn-lg btn-secondary" ng-click="store()" ng-disabled="form.$invalid || formSubmitted" ng-if="mode =='add'">
+            <span data-ng-show="!formSubmitted">Add note</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Add note</span>
+        </button>
+        <button type="button" class="btn btn-lg btn-secondary" ng-click="store()" ng-disabled="form.$invalid || formSubmitted" ng-if="mode =='edit'">
+            <span data-ng-show="!formSubmitted">Update note</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Update note</span>
+        </button>
+    </div>
+</form>

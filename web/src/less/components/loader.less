@@ -1,0 +1,164 @@
+@-webkit-keyframes hand {
+  from {
+    -webkit-transform: translate(0, -50%) rotate(0deg);
+    transform: translate(0, -50%) rotate(0deg);
+  } to {
+    -webkit-transform: translate(0, -50%) rotate(360deg);
+    transform: translate(0, -50%) rotate(360deg);
+  }
+}
+
+/* Standard syntax */
+@keyframes hand {
+  from {
+    -webkit-transform: translate(0, -50%) rotate(0deg);
+    transform: translate(0, -50%) rotate(0deg);
+  } to {
+    -webkit-transform: translate(0, -50%) rotate(360deg);
+    transform: translate(0, -50%) rotate(360deg);
+  }
+}
+
+.sdcn-loader {
+  width: 50px;
+  height: 50px;
+  margin: 30px auto;
+  display: block;
+  position: relative;
+  border: 4px solid @brand-secondary;
+  border-radius: 25px;
+
+  .hand-sm {
+    height: 3px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    right: 15px;
+    .animation(hand 2000ms infinite linear);
+    .backface-visibility(hidden);
+
+    &:before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 3px;
+      background: #000;
+      .backface-visibility(hidden);
+    }
+  }
+
+  .hand-md {
+    height: 3px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    .animation(hand 4000ms infinite linear);
+    .backface-visibility(hidden);
+
+    &:before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 3px;
+      background: #000;
+      .backface-visibility(hidden);
+    }
+  }
+
+  .hand-lg {
+    height: 1px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+    .animation(hand 1000ms infinite linear);
+    .backface-visibility(hidden);
+
+    &:before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 1px;
+      background: #000;
+      .backface-visibility(hidden);
+    }
+  }
+
+  &.sdcn-loader-lg {
+    width: 80px;
+    height: 80px;
+    margin: 50px auto;
+    border-radius: 40px;
+  }
+
+  .pc-c,
+  .pc-d,
+  .pc-a {
+    display: block;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+
+    &:after,
+    &:before {
+      content: "";
+      width: 4px;
+      height: 1px;
+      position: absolute;
+      top: 0;
+      background-color: @brand-secondary;
+      z-index: 9;
+    }
+
+    &:before {
+      left: 0;
+    }
+
+    &:after {
+      right: 0;
+    }
+  }
+
+  .pc-c {
+    .rotate(45deg);
+    .backface-visibility(hidden);
+  }
+
+  .pc-d {
+    .rotate(-45deg);
+    .backface-visibility(hidden);
+  }
+
+  .pc-b {
+    display: block;
+    width: 1px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+
+    &:after,
+    &:before {
+      content: "";
+      width: 1px;
+      height: 4px;
+      position: absolute;
+      left: 0;
+      background-color: @brand-secondary;
+      z-index: 9;
+    }
+
+    &:before {
+      top: 0;
+    }
+
+    &:after {
+      bottom: 0;
+    }
+  }
+}

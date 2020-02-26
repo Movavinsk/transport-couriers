@@ -1,0 +1,99 @@
+<div class="modal-header">
+	<h3 class="modal-title pull-left">
+		{{mode}} team member
+	</h3>
+
+	<div class="pull-right">
+		<button class="btn btn-default btn-sm" data-ng-click="$dismiss()">Cancel</button>
+	</div>
+	<div class="clearfix"></div>
+</div>
+<form class="form" role="form" name="form">
+	<div class="modal-body">
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">First Name *</label>
+
+                <input type="text" class="form-control" placeholder="First Name *"
+                       ng-model="data.name_first" required/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Last Name</label>
+
+                <input type="text" class="form-control" placeholder="Last Name" ng-model="data.name_last"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">Email *</label>
+
+                <input type="email" class="form-control" placeholder="Email *" ng-model="data.email" required/>
+            </div>
+            <div class="form-group  col-sm-6">
+                <label class="control-label">Phone *</label>
+
+                <input type="text" class="form-control" placeholder="Phone *" ng-model="data.phone" required/>
+            </div>
+        </div>
+        <div class="form-group" data-ng-show="isEdit()">
+            <div class="checkbox checkbox-secondary">
+                <label>
+                    <input type="checkbox" data-ng-model="changePass"/>
+                    Change password
+                    <i></i>
+                </label>
+            </div>
+        </div>
+        <div class="row" data-ng-if="changePass">
+            <div class="col-sm-6">
+                <div class="form-group" ng-class="{
+                                        'has-error': form.$error.minlength,
+                                        'has-success': form.password.$valid,
+                                        'has-feedback': form.password.$valid || form.$error.minlength
+                                    }">
+                    <label class="control-label">Password:</label>
+
+                    <input type="password" placeholder="Password" class="form-control" data-ng-minlength="6" data-ng-model="data.password" name="password" data-ng-required="changePass">
+                    <span class="fa fa-check-circle form-control-feedback"
+                          aria-hidden="true"
+                          data-ng-show="form.password.$valid"></span>
+                    <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                          data-ng-show="form.$error.minlength"></span>
+                    <span class="label label-danger"
+                          data-ng-show="form.$error.minlength">Passwords must be a minimum of 6 characters</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group" ng-class="{
+                                        'has-error': form.password_confirmation.$error.matchTo,
+                                        'has-success': form.password_confirmation.$valid,
+                                        'has-feedback': form.password_confirmation.$valid || form.password_confirmation.$error.matchTo,
+                                    }">
+                    <label class="control-label">Retype password:</label>
+
+                    <input type="password" placeholder="Retype password" class="form-control" ng-model="data.password_confirmation" name="password_confirmation" data-ng-required="changePass" data-match-to="form.password">
+                    <span class="fa fa-check-circle form-control-feedback"
+                          aria-hidden="true"
+                          data-ng-show="form.password_confirmation.$valid"></span>
+                    <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                          data-ng-show="form.password_confirmation.$error.matchTo"></span>
+                    <span class="label label-danger"
+                          data-ng-show="form.password_confirmation.$error.matchTo">Passwords do not match.</span>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="modal-footer text-right">
+		<button type="button" class="btn btn-lg btn-secondary" data-ng-click="store()" data-ng-if="isAdd()" ng-disabled="form.$invalid || formSubmitted">
+            <span data-ng-show="!formSubmitted">Add User</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Add User</span>
+		</button>
+        <button type="button" class="btn btn-lg btn-secondary" data-ng-click="update()" data-ng-if="isEdit()" ng-disabled="form.$invalid || formSubmitted">
+            <span data-ng-show="!formSubmitted">Update User</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Update User</span>
+        </button>
+	</div>
+
+</form>
+

@@ -1,0 +1,70 @@
+.header-registration {
+    .navbar .nav {
+        margin: 25px 0 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        @media (min-width: @screen-sm-min) {
+            width: 75%;
+            float: right;
+        }
+        @media (min-width: @screen-md-min) {
+            width: 70%;
+        }
+
+        li {
+            opacity: 0.7;
+            flex: 1;
+
+            &.active {
+                opacity: 1;
+                a {
+                    font-weight: 700;
+                }
+            }
+
+            a {
+                flex: 1;
+                color: @white;
+                font-size: 16px;
+                font-weight: 400;
+                text-align: center;
+                padding: 10px 5px;
+                @media (min-width: @screen-sm-min) {
+                    padding: 10px 15px;
+                }
+                &:hover {
+                    background-color: inherit;
+                }
+            }
+        }
+    }
+
+    .navbar-header {
+        width: 150px;
+        margin: 15px auto;
+        .brand {
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+    .navbar-primary {
+        background-color: @nav-registration-color;
+        border-color: @nav-registration-color;
+    }
+}
+
+.progress-status {
+    .progress {
+        background-color: rgba(255, 255, 255, 0.41);
+        height: 6px;
+        border-radius: 0;
+        margin-bottom: 0;
+        .progress-bar-success {
+            background-color: @registration-color;
+        }
+    }
+}

@@ -1,0 +1,54 @@
+// Offcanvas helper classes
+@media screen and (max-width: @screen-xs-max) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    margin-top: 0;
+    right: -@offcanvas-width;
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    margin-top: 0;
+    left: -@offcanvas-width;
+  }
+
+  .row-offcanvas-right.active {
+    right: @offcanvas-width;
+  }
+
+  .row-offcanvas-left.active {
+    left: @offcanvas-width;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: @offcanvas-width;
+    z-index: 1000;
+
+    .navbar-nav {
+      margin: 0;
+    }
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .btn-offcanvas-toggle {
+    display: none;
+  }
+}

@@ -1,0 +1,69 @@
+.user .content-info {
+  padding: 20px 0;
+  border-top: 1px solid @gray-light;
+  
+  .nav-footer {
+
+    ul {
+      li {
+        a {
+          color: @text-color;
+          font-size: 15px;
+          text-transform: uppercase;
+
+          &:hover {
+            color: @gray-dark;
+            background-color: @gray-light;
+          }
+        }
+      }
+    }
+  }
+
+  .copyright {
+    margin: 0;
+    padding-top: @padding-large-vertical;
+    padding-bottom: @padding-large-vertical;
+    display: inline-block;
+    font-size: 13px;
+  }
+
+  .tcs {
+    font-size: 13px;
+    color: @text-color;
+
+    &:hover {
+      color: lighten(@text-color, 10%);
+    }
+  }
+
+  .socials {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-bottom: 0;
+
+    @media (min-width: @screen-sm-min) {
+      text-align: right;
+    }
+
+    li {
+
+      a {
+        width: 30px;
+        height: 30px;
+        padding: 3px;
+        display: inline-block;
+        color: @white;
+        font-size: 18px;
+        text-align: center;
+        background-color: @brand-info;
+        .border-top-radius(15px);
+        .border-bottom-radius(15px);
+
+        &:hover {
+          background-color: ligthen(@brand-info, 10%);
+        }
+      }
+    }
+  }
+}

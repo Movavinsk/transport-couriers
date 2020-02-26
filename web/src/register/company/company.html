@@ -1,0 +1,85 @@
+<div class="container" ng-controller="CompanyController" ui-view>
+    <div class="register-form m-t-sm">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>Company</h2>
+                <div class="alert alert-danger" ng-show="errors">
+                    <p ng-repeat="(key, error) in errors">*{{ error }}</p>
+                </div>
+                <form name="form" class="register-company">
+                    <div class="col-full-width">
+                        <label
+                            class="form-radio"
+                            ng-class="{ 'checked' : isChecked('Limited Company') }">
+                            LIMITED COMPANY
+                            <input
+                                type="radio"
+                                value="Limited Company"
+                                ng-model="ctype"
+                                ng-change="companyType('Limited Company')">
+                            <span class="tab"></span>
+                        </label>
+                        <label
+                            class="form-radio"
+                            ng-class="{ 'checked' : isChecked('Sole Trader') }">
+                            SOLE TRADER
+                            <input
+                                type="radio"
+                                value="Sole Trader"
+                                ng-model="ctype"
+                                ng-change="companyType('Sole Trader')">
+                            <span class="tab"></span>
+                        </label>
+                    </div>
+                    <div class="col-half-width">
+                        <i
+                            class="icons8-briefcase form-control-feedback feedback-left"
+                            aria-hidden="true">
+                        </i>
+                        <input
+                            type="text"
+                            placeholder="Company name"
+                            class="form-control form-field-transparent"
+                            ng-model="formData.company_name"
+                            required/>
+                    </div>
+                    <div
+                        class="col-half-width"
+                        ng-class="{ 'disabled': ctype === 'Sole Trader' }"
+                    >
+                        <i
+                            class="icons8-briefcase form-control-feedback feedback-left"
+                            aria-hidden="true">
+                        </i>
+                        <input
+                            type="text"
+                            placeholder="Company number"
+                            class="form-control form-field-transparent"
+                            ng-model="formData.company_number"
+                            ng-disabled="ctype === 'Sole Trader'"/>
+                    </div>
+                    <div class="col-half-width">
+                        <i
+                            class="icons8-tags form-control-feedback feedback-left"
+                            aria-hidden="true">
+                        </i>
+                        <input
+                            type="text"
+                            placeholder="VAT number"
+                            class="form-control form-field-transparent"
+                            ng-model="formData.vat_number">
+                    </div>
+                    <div class="col-full-width">
+                        <button
+                            type="submit"
+                            class="btn btn-lg btn-info btn-block"
+                            data-ng-disabled="!form.$valid"
+                            ng-click="address()">
+                            Continue
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

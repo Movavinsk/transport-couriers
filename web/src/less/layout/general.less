@@ -1,0 +1,81 @@
+html {
+  background: none;
+}
+
+#app {
+  height: 100%;
+}
+
+.app-user {
+  .app-content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 0;
+    background-color: @content-body-bg;
+
+    .app-content-body {
+      padding: 0;
+    }
+  }
+}
+
+.app-admin {
+  background-color: @content-body-bg;
+
+  .app-content {
+    background-color: @content-body-bg;
+  }
+
+  .app-aside {
+
+    &:before {
+      background-color: @brand-primary;;
+      z-index: 1;
+    }
+
+    .aside-wrap {
+      position: relative;
+      z-index: 10;
+    }
+  }
+
+  .navbar-brand {
+
+    img {
+      max-height: 40px;
+      max-width: 100%;
+    }
+  }
+}
+
+.ng-table th {
+  text-align: inherit;
+}
+
+.modal-open .modal {
+    overflow: scroll;
+}
+
+.modal-body {
+    .form-control-static {
+        @media (max-width: @screen-sm-max) {
+            min-height: 100%;
+            padding-bottom: 10px;
+        }
+    }
+    .form-group {
+        margin-bottom: 5px;
+
+        @media (min-width: @screen-sm-min) {
+            margin-bottom: 15px;
+        }
+    }
+
+    .page-header {
+        margin: 20px 0 20px;
+
+        @media (min-width: @screen-sm-min) {
+            margin: 40px 0 20px;
+        }
+    }
+}

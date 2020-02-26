@@ -1,0 +1,105 @@
+<div class="app app-register">
+    <div class="container">
+        <div class="row m-t-lg">
+            <div class="register-form">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h2>Create a password</h2>
+                        <div class="alert alert-danger" data-ng-show="errors">
+                            <p ng-repeat="(key, error) in errors">*{{ error[0] }}</p>
+                        </div>
+                        <form name="form" class="m-t-lg">
+                            <div class="alert alert-warning" ng-show="form.$error.pattern">
+                                * Password must be a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character(@, $, !, %, *, ?, &).
+                            </div>
+                            <div
+                                class="col-md-6 has-feedback"
+                                ng-class="{
+                                    'has-error': form.$error.minlength,
+                                    'has-success': form.password.$valid,
+                                }">
+                                <i
+                                    class="icons8-lock form-control-feedback feedback-left"
+                                    aria-hidden="true"
+                                >
+                                </i>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control form-field-transparent"
+                                    autocomplete="off"
+                                    placeholder="Create a password"
+                                    data-ng-model="password"
+                                    ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/"
+                                    required
+                                >
+                                <span
+                                    class="fa fa-check-circle form-control-feedback"
+                                    aria-hidden="true"
+                                    data-ng-show="form.password.$valid"
+                                >
+                                </span>
+                                <span
+                                    class="fa fa-times-circle form-control-feedback"
+                                    aria-hidden="true"
+                                    data-ng-show="form.$error.pattern"
+                                >
+                                </span>
+                            </div>
+                            <div
+                                class="col-md-6 has-feedback"
+                                ng-class="{
+                                    'has-error': form.password_confirmation.$error.matchTo,
+                                    'has-success': form.password_confirmation.$valid,
+                                }"
+                            >
+                                <i
+                                    class="icons8-lock form-control-feedback feedback-left"
+                                    aria-hidden="true"
+                                >
+                                </i>
+                                <input
+                                    type="password"
+                                    id="password_confirmation"
+                                    name="password_confirmation"
+                                    class="form-control form-field-transparent"
+                                    autocomplete="off"
+                                    placeholder="Confirm password"
+                                    data-ng-model="password_confirmation"
+                                    data-match-to="form.password"
+                                    required
+                                >
+                                <span
+                                    class="fa fa-check-circle form-control-feedback"
+                                    aria-hidden="true"
+                                    data-ng-show="form.password_confirmation.$valid"
+                                >
+                                </span>
+                                <span
+                                    class="fa fa-times-circle form-control-feedback"
+                                    aria-hidden="true"
+                                    data-ng-show="form.password_confirmation.$touched && form.password_confirmation.$error.matchTo"
+                                >
+                                </span>
+                                <span
+                                    class="label label-danger"
+                                    data-ng-show="form.password_confirmation.$touched && form.password_confirmation.$error.matchTo">
+                                    Passwords do not match.
+                                </span>
+                            </div>
+                            <div class="col-md-12">
+                                <button
+                                    type="submit"
+                                    class="btn btn-lg btn-info btn-block"
+                                    data-ng-click="reset()"
+                                    data-ng-disabled="form.$invalid">Confirm
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

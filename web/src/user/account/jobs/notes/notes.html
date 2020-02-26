@@ -1,0 +1,26 @@
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <h3 class="modal-title pull-left">
+            Job Notes
+        </h3>
+
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" data-ng-click="$dismiss()">Cancel</button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div sdcn-loader size="lg" data-ng-show="loading"></div>
+        <p class="m-b-md">{{ notes }}</p>
+    </div>
+
+    <div class="modal-header">
+        <h3 class="modal-title">
+            Job Details
+        </h3>
+    </div>
+    <div class="modal-body">
+        <div sdcn-loader size="lg" data-ng-show="loading"></div>
+        <p class="m-b-md">{{ bid_details }}</p>
+    </div>
+</div>
+

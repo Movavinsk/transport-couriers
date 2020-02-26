@@ -1,0 +1,37 @@
+<div class="panel-heading buttons">
+    <h3 class="panel-title">
+        {{$state.current.page.title}}
+        <div class="panel-heading-buttons">
+            <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                <i class="fa fa-ellipsis-v"></i>
+            </button>
+        </div>
+    </h3>
+</div>
+<div class="panel-body">
+    <div class="text-right m-b">
+        <a class="btn btn-secondary" href data-ui-sref=".add({team_id: team_id})"><span
+                class="fa fa-plus"></span> Add Document</a>
+    </div>
+
+    <div class="panel-row">
+        <table class="table table-striped b-t b-light text-left" data-ng-table="tableParams"
+               template-pagination="src/user/layout/elements/tfoot.html">
+            <tbody>
+                <tr class="odd gradeX" data-ng-repeat="data in $data" data-ng-class="{'success': data.status == 'approved'}">
+                    <form name="document{{document.id}}">
+                        <td data-title="'Type'">
+                            {{data.type.name}}
+                        </td>
+                        <td class="text-u-f" data-title="'Status'">
+                            {{data.status}}
+                        </td>
+                        <td data-title="'User'">
+                            {{ data.user.name_full }}
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

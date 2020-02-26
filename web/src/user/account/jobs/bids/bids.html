@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">Bids for Job #{{job.id}}
+    </h3>
+    <div class="pull-right">
+        <button class="btn btn-secondary btn-sm" data-ng-click="tableParams.reload()"><i class="icon-refresh"></i> Refresh</button>
+        <button class="btn btn-primary btn-sm" data-ng-click="$dismiss()">Close</button>
+    </div>
+</div>
+<div class="modal-body no-padder-h">
+    <div sdcn-loader size="lg" data-ng-show="loading"></div>
+    <div class="not-found" data-ng-show="!tableParams.total() && !loading">
+        <h1>0</h1>
+        <div class="text">No bids received yet.</div>
+    </div>
+    <div class="table-responsive" data-ng-show="tableParams.total() && !loading">
+        <table
+            class="table table-striped b-t b-light"
+            data-ng-table="tableParams"
+            template-pagination="src/user/layout/elements/tfoot.html"
+        >
+            <tbody>
+                <tr class="odd gradeX" data-ng-repeat="data in $data" data-ng-class="{'success': data.is_accepted}">
+                    <td>
+                        <section class="row bid-card">
+                            <div class="col-md-2 hidden-sm hidden-xs">
+                                <img class="pull-right" data-ng-src="{{ data.user.avatar_url }}" height="96">
+                            </div>
+                            <div class="col-md-2 col-md-push-8 date">
+                                {{ data.bid_date | amDateFormat:'DD/MM/YYYY HH:mm' }}
+                            </div>
+                            <div class="col-md-8 col-md-pull-2">
+                                <h2>{{ data.user.team_info.company_name }}</h2>
+                                <rating
+                                    class="rating read-only"
+                                    ng-model="data.user.team_info.score"
+                                    max="5"
+                                    state-on="'glyphicon glyphicon-star text-info'"
+                                    state-off="'glyphicon glyphicon-star-empty text-info'"
+                                    data-readonly="true"
+                                ></rating><small class="text-muted">({{ data.user.team_info.score }} from {{ data.user.team_info.ratings_count }} reviews)</small>
+                                <h5><b>Contact:</b> {{ data.user.name_full }}</h5>
+                                <button
+                                    class="btn btn-primary btn-xs btn-warning hidden-md hidden-lg"
+                                    aria-expanded="false"
+                                    aria-controls="collapseExample"
+                                    role="button"
+                                    data-toggle="collapse"
+                                    data-target="#bidDetails_{{$index}}"
+                                    data-ng-click="data.isCollapsed = true"
+                                    data-ng-show="!data.isCollapsed"
+                                    data-ng-if="data.details"
+                                >Details</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-primary btn-xs btn-primary hidden-md hidden-lg ng-hide"
+                                    data-toggle="collapse"
+                                    data-target="#bidDetails_{{$index}}"
+                                    ng-click="data.isCollapsed = false"
+                                    data-ng-show="data.isCollapsed"
+                                    data-ng-if="data.details"
+                                >Close</button>
+                                <div class="bid_details collapse hidden-md hidden-lg" id="bidDetails_{{$index}}" data-ng-if="data.details">
+                                    <div class="panel-body">
+                                        <div class="arrow"></div>
+                                        <b>Bid notes</b><br>
+                                        <div>{{ data.details }}</div>
+                                    </div>
+                                </div>
+                                <div class="bid_details hidden-sm hidden-xs" data-ng-if="data.details">
+                                    <b>Bid notes</b><br>
+                                    <div class="well m-b-xs">{{ data.details }}</div>
+                                </div>
+                            </div>
+                            <footer>
+                                <div class="col-md-8 col-md-offset-2 col-xs-6 col-xs-offset-0">
+                                    <h5><i class="fa fa-phone"> </i> {{ data.user.phone }}</h5>
+                                    <h5><i class="fa fa-envelope"> </i> {{ data.user.email }}</h5>
+                                    <a
+                                        class="btn btn-primary btn-sm"
+                                        data-ng-if="job.status === 'active'"
+                                        data-ng-click="$dismiss()"
+                                        data-ui-sref=".bids.feedback({ job_id: job_id, team_id: data.user.team_info.id })"
+                                    >Feedback</a>
+                                </div>
+                                <div class="col-md-2 col-xs-6 price-tag">
+                                    <h2>{{ data.amount | currency:"&pound":2 }}</h2>
+                                    <a class="btn btn-success btn-sm"
+                                       data-ng-if="job.status === 'active'"
+                                       data-ng-click="$dismiss()"
+                                       data-ui-sref=".bids.confirm({job_id: job_id, bid_id: data.id})"
+                                    >Accept Bid</a>
+                                </div>
+                            </footer>
+
+                        </section>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

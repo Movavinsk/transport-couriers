@@ -1,0 +1,112 @@
+<div class="container" ng-controller="InvoiceController" ui-view>
+    <div class="register-form m-t-lg">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="m-t-xs">Invoice Address</h3>
+            </div>
+        </div>
+
+        <div class="panel panel-default block-2">
+            <div class="panel-body">
+                <div class="alert alert-danger" ng-show="errors">
+                    <p ng-repeat="(key, error) in errors">*{{ error }}</p>
+                </div>
+                <form name="form">
+                    <div class="row">
+                        <div class="col-full-width">
+                            <label class="form-checkbox m-t-sm">
+                                <span class="text">Use company address</span>
+                                <input
+                                    type="checkbox"
+                                    ng-model="formData.use_company_address"
+                                    ng-change="isSameAsCompanyAddress()">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row m-t-lg">
+                        <div
+                            class="col-half-width"
+                            ng-class="{ 'disabled': addressDisabled }">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Address line 1"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_address_line_1"
+                                ng-disabled="addressDisabled">
+                        </div>
+                        <div
+                            class="col-half-width"
+                            ng-class="{ 'disabled': addressDisabled }">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Address line 2"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_address_line_2"
+                                ng-disabled="addressDisabled">
+                        </div>
+                        <div
+                            class="col-half-width"
+                            ng-class="{ 'disabled': addressDisabled }">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Town/city"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_town"
+                                ng-disabled="addressDisabled">
+                        </div>
+                        <div
+                            class="col-half-width"
+                            ng-class="{ 'disabled': addressDisabled }">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="County"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_county"
+                                ng-disabled="addressDisabled">
+                        </div>
+                        <div
+                            class="col-half-width"
+                            ng-class="{ 'disabled': addressDisabled }">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Postcode"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_postal_code"
+                                ng-disabled="addressDisabled">
+                        </div>
+                        <div class="col-full-width">
+                            <button
+                                type="submit"
+                                class="btn btn-lg btn-info btn-block"
+                                ng-click="submit()">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <a class="skip" ng-click="nextStep()">Skip</a>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+
+<div class="panel-heading buttons">
+    <h3 class="panel-title">
+        {{$state.current.page.title}}
+        <div class="panel-heading-buttons">
+            <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                <i class="fa fa-ellipsis-v"></i>
+            </button>
+        </div>
+    </h3>
+</div>
+<div class="panel-body">
+<!--     <div class="text-right m-b">
+        <a class="btn btn-secondary" href data-ui-sref=".add"><span
+                class="fa fa-plus"></span> Add Location</a>
+    </div>
+ -->
+    <div class="panel-row">
+        <table class="table table-striped b-t b-light text-left" data-ng-table="tableParams"
+               template-pagination="src/user/layout/elements/tfoot.html">
+            <tbody>
+                <tr data-ng-repeat="data in $data" data-ng-if="$data">
+                    <td data-title="'Icon'">
+                        <svg-image class="vehicle" data-ng-src="data.icon" title="{{ data.name }}"></svg-image>
+                    </td>
+                    <td data-title="'Vehicle Name'">
+                        {{data.name}}
+                    </td>
+                    <td data-title="''" class="text-right">
+                        <a
+                            ng-if="owns(data.id)"
+                            ng-click="toggleVehicle(data)"
+                            href
+                            class="btn btn-sm btn-success"
+                        > In Fleet </a>
+                        <a
+                            ng-if="! owns(data.id)"
+                            ng-click="toggleVehicle(data)"
+                            href
+                            class="btn btn-sm btn-primary"
+                        > Add to Fleet </a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="app app-admin" ng-class="{
+	'app-header-fixed': $app.settings.headerFixed,
+	'app-aside-fixed' : $app.settings.asideFixed,
+	'app-aside-folded': $app.settings.asideFolded,
+	'app-aside-dock'  : $app.settings.asideDock,
+	'container'       : $app.settings.container
+}">
+    <!-- navbar -->
+    <div data-ng-include=" 'src/admin/layout/header.html' " class="app-header navbar"></div>
+    <!-- / navbar -->
+
+    <!-- menu -->
+    <div data-ng-include=" 'src/admin/layout/aside.html' "
+         class="app-aside hidden-xs {{$app.settings.asideColor}}"></div>
+    <!-- / menu -->
+
+    <!-- content -->
+    <div class="app-content">
+        <a href class="off-screen-toggle hide" data-ui-toggle-class="off-screen" data-target=".app-aside"></a>
+
+        <div class="app-content-body fade-in-up" data-ui-view></div>
+    </div>
+    <!-- /content -->
+
+    <!-- footer -->
+    <div data-ng-include=" 'src/admin/layout/footer.html' " class="settings panel panel-default"></div>
+    <!-- / footer -->
+</div>

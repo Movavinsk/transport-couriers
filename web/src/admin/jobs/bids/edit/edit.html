@@ -1,0 +1,86 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">{{mode}} Bid
+    </h3>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" data-ng-click="$dismiss()">
+            Cancel
+        </button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<form class="form-horizontal form-validation" name="form">
+    <div class="modal-body">
+        <div class="form-group" data-ng-show="data.bid_date">
+            <label class="col-sm-2 control-label font-bold">Bid Date/Time:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">{{data.bid_date | date:'MMM d, y H:mm'}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Details:</label>
+
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3" ng-model="data.details"></textarea>
+            </div>
+        </div>
+        <div class="form-group" data-ng-class="{
+            'has-error': form.amount.$error.number,
+            'has-success': form.amount.$valid,
+            'has-feedback': form.amount.$valid || form.amount.$error.number
+        }">
+            <label class="col-sm-2 control-label font-bold">Amount:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="currency">£</span>
+                    <input type="number"
+                           name="amount"
+                           id="amount"
+                           class="form-control"
+                           data-ng-model="data.amount"
+                           min="0"
+                           aria-describedby="currency"
+                           placeholder="0"
+                           required />
+                </div>
+                <span class="fa fa-check-circle form-control-feedback" aria-hidden="true" data-ng-if="form.amount.$valid"></span>
+                <span class="fa fa-times-circle form-control-feedback" aria-hidden="true" data-ng-if="form.amount.$error.number"></span>
+                <span class="label label-danger" data-ng-if="form.amount.$error.number">Numbers Only!</span>
+            </div>
+        </div>
+
+        <h4 class="page-header">User details: </h4>
+
+        <div class="form-group" ng-show="isAdd()">
+            <label class="col-sm-2 control-label font-bold">User ID #</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="User ID #" ng-model="data.user_id"/>
+            </div>
+        </div>
+        <div class="form-group" data-ng-show="user.name_full">
+            <label class="col-sm-2 control-label font-bold">Name:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">{{ user.name_full }}</p>
+            </div>
+        </div>
+        <div class="form-group" data-ng-show="user.team_info.company_name">
+            <label class="col-sm-2 control-label font-bold">Company Name:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">{{ user.team_info.company_name }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-right">
+        <button type="button" class="btn btn-sm btn-danger m-r-none" confirm-delete="destroy()" ng-if="isEdit()">Delete</button>
+        <button type="button" class="btn btn-sm btn-primary m-r-none" ng-click="store()" ng-if="isAdd()"
+                ng-disabled="form.$invalid">Save</button>
+        <button type="button" class="btn btn-sm btn-primary m-r-none" ng-click="update()" ng-if="isEdit()"
+                ng-disabled="form.$invalid">Save</button>
+    </div>
+</form>

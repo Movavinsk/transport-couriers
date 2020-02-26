@@ -1,0 +1,41 @@
+<form class="form-horizontal form-validation" name="form">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{mode}} Document Type</h3>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Name *</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="Name" ng-model="data.name" required/>
+				</div>
+			</div>
+			<div class="form-group">
+	            <label class="col-sm-3 control-label">Expiry Required</label>
+				<div class="col-sm-9">
+		                <input type="checkbox" data-ng-true-value="1" data-ng-false-value="0" data-ng-model="data.expiry_required"/>
+		                <i></i>
+			    </div>
+			</div>
+			<div class="form-group">
+	            <label class="col-sm-3 control-label">Amount Required</label>
+				<div class="col-sm-9">
+		                <input type="checkbox" data-ng-true-value="1" data-ng-false-value="0" data-ng-model="data.amount_required"/>
+		                <i></i>
+			    </div>
+			</div>
+		</div>
+		<footer class="panel-footer text-right">
+			<button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+			<button type="button" class="btn btn-sm btn-primary" ng-click="store()" ng-if="isAdd()"
+			        ng-disabled="form.$invalid || userCreated">Save
+			</button>
+			<button type="button" class="btn btn-sm btn-danger" confirm-delete="destroy()" ng-if="isEdit()">
+				Delete
+			</button>
+			<button type="button" class="btn btn-sm btn-primary" ng-click="update()" ng-if="isEdit()"
+			        ng-disabled="form.$invalid">Save
+			</button>
+		</footer>
+	</div>
+</form>

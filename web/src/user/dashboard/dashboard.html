@@ -1,0 +1,81 @@
+<div class="row row-offcanvas row-offcanvas-right user-dashboard">
+
+    <div class="content col-sm-8">
+        <div class="panel panel-default control-panel">
+            <div class="panel-heading buttons">
+                <h3 class="panel-title">
+                    Recent Activity
+                    <div class="panel-heading-buttons">
+                        <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="not-found" data-ng-show="!myEvents.length">
+                    <h1>0</h1>
+
+                    <div class="text">It appears that you don't have any events at the moment.</div>
+                </div>
+                <div class="event-list ui relaxed divided list" data-ng-show="myEvents.length">
+                    <div class="item status-{{event.status}} type-{{event.type}}" data-ng-repeat="event in myEvents">
+                        <i class="fa fa-warning icon" data-ng-show="event.type != 'feedback'"></i>
+                        <i class="fa fa-check-circle icon" data-ng-show="event.type == 'feedback'"></i>
+
+                        <div class="content">
+                            <h5 class="header">{{event.name}}
+                                <a class="text-small" href
+                                   data-ng-click="toggleEventStatus(event)"
+                                   data-ng-show="event.status == 'new'"
+                                   title="Mark as Read">Mark as Read</a>
+                            </h5>
+
+                            <div class="description">
+                                {{event.description.substr(0, 50)}}... <span
+                                    class="text-small">{{event.pretty_date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-rating hidden-xs">
+            <h3>Your current performance</h3>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h5>Your feedback rating is {{rating | number:0}} out of 5. Based on <a
+                            data-ui-sref="user.account.feedback" title="{{ratings}} reviews">{{ratings}} reviews</a></h5>
+
+                    <div class="ratings ratings-lg">
+                        <rating class="rating read-only" ng-model="rating" max="5"
+                                state-on="'glyphicon glyphicon-star text-info'"
+                                state-off="'glyphicon glyphicon-star-empty text-info'" data-readonly="true"></rating>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <aside class="sidebar col-sm-4 sidebar-offcanvas" role="complementary">
+        <div class="api-details" data-ng-show="client_api">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Client API</h3>
+                </div>
+                <div class="panel-body">
+                    <h5>Client ID</h5>
+                    <pre>{{ oauth_client.id }}</pre>
+                    <h5>API Key</h5>
+                    <pre>{{ oauth_client.secret }}</pre>
+                </div>
+            </div>
+        </div>
+        <!--Removing it temporarily -->
+        <!--<div class="widget widget-latest-jobs" data-ng-include="'src/user/layout/widgets/latest-jobs.html'"></div>-->
+        <div class="widget widget-useful-links" data-ng-include="'src/user/layout/widgets/useful-links.html'"></div>
+    </aside>
+    
+</div>

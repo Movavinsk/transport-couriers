@@ -1,0 +1,100 @@
+<div class="modal-header">
+    <h3 class="modal-title">Submit Bid
+        <button class="btn btn-default btn-sm pull-right" data-ng-click="$dismiss()"">Cancel</button>
+    </h3>
+</div>
+
+<div class="modal-body">
+    <form class="form-horizontal" role="form" name="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Job ID:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">#{{job.id}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Pickup Point:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static" ng-if="job.pickup_town == null || job.pickup_town == ''">{{job.pickup_point}}</p>
+                <p class="form-control-static" ng-if="job.pickup_town != null && job.pickup_town != ''">
+                    {{job.pickup_town}},  {{job.pickup_postcode_prefix}}
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Destination Point:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static" ng-if="job.destination_town == null || job.destination_town == ''">{{job.destination_point}}</p>
+                <p class="form-control-static" ng-if="job.destination_town != null && job.destination_town != ''">
+                    {{job.destination_town}},  {{job.destination_postcode_prefix}}
+                </p>
+            </div>
+        </div>
+        <div class="form-group" data-ng-if="getDistance(job)">
+            <label class="col-sm-2 control-label font-bold">Estimated distance:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">{{getDistance(job)}} miles</p>
+            </div>
+        </div>
+        <div class="form-group" data-ng-if="job.duration">
+            <label class="col-sm-2 control-label font-bold">Estimated duration:</label>
+
+            <div class="col-sm-10" data-ng-if="getDistance(job)">
+                <p class="form-control-static">{{job.duration}}</p>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{
+            'has-error': form.amount.$error.number,
+            'has-success': form.amount.$valid,
+            'has-feedback': form.amount.$valid || form.amount.$error.number,
+        }">
+            <label class="col-sm-2 control-label font-bold" for="amount">Amount:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="currency">£</span>
+                    <input type="number"
+                           name="amount"
+                           id="amount"
+                           class="form-control"
+                           data-ng-model="data.amount"
+                           min="0"
+                           aria-describedby="currency"
+                           placeholder="0"
+                           required />
+                </div>
+                <span class="fa fa-check-circle form-control-feedback" aria-hidden="true" data-ng-if="form.amount.$valid"></span>
+                <span class="fa fa-times-circle form-control-feedback" aria-hidden="true" data-ng-if="form.amount.$error.number"></span>
+                <span class="label label-danger" data-ng-if="form.amount.$error.number">Numbers Only!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox checkbox-success">
+                    <label>
+                        <input type="checkbox" data-ng-model="notes"/>
+                        Add note
+                        <i></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-show="notes">
+            <label class="col-sm-2 control-label font-bold">Notes:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" data-ng-model="data.details"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer text-right">
+    <button type="button" class="btn btn-lg btn-success" ng-click="store()" ng-disabled="formSubmited || form.$invalid || loading">
+        <span data-ng-show="!formSubmited">Submit Bid</span>
+        <span data-ng-show="formSubmited"><i class="fa fa-spin fa-circle-o-notch"></i> Submit Bid</span>
+    </button>
+</div>

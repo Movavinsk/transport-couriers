@@ -1,0 +1,143 @@
+<div class="modal-header">
+    <h3 class="modal-title">Job <span data-ng-show="!loading">#{{data.id}}</span> details
+        <button class="btn btn-default btn-sm pull-right" data-ng-click="$dismiss()">Cancel</button>
+    </h3>
+</div>
+
+<div class="modal-body job-list job-list-md">
+
+    <div sdcn-loader size="lg" data-ng-show="loading"></div>
+
+    <div class="job job-browse" data-ng-show="!loading">
+        <div class="media">
+            <div class="media-left hidden-xs" data-ng-if="data.vehicle_icon">
+                <div class="vehicle">
+                    <svg-image data-ng-src="data.vehicle_icon" title="{{ data.name }}"></svg-image>
+                </div>
+            </div>
+            <div class="media-body">
+                <div class="col-sm-6">
+                    <small class="text-info">Pick Up</small>
+                    <span class="point">{{data.pickup_point}}</span>
+                    <span ng-if="!data.flexible_pickup && !data.pickup_asap">
+                        <span class="date">{{data.pickup_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                    </span>
+                    <span ng-if="data.flexible_pickup && !data.pickup_asap">
+                        <span class="date" style="margin: 0"><b>FROM</b> {{data.pickup_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                        <span class="date"><b>TO</b> {{data.pickup_date_end | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                    </span>
+                    <span ng-if="data.pickup_asap" class="date"><strong class="text-success">Pickup ASAP</strong></span>
+                </div>
+                <div class="col-sm-6">
+                    <small class="text-info">Drop Off</small>
+                    <span class="point">{{data.destination_point}}</span>
+                    <span ng-if="!data.flexible_destination && !data.destination_asap">
+                        <span class="date">{{data.destination_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                    </span>
+                    <span ng-if="data.flexible_destination && !data.destination_asap">
+                        <span class="date" style="margin: 0"><b>FROM </b>{{data.destination_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                        <span class="date"><b>TO </b>{{data.destination_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                    </span>
+                    <span class="date" ng-if="data.destination_asap"><strong class="text-success">Delivery ASAP</strong></span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <span class="arrow"></span>
+
+            <div class="alert alert-warning m-b-none" role="alert" data-ng-show="!$auth.user().can('add-bid')">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Warning:</span>
+                Please upload your insurance documents to your profile by clicking <a href data-ui-sref="user.account.profile.documents" title="here">here</a>. We will then fully enable your account so you will be able to bid on jobs.
+            </div>
+
+            <h4 data-ng-if="$auth.user().can('add-bid')">
+                Job Details
+            </h4>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <form class="form-horizontal" data-ng-if="$auth.user().can('add-bid')">
+
+                        <div class="form-group" data-ng-if="data.user_info.team_info.company_name">
+                            <label class="control-label col-sm-2 font-bold">Company:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{data.user_info.team_info.company_name}}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="data.expiry_time.date">
+                            <label class="control-label col-sm-2 font-bold">Expiry time:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{data.expiry_time.date | amDateFormat:'DD/MM/YYYY HH:mm'}}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="data.distance_in_miles">
+                            <label class="control-label col-sm-2 font-bold">Estimated Distance:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ data.distance_in_miles }} miles</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="data.duration">
+                            <label class="control-label col-sm-2 font-bold">Estimated Duration:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ data.duration }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="data.backload">
+                            <label class="control-label col-sm-2 font-bold">Backload:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">Yes</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="data.details">
+                            <label class="control-label col-sm-2 font-bold">Notes:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{data.details}}</p>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="map map-md map-full m-t" stlye="width: 429px; height: 315px">
+                        <ui-gmap-google-map
+                            id="map-canvas"
+                            center="map.center"
+                            zoom="map.zoom"
+                            options="map.options"
+                            control="map.control"
+                        >
+                        </ui-gmap-google-map>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-details" data-ng-if="$auth.user().can('add-bid')">
+                <div class="pull-left">
+                    <a data-ng-show="data.phone" href="tel:{{data.phone}}" title="{{data.phone}}">{{data.phone}}</a>
+                    <small data-ng-show="!data.phone">No Phone</small>
+                </div>
+                <div class="pull-right">
+                    <a data-ng-show="data.email" href="mailto:{{data.email}}"
+                       title="{{data.email}}">{{data.email}}</a>
+                    <small data-ng-show="!data.email">No Email</small>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer text-right" data-ng-if="$auth.user().can('add-bid')" data-ng-show="!loading">
+    <a class="btn btn-lg btn-secondary" href
+       data-ui-sref="user.jobs.browse.submit({job_id: data.id})"
+       data-ng-click="$dismiss()"
+       data-ng-if="!data.my_bid_id && $auth.user().can('add-bid')">Submit bid online</a>
+    <a class="btn btn-lg btn-secondary disabled" href data-ng-if="data.my_bid_id">Bid Sent</a>
+</div>

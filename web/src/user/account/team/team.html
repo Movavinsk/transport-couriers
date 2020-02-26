@@ -1,0 +1,105 @@
+<div class="row row-offcanvas row-offcanvas-right manage-team">
+
+    <div class="content col-sm-8">
+        <div class="panel panel-default" data-ui-view>
+            <div class="panel-heading buttons">
+                <h3 class="panel-title">
+                    <span data-ng-show="$auth.user().hasRole('team.member.primary')">Manage</span> Users
+                    <div class="panel-heading-buttons">
+                        <button class="btn btn-secondary btn-xs" data-ui-sref=".adduser({team_id: team.id})"
+                               data-ng-if="team.members.length < 10 && $auth.user().hasRole('team.member.primary')">
+                            <i class="icon-plus"></i>
+                            <span class="hidden-xs">Add</span>
+                        </button>
+                        <button class="btn btn-default btn-xs" data-ng-click="tableParams.reload()">
+                            <i class="icon-refresh"></i>
+                            <span class="hidden-xs">Refresh</span>
+                        </button>
+                        <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                </h3>
+            </div>
+
+            <div class="panel-body no-padder-v">
+                <h4 class="page-header" data-ng-if="$auth.user().hasRole('team.member.primary')">Primary User Settings:</h4>
+
+                <form method="post" class="form-horizontal" data-ng-if="$auth.user().hasRole('team.member.primary')">
+                    <div class="form-group">
+                        <div class="control-label col-sm-4">Transfer Primary User</div>
+                        <div class="col-sm-8">
+                            <div class="checkbox checkbox-secondary">
+                                <label>
+                                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                           ng-model="new_primary.confirm">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-show="new_primary.confirm">
+                        <div class="control-label col-sm-4">New Primary User</div>
+                        <div class="col-sm-8">
+                            <ui-select ng-model="new_primary.user" theme="bootstrap" data-search-enabled="false"
+                                       style="width:100%">
+                                <ui-select-match allow-clear="true" placeholder="{{team.primary_member.name_full}}">
+                                    {{$select.selected.name_full}}
+                                </ui-select-match>
+                                <ui-select-choices ui-disable-choice="value.id == team.primary_member.id"
+                                                   repeat="value as value in team.members">
+                                    <div ng-bind-html="value.name_full"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-xs btn-primary pull-right"
+                            data-ng-disabled="!new_primary.confirm"
+                            data-ng-show="new_primary.confirm"
+                            data-ng-click="transferPrimaryUser()">
+                        Save
+                    </button>
+                    <div class="clearfix"></div>
+                </form>
+
+                <sdcn-loader size="lg" data-ng-show="loading"></sdcn-loader>
+
+                <div class="job-list job-list-md panel-row" ng-show="!loading">
+                    <div class="table-responsive">
+                    <table class="table text-left" data-ng-table="tableParams">
+                        <tbody>
+                        <tr data-ng-repeat="member in team.members"
+                            class="team-member-row">
+                            <td class="photo">
+                                <img class="avatar" data-ng-src="{{member.avatar ? member.avatar : member.avatar_url}}">
+                            </td>
+                            <td class="name" data-title="'Name'">
+                                {{member.name_full}}
+                            </td>
+                            <td>
+                                <i data-ng-show="member.team_role == 'primary'">({{member.team_role}} User)</i>
+                            </td>
+                            <td class="actions text-right">
+                                <a class="btn btn-xs btn-primary" data-ng-if="$auth.user().hasRole('team.member.primary')"
+                                   data-ui-sref=".edituser({user_id: member.id})">Edit</a>
+                                <a class="btn btn-xs"
+                                   data-ng-if="$auth.user().hasRole('team.member.primary')"
+                                   data-ng-hide="member.id == $auth.user().id"
+                                   data-ng-class="{'btn-danger': !member.inactivated, 'btn-success': member.inactivated}"
+                                   data-ng-click="team.deactivateMember(member); ">{{member.inactivated ? 'Activate' : 'Deactivate'}}</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <aside class="sidebar col-sm-4 sidebar-offcanvas" role="complementary">
+        <div class="widget widget-account" data-ng-controller="LoginController" data-ng-include="'src/user/layout/widgets/account.html'"></div>
+    </aside>
+
+</div>

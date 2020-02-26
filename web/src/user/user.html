@@ -1,0 +1,35 @@
+<div class="app app-user" ng-class="{
+	'app-header-fixed': $app.settings.headerFixed,
+	'app-aside-fixed' : $app.settings.asideFixed,
+	'app-aside-folded': $app.settings.asideFolded,
+	'app-aside-dock'  : $app.settings.asideDock,
+	'container'       : $app.settings.container
+}">
+    <!-- navbar -->
+    <div data-ng-include=" 'src/user/layout/header.html' " class="app-header user navbar"></div>
+    <!-- / navbar -->
+
+    <div class="page-header user">
+        <h1 class="page-title visible-xs">
+            <div class="container">
+                {{$state.current.page.title}}
+            </div>
+        </h1>
+
+        <div class="upload-pod hidden" data-ng-include="'src/user/layout/upload-pod.html'"></div>
+    </div>
+
+    <!-- content -->
+    <div class="app-content user">
+        <div class="container">
+            <div class="app-content-body fade-in-up" data-ui-view>
+
+            </div>
+        </div>
+    </div>
+    <!-- /content -->
+
+    <!-- footer -->
+    <div data-ng-include=" 'src/user/layout/footer.html' " class="content-info" role="contentinfo"></div>
+    <!-- / footer -->
+</div>

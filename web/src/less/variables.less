@@ -1,0 +1,235 @@
+// app specific variables override all others
+@blue-darker: #043653;
+@blue-dark: #063f60;
+@blue: #1298e6;
+@blue-light: #03c4f4;
+
+@orange-dark: #bb8001;
+@orange: #f4a703;
+
+@gray-darker: #a9aaaa;
+@gray-dark: #b4b5b5;
+@gray: #c8cacb;
+@gray-light: #e5e8e9;
+
+@white: #fff;
+@black: #000;
+
+@brand-primary: @blue-dark;
+@brand-secondary: @blue;
+@brand-info: @blue-light;
+@brand-warning: @orange;
+@brand-warning-dark: @orange-dark;
+@brand-danger: #fb0505;
+@brand-danger-darker: #b30000;
+@brand-success: #27c24c;
+
+@severity-critical: @brand-danger;
+@severity-major: @brand-warning;
+@severity-trivial: @brand-secondary;
+@severity-feedback: @brand-success;
+
+@status-bid-sent: lighten(@brand-warning, 45%);
+@status-active: @brand-secondary;
+@status-cancel: @brand-danger;
+@status-expire: @gray-dark;
+@status-progress: @brand-primary;
+@status-delivered: lighten(@brand-success, 30%);
+@status-invoiced: #009257;
+@status-complete: #403B36;
+@status-pending: #FEC63D;
+
+@header-bg: @brand-primary;
+@header-primary: @blue;
+@header-secondary: @blue-darker;
+@body-bg: @white;
+@content-body-bg: #f1f3f4;
+@text-color: #414142;
+@link-color: @brand-info;
+@link-hover-decoration: 'none';
+
+// Override font awesome default fonts folder path
+@font-family-roboto: 'Roboto', sans-serif;
+@font-family-base: @font-family-roboto;
+@fa-font-path: "/assets/fonts";
+@icon-font-path: "@{fa-font-path}/";
+@simple-line-font-path: @icon-font-path;
+@icons8-font-path: @fa-font-path;
+@img-path: "/assets/img";
+
+@font-size-h1: floor((@font-size-base * 2.0)); // ~36px
+@font-size-h2: floor((@font-size-base * 1.7)); // ~30px
+@font-size-h3: ceil((@font-size-base * 1.4)); // ~24px
+@font-size-h4: ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5: @font-size-base;
+@font-size-h6: ceil((@font-size-base * 0.85)); // ~12px
+
+@btn-warning-disabled-color: #fff;
+@btn-warning-disabled-bg: #f0cd83;
+
+@btn-disabled-color: @gray-dark;
+@btn-disabled-bg: @gray-lighter;
+
+@input-color: #7c7d7e;
+@input-color-placeholder: #7c7d7e;
+
+@app-header-mh: 98px;
+@app-header-sm-mh: 84px;
+@app-header-md-mh: 84px;
+
+@grid-gutter-width: 20px;
+@border-radius-base: 4px;
+
+@padding-base-vertical: 6px;
+@padding-base-horizontal: 12px;
+
+@padding-large-vertical: 10px;
+@padding-large-horizontal: 16px;
+
+@padding-small-vertical: 5px;
+@padding-small-horizontal: 10px;
+
+@padding-xs-vertical: 2px;
+@padding-xs-horizontal: 8px;
+
+@padding-box-vertical: 20px;
+@padding-box-horizontal: 15px;
+
+@padding-box-xs-vertical: 15px;
+@padding-box-xs-horizontal: 10px;
+
+@btn-default-color: @gray-dark;
+@btn-default-bg: @gray-light;
+@btn-default-border: @gray-light;
+
+@upload-pod-bg: @orange;
+@upload-pod-border: #ca8d03;
+
+//== Offcanvas ==//
+@offcanvas-width: 86%;
+
+//== Forms ==//
+@input-bg: #f9fafa;
+@input-bg-disabled: @gray;
+@input-color: #565657;
+@input-border: #dde0e1;
+@input-border-radius: @border-radius-base;
+@input-border-radius-large: @border-radius-large;
+@input-border-radius-small: @border-radius-small;
+@input-border-focus: #66afe9;
+@input-color-placeholder: #999;
+@input-height-base: (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-large: (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+@input-height-small: (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+@form-group-margin-bottom: 15px;
+@legend-color: @gray-dark;
+@legend-border-color: #e5e5e5;
+@input-group-addon-bg: @input-border;
+@input-group-addon-border-color: @input-border;
+@cursor-disabled: not-allowed;
+
+@state-success-text: #1caafc;
+@state-success-bg: @input-bg;
+@state-success-border: @input-border;
+
+@state-danger-text: @brand-danger;
+@state-success-bg: @input-bg;
+@state-success-border: @input-border;
+
+//== Panels ==//
+@panel-bg: #fff;
+@panel-heading-padding-v: 10px;
+@panel-heading-padding-h: 15px;
+@panel-heading-padding: @panel-heading-padding-v @panel-heading-padding-h;
+@panel-body-padding: @panel-heading-padding-h;
+@panel-footer-padding: @panel-heading-padding;
+@panel-border-radius: @border-radius-base;
+
+@panel-inner-border: #fff;
+@panel-footer-bg: #fff;
+@panel-heading-bg: #fff;
+@panel-border: #e3e5e6;
+
+@panel-heading-sm-padding-v: 10px;
+@panel-heading-sm-padding-h: 15px;
+@panel-heading-sm-padding: @panel-heading-sm-padding-v @panel-heading-sm-padding-h;
+@panel-body-sm-padding: @panel-heading-sm-padding;
+@panel-footer-sm-padding: @panel-heading-sm-padding;
+
+@panel-default-text: @text-color;
+@panel-default-border: @panel-border;
+@panel-default-heading-bg: @panel-heading-bg;
+@panel-heading-nav-bg: @panel-border;
+
+@panel-primary-text: #fff;
+@panel-primary-border: @brand-primary;
+@panel-primary-heading-bg: @brand-primary;
+
+@panel-success-text: @state-success-text;
+@panel-success-border: @state-success-border;
+@panel-success-heading-bg: @state-success-bg;
+
+@panel-info-text: @state-info-text;
+@panel-info-border: @state-info-border;
+@panel-info-heading-bg: @state-info-bg;
+
+@panel-warning-text: @state-warning-text;
+@panel-warning-border: @state-warning-border;
+@panel-warning-heading-bg: @state-warning-bg;
+
+@panel-danger-text: @state-danger-text;
+@panel-danger-border: @state-danger-border;
+@panel-danger-heading-bg: @state-danger-bg;
+
+//== Tables ==//
+@table-cell-padding-v: 10px;
+@table-cell-padding-h: 15px;
+@table-cell-padding: @table-cell-padding-v @table-cell-padding-h;
+@table-condensed-cell-padding: 5px;
+@table-bg: transparent;
+@table-bg-accent: #e3e5e6;
+@table-bg-hover: #e3e5e6;
+@table-bg-active: @table-bg-hover;
+@table-border-color: #edf1f2;
+
+//== Pagination ==//
+@pagination-color: @link-color;
+@pagination-bg: #fff;
+@pagination-border: #edf1f2;
+
+@pagination-hover-color: @link-hover-color;
+@pagination-hover-bg: @gray-lighter;
+@pagination-hover-border: #ddd;
+
+@pagination-active-color: #fff;
+@pagination-active-bg: @brand-primary;
+@pagination-active-border: @brand-primary;
+
+@pagination-disabled-color: @gray-light;
+@pagination-disabled-bg: #fff;
+@pagination-disabled-border: #ddd;
+
+//== Modals ==//
+@modal-title-padding-v: 8px;
+@modal-title-padding-h: 15px;
+@modal-backdrop-bg: @brand-primary;
+@modal-backdrop-opacity: .9;
+@modal-header-border-color: @gray-lighter;
+
+//== Wells ==//
+@well-bg: #f1f3f4;
+@well-border: #f1f3f4;
+
+//== Thumbnails ==//
+@thumbnail-padding: 0;
+@thumbnail-bg: #fff;
+@thumbnail-border: #fff;
+@thumbnail-border-radius: 0;
+@thumbnail-caption-color: @text-color;
+@thumbnail-caption-padding: 9px;
+
+@nav-registration-color: #0c395e;
+@registration-font-color: @nav-registration-color;
+@registration-color: #58c2ef;
+
+

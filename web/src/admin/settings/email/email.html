@@ -1,0 +1,87 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-light h3"><i class="icon-envelope"></i> Email settings</h1>
+</div>
+<div class="wrapper-md">
+	<form class="form-horizontal form-validation" name="form">
+		<div class="panel panel-default">
+			<div class="panel-heading font-bold">
+                <h3 class="panel-title">Email settings</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">From Name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.mail_from_name" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">From Email</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.mail_from_email" />
+					</div>
+				</div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Mail Driver</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="data.mail_driver" />
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">SMTP Host</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.mail_smtp_host" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">SMTP Port</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.mail_smtp_port" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">SMTP Encryption</label>
+					<div class="col-sm-10">
+						<select class="form-control" ng-model="data.mail_smtp_encryption">
+							<option value="">None</option>
+							<option value="tls">TLS</option>
+							<option value="ssl">SSL (deprecated)</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">SMTP Username</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.mail_smtp_username" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">SMTP Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" ng-model="data.mail_smtp_password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10 col-sm-offset-2">
+                        <div class="checkbox checkbox-primary">
+                            <label>
+						        <input type="checkbox" ng-true-value="'1'" ng-false-value="'0'" ng-model="data.mail_smtp_pretend" />
+                                Pretend email
+                                <i></i>
+                            </label>
+                        </div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Admin email</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" ng-model="data.mail_admin_email" />
+					</div>
+				</div>
+			</div>
+			<footer class="panel-footer text-right">
+                <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+                <button type="button" class="btn btn-sm btn-primary" ng-click="store()">Save</button>
+			</footer>
+		</div>
+	</form>
+</div>

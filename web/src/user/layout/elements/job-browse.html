@@ -1,0 +1,142 @@
+<td class="job job-browse" data-ng-class="{'bid-sent': data.my_bid_id}">
+    <div class="media">
+        <div class="media-left" data-ng-if="data.vehicle_icon">
+            <div class="vehicle">
+                <svg-image data-ng-src="data.vehicle_icon" title="{{ data.name }}"></svg-image>
+            </div>
+            <span>{{ data.vehicle_name }}</span>
+        </div>
+        <div class="media-body">
+            <div class="col-sm-6">
+                <small class="text-info">Pick Up</small>
+                <span class="point" ng-if="data.pickup_town == null || data.pickup_town == ''">{{data.pickup_point}}</span>
+                <span class="point" ng-if="data.pickup_town != null && data.pickup_town != ''">{{data.pickup_town}},  {{data.pickup_postcode_prefix}}</span>
+
+                <span ng-if="!data.flexible_pickup && !data.pickup_asap">
+                    <span class="date" >{{data.pickup_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                </span>
+                <span ng-if="data.flexible_pickup && !data.pickup_asap">
+                    <span class="date" style="margin: 0"><b>FROM</b> {{data.pickup_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                    <span class="date"><b>TO</b> {{data.pickup_date_end | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                </span>
+                <span ng-if="data.pickup_asap" class="date"><strong class="text-success">Pickup ASAP</strong></span>
+                <span><a href="" class="btn btn-xs btn-danger-darker" ng-if="data.backload" style="display: inline-block; margin: 1px">back load</a></span>
+            </div>
+            <div class="col-sm-6">
+                <small class="text-info">Drop Off</small>
+                <span class="point" ng-if="data.destination_town == null || data.destination_town == ''">{{data.destination_point}}</span>
+                <span class="point" ng-if="data.destination_town != null && data.destination_town != ''">{{data.destination_town}},  {{data.destination_postcode_prefix}}</span>
+                <span ng-if="!data.flexible_destination && !data.destination_asap">
+                    <span class="date" >{{data.destination_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                </span>
+                <span ng-if="data.flexible_destination && !data.destination_asap">
+                    <span class="date" style="margin: 0"><b>FROM</b> {{data.destination_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                    <span class="date"><b>TO</b> {{data.destination_date_end | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                </span>
+                <span class="date" ng-if="data.destination_asap"><strong class="text-success">Deliver ASAP</strong></span>
+            </div>
+            <div class="col-sm-12" ng-if="data.additional_options[0] !== ''">
+                <span ng-repeat="option in data.additional_options track by $index" style="display: inline-block; margin: 1px">
+                    <a href class="btn btn-xs btn-warning"> {{ option }} </a>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="media-right text-middle text-right">
+            <button type="button" class="btn btn-xs btn-warning"
+                    data-ng-click="data.isCollapsed = !data.isCollapsed; initMap(data);"
+                    data-ng-show="data.isCollapsed">Details
+            </button>
+
+            <button type="button" class="btn btn-xs btn-primary"
+                    ng-click="data.isCollapsed = !data.isCollapsed;"
+                    data-ng-show="!data.isCollapsed">Close
+            </button>
+        </div>
+    </div>
+    <div collapse="data.isCollapsed" class="panel-collapse collapse">
+        <div class="panel-body">
+            <span class="arrow"></span>
+
+            <p class="alert alert-warning m-b-none" role="alert" data-ng-show="!$auth.user().can('add-bid')">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Warning:</span>
+                Please upload your insurance documents to your profile by clicking <a href data-ui-sref="user.account.profile.documents" title="here">here</a>. We will then fully enable your account so you will be able to bid on jobs.
+            </p>
+
+            <br data-ng-if="!$auth.user().can('add-bid')">
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4>Job Details</h4>
+                </div>
+                <div class="col-xs-6">
+
+                    <a
+                        class="btn btn-xs btn-warning pull-right browse-job-button"
+                        href
+                        data-ui-sref="user.jobs.browse.submit({job_id: data.id})"
+                        data-ng-class="!$auth.user().can('add-bid') ? 'disabled' : ''"
+                        data-ng-show="data.accept_online"
+                    >
+                        Submit bid online
+                    </a>
+                    <a class="btn btn-xs btn-warning pull-right disabled browse-job-button" href data-ng-if="data.my_bid_id">Bid Sent</a>
+                    <a
+                        data-ng-click="call(data.phone)"
+                        data-rel="external"
+                        data-ng-show="data.accept_phone"
+                        title="{{data.phone}}"
+                        class="btn btn-xs btn-warning pull-right browse-job-button"
+                        data-ng-if="$auth.user().can('add-bid')"
+                    >
+                        Submit bid by phone: {{data.phone}}
+                    </a>
+                    <small data-ng-show="!data.accept_phone" class="btn btn-xs btn-warning pull-right browse-job-button" data-ng-if="$auth.user().can('add-bid')">No Phone</small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form m-t" data-ng-if="$auth.user().can('add-bid')">
+                        <div class="form-group" data-ng-if="data.user_info.team_info.company_name">
+                            <label class="control-label font-bold m-r-xs">Company:</label>{{data.user_info.team_info.company_name}}
+                        </div>
+                        <div class="form-group" data-ng-if="data.duration">
+                            <label class="control-label font-bold m-r-xs">Time created</label>{{ getDate(data.created_at) }}
+                        </div>
+                        <div class="form-group" data-ng-if="data.expiry_time.date">
+                            <label class="control-label font-bold m-r-xs">Expiry time:</label>{{ getDate(data.expiry_time.date) }}
+                        </div>
+                        <div class="form-group" data-ng-if="getDistance(data)">
+                            <label class="control-label font-bold m-r-xs">Estimated distance:</label>{{ getDistance(data) }} miles
+                        </div>
+                        <div class="form-group" data-ng-if="data.duration">
+                            <label class="control-label font-bold m-r-xs">Estimated duration:</label>{{ data.duration }}
+                        </div>
+                    </form>
+                </div>
+                <div data-ng-class="!$auth.user().can('add-bid') ? 'col-md-12' : 'col-md-6'">
+                    <div class="map map-md map-full m-t">
+                        <ui-gmap-google-map
+                            ng-if="!data.isCollapsed"
+                            id="map-canvas-{{ data.id }}"
+                            center="maps[data.id].center"
+                            zoom="maps[data.id].zoom"
+                            options="maps[data.id].options"
+                            control="maps[data.id].control"
+                        >
+                        </ui-gmap-google-map>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group m-b-n-sm" data-ng-if="data.details" data-ng-show="$auth.user().can('add-bid')">
+                        <label class="control-label font-bold">Notes: </label>
+                        <p>{{data.details}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</td>

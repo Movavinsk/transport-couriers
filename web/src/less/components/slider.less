@@ -1,0 +1,38 @@
+.slider {
+
+  &.slider-horizontal {
+    width: 100%;
+  }
+}
+
+.slider-primary {
+  .slider-track,
+  .slider-selection {
+    border-radius: 5px;
+  }
+
+  .tooltip {
+    display: none !important;
+  }
+
+  .slider-selection {
+    background: @brand-secondary;
+  }
+
+  .slider-handle {
+    background: @brand-warning;
+    .opacity(1);
+    .box-shadow(0 1px 1px 0 fade(@black, 40%));
+  }
+}
+
+.slider-horizontal-value {
+  padding-right: 35px;
+  position: relative;
+
+  span.value {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}

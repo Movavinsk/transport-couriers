@@ -1,0 +1,192 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">
+        Invoice <span data-ng-if="!data.manual">#{{data.invoice_number}}</span>
+        <span data-ng-if="data.external_number">(#{{data.external_number}})</span>
+    </h3>
+
+    <div class="pull-right">
+        <button class="btn btn-primary btn-sm" data-ng-click="$dismiss()">Close</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-body">
+    <div sdcn-loader size="lg" data-ng-show="loading"></div>
+
+    <div class="manual invoice" data-ng-if="data.manual && !loading">
+        <div class="alert alert-warning">The driver sent the invoice for this job manually. Details of the job are below, but may not exactly reflect the invoice you receive.</div>
+    </div>
+    <div class="system-invoice">
+        <div class="page-header" data-ng-if="!data.manual && !loading">
+            <h1>Invoice</h1>
+        </div>
+
+        <div class="invoice-details row m-b" data-ng-if="!data.manual && !loading">
+            <div class="col-xs-3 invoice-to">
+                <h3 class="m-t-none">Invoice to:</h3>
+                <h4>{{ data.to_company }}</h4>
+
+                <p class="m-b-none">{{ data.to_address_line_1 }}</p>
+
+                <p class="m-b-none">{{ data.to_address_line_2 }}</p>
+
+                <p class="m-b-none">{{ data.to_town }}</p>
+
+                <p class="m-b-none">{{ data.to_county }}</p>
+
+                <p class="m-b-none">{{ data.to_postal_code }}</p>
+            </div>
+            <div class="col-xs-6 main-details">
+                <div class="well well-sm">
+                    <p class="m-b-none"><b>SDCN Invoice Number:</b> {{ data.invoice_number }}</p>
+
+                    <p class="m-b-none"><b>Invoice Date:</b> {{ data.invoice_date }}</p>
+
+                    <p class="m-b-none"><b>SDCN Reference:</b> #{{ data.job_id }}</p>
+
+                    <p class="m-b-none"><b>Customer Invoice Number:</b> #{{ data.external_number }}</p>
+
+                    <p class="m-b-none"><b>Customer Job Number:</b> #{{ data.customer_job_reference_number }}</p>
+                </div>
+            </div>
+            <div class="col-xs-3 text-right">
+                <td class="invoice-issuer">
+                    <figure class="invoice-logo invoice-logo-inline-block" data-ng-show="data.from_logo">
+                        <img data-ng-src="{{data.from_logo}}"/>
+                    </figure>
+                    <h4>{{ data.from_company }}</h4>
+
+                    <p class="m-b-none">{{ data.from_address_line_1 }}</p>
+
+                    <p class="m-b-none">{{ data.from_address_line_2 }}</p>
+
+                    <p class="m-b-none">{{ data.from_town }}</p>
+
+                    <p class="m-b-none">{{ data.from_county }}</p>
+
+                    <p class="m-b-none">{{ data.from_postal_code }}</p>
+
+                    <p class="m-b-none" style="word-wrap: break-word;">{{ data.from_email }}</p>
+
+                    <p class="m-b-none">{{ data.from_phone }}</p>
+                </td>
+            </div>
+        </div>
+
+        <div class="invoice-items m-b" data-ng-show="!loading">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Qty</th>
+                    <th>Description</th>
+                    <th>Unit cost (£)</th>
+                    <th>VAT (£)</th>
+                    <th>Total (£)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <div>SDCN Job ID: #{{data.job_id}}</div>
+                        <small><i>(From: {{data.pickup_point}}, To: {{data.destination_point}})</i></small>
+                        <div data-ng-show="data.job.details">
+                            Notes: {{data.job.details}}
+                        </div>
+                        <div data-ng-show="!data.job.details">
+                            No notes available.
+                        </div>
+                    </td>
+                    <td>
+                        {{data.amount}}
+                    </td>
+                    <td>
+                        {{data.amount_vat}}
+                    </td>
+                    <td>
+                        {{data.amount_total}}
+                    </td>
+                </tr>
+                <tr data-ng-repeat="item in data.invoice_items">
+                    <td>1</td>
+                    <td>
+                        {{item.item}}
+                    </td>
+                    <td>
+                        {{item.amount}}
+                    </td>
+                    <td>
+                        {{item.vat_amount}}
+                    </td>
+                    <td>
+                        {{item.total}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="invoice-totals m-b" data-ng-show="!loading">
+            <div class="row">
+                <div class="col-xs-5 col-xs-offset-7">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>
+                                Subtotal (ex VAT):
+                            </th>
+                            <td>
+                                £{{data.sub_total}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Total VAT:
+                            </th>
+                            <td>
+                                £{{data.vat_amount}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Total:
+                            </th>
+                            <td>
+                                £{{data.total}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes m-t m-b" data-ng-show="data.notes" data-ng-if="!data.manual && !loading">
+            <h4>Notes:</h4>
+
+            <div class="well well-sm">
+                {{data.notes}}
+            </div>
+        </div>
+
+        <div class="invoice-footer">
+            <i>{{data.invoice_footer}}</i>
+        </div>
+
+        <div class="invoice-footer m-b" data-ng-show="data.footer_text" data-ng-if="!data.manual && !loading">
+            <i ng-bind-html="data.footer_text"></i>
+        </div>
+
+        <hr data-ng-if="!data.manual && !loading">
+        <div class="text-center" data-ng-if="!data.manual && !loading">
+            <p data-ng-show="data.vat_number">
+                <small class="text-center">VAT: {{data.vat_number}}</small>
+            </p>
+            <small class="text-center">Sameday Courier Network {{date | date:'yyyy'}}</small>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer text-right" data-ng-if="!data.manual">
+    <a class="btn btn-lg btn-success" target="_blank" href="/download/invoices/{{data.id}}" title="Download PDF"
+       role="button">Download PDF</a>
+</div>

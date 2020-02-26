@@ -1,0 +1,46 @@
+<div class="recover" ng-controller="RecoverController" data-ui-view>
+    <a class="brand text-center" data-ui-sref="login" title="Same Day Courier Network">
+        <img src="/assets/img/login-logo.png" title="Same Day Courier Network" alt="Same Day Courier Network"/>
+    </a>
+
+    <div class="row m-t-lg">
+        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <div class="panel panel-default sign-in">
+                <div class="panel-body">
+                    <h2 class="m-t-none m-b-sm font-light">Forgot your password?</h2>
+
+                    <p class="text-info">Enter your email address to recover your account.</p>
+
+                    <form name="form">
+                        <div class="form-group" ng-class="{
+                                    'has-error': form.email.$error.email,
+                                    'has-success': form.email.$valid,
+                                    'has-feedback': form.email.$valid || form.email.$error.email,
+                                }">
+                            <input type="email"
+                                   name="email"
+                                   id="email"
+                                   placeholder="Email address"
+                                   class="form-control"
+                                   data-ng-model="email"
+                                   required/>
+                            <span class="fa fa-check-circle form-control-feedback" aria-hidden="true"
+                                  data-ng-if="form.email.$valid"></span>
+                            <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                                  data-ng-if="form.email.$error.email"></span>
+                            <span class="label label-danger"
+                                  data-ng-if="form.email.$error.email">Not valid email!</span>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-info btn-block" data-ng-click="recover(email)"
+                                data-ng-disabled="form.$invalid">
+                            Recover My Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center m-t m-b">
+                <a class="text-dark" href data-ui-sref="login" title="Cancel">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<td class="no-padder-v no-padder-l b-t-none">
+    <div class="pull-left thumb-sm avatar m-l-n-md m-t">
+        <img data-ng-src="{{data.sender.avatar_url}}" alt="{{data.sender.name_full}}">
+    </div>
+    <div class="m-l-lg m-b-lg panel b-a bg-light pos-rlt">
+        <span class="arrow arrow-light left"></span>
+        <div class="panel-body" data-ng-if="data">
+            <div class="m-b"><i>“{{data.comment}}”</i></div>
+            <rating class="rating read-only" ng-model="data.rating" max="5" state-on="'glyphicon glyphicon-star text-info'" state-off="'glyphicon glyphicon-star-empty text-info'" data-readonly="true"></rating><small class="text-muted"> - {{data.sender.name_full}} ({{data.sender.team_info.company_name}}) - <i>{{data.created_at | amDateFormat:'DD/MM/YYYY HH:mm'}}</i></small>
+        </div>
+    </div>
+</td>

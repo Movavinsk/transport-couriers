@@ -1,0 +1,31 @@
+<div class="panel panel-default panel-sm" data-ng-controller="UsefulLinksController">
+    <div class="panel-heading">
+        <h3 class="panel-title toggle" ng-init="isCollapsed = $app.isSmartDevice" ng-click="isCollapsed = !isCollapsed">
+            <span>Useful Links</span>
+            <i class="pull-right fa fa-angle-up"
+               ng-class="{'fa-angle-down': isCollapsed, 'fa-angle-up': !isCollapsed}"></i>
+        </h3>
+    </div>
+
+    <div collapse="isCollapsed" class="panel-collapse">
+        <div class="panel-body">
+            <ul class="links list-unstyled">
+                <li class="link">
+                    <a href data-ui-sref="user.benefits" title="Jobs Posted">Member Benefits</a>
+                </li>
+                <li class="link">
+                    <a href data-ui-sref="user.account.jobs" title="Jobs Posted">Jobs Posted</a>
+                </li>
+                <li class="link">
+                    <a href data-ui-sref="user.account.work" title="My Work">My Work</a>
+                </li>
+                <li class="link">
+                    <a href data-ui-sref="user.account.team" title="My Users">My Users</a>
+                </li>
+                <li class="link">
+                    <a href data-ui-sref="user.account.profile" title="My Account Details">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="i-dtp">
+	<div class="input-group">
+		<input type="text" class="form-control" ng-model="viewValue" placeholder="{{placeholder}}" />
+		<span class="input-group-btn">
+			<button type="button" class="btn btn-default" ng-click="clickToggle($event)"><i class="fa fa-{{icon}}"></i></button>
+		</span>
+		<ul class="dropdown-menu" ng-style="{display: (isOpen && 'block') || 'none'}" ng-keydown="keydown($event)">
+			<li><div class="datepicker" datepicker ng-model="modelValue" min-date="minDate" max-date="maxDate"></div></li>
+			<li><div class="timepicker" timepicker ng-model="modelValue" show-meridian="false"></div></li>
+			<li>
+                <div class="i-dtp-footer">
+                    <span class="btn-group pull-left" data-ng-if="controls">
+                        <button type="button" class="btn btn-sm btn-info" ng-click="select('now')">Now</button>
+                        <button type="button" class="btn btn-sm btn-warning" ng-click="select(null)">Clear</button>
+                    </span>
+                    <span class="btn-group pull-right">
+                        <button type="button" class="btn btn-sm btn-primary" ng-click="close()">Save</button>
+                    </span>
+                </div>
+			</li>
+		</ul>
+	</div>
+</div>

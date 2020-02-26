@@ -1,0 +1,49 @@
+.widget-account {
+
+  .nav-pills {
+    margin-left: -15px;
+    margin-right: -15px;
+
+    > li {
+      margin-bottom: 1px;
+
+      > a {
+        border-radius: 0;
+      }
+
+      &.active {
+
+        &.dropdown a {
+          .border-bottom-radius(0);
+        }
+
+        .dropdown-menu {
+          width: 100%;
+          padding-left: 15px;
+          padding-right: 15px;
+          margin-top: 0;
+          margin-bottom: @padding-base-vertical;
+          position: relative;
+          border: 0;
+          .border-bottom-radius(0);
+          .box-shadow(none);
+          .responsive-visibility();
+
+          > li {
+            margin-bottom: 1px;
+
+            a {
+              border-radius: @border-radius-base;
+            }
+
+            &.active {
+              a {
+                background-color: @gray-light !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

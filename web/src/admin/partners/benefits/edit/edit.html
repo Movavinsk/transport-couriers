@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">Edit Benefit
+    </h3>
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" ng-click="$dismiss()">Cancel</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal">
+        <h4 class="page-header">Benefit Details</h4>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Benefit Description:</label>
+
+            <div class="col-sm-10">
+                <textarea class="form-control" ng-model="benefit.description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Url:</label>
+
+            <div class="col-sm-10">
+                <input class="form-control" type="text" data-ng-model="benefit.url" placeholder="http://" value="http://"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox checkbox-success">
+                    <label>
+                        <input type="checkbox"  ng-true-value="1" ng-false-value="0" data-ng-model="benefit.active"/>
+                        Active
+                        <i></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer text-right">
+    <button type="button" class="btn btn-lg btn-success" ng-click="store()" ng-disabled="formSubmitted">
+        <span ng-if="!formSubmitted">Save</span>
+        <span ng-if="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Save</span>
+    </button>
+</div>

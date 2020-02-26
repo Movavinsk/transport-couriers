@@ -1,0 +1,191 @@
+/* Padders */
+.no-padder-v{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.no-padder-h{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.no-padder-t {
+  padding-top: 0 !important;
+}
+
+.no-padder-b {
+  padding-bottom: 0 !important;
+}
+
+.no-padder-l {
+  padding-left: 0 !important;
+}
+
+.no-padder-r {
+  padding-right: 0 !important;
+}
+
+/* Text responsive alignment */
+.text-left-sm {
+  @media (min-width: @screen-sm-min) {
+    text-align: left;
+  }
+}
+
+.text-center-sm {
+  @media (min-width: @screen-sm-min) {
+    text-align: center;
+  }
+}
+
+.text-right-sm {
+  @media (min-width: @screen-sm-min) {
+    text-align: right;
+  }
+}
+
+.text-left-md {
+  @media (min-width: @screen-md-min) {
+    text-align: left;
+  }
+}
+
+.text-center-md {
+  @media (min-width: @screen-md-min) {
+    text-align: center;
+  }
+}
+
+.text-right-md {
+  @media (min-width: @screen-md-min) {
+    text-align: right;
+  }
+}
+
+.text-left-lg {
+  @media (min-width: @screen-lg-min) {
+    text-align: left;
+  }
+}
+
+.text-center-lg {
+  @media (min-width: @screen-lg-min) {
+    text-align: center;
+  }
+}
+
+.text-right-lg {
+  @media (min-width: @screen-lg-min) {
+    text-align: right;
+  }
+}
+
+/* Text vertical alignment */
+.text-middle {vertical-align: middle !important;}
+.text-top {vertical-align: top !important;}
+.text-bottom {vertical-align: bottom !important;}
+
+/* Font weights */
+.font-thin {font-weight: 100 !important;}
+.font-light {font-weight: 300 !important;}
+.font-normal {font-weight: 400 !important;}
+.font-medium {font-weight: 500 !important;}
+.font-bold {font-weight: 700 !important;}
+.font-ubold {font-weight: 900 !important;}
+
+/* Headlines */
+.headline {
+
+}
+
+.headline-light {
+  font-weight: 300;
+}
+
+//== Vehicles ==//
+
+.vehicle {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.vehicle-default path {
+  fill: @btn-default-bg;
+}
+
+.vehicle-danger path {
+  fill: @btn-danger-bg;
+}
+
+//== Maps ==//
+.map-sm {
+  .angular-google-map-container {
+    height: 150px;
+  }
+}
+
+.map-md {
+  .angular-google-map-container {
+    height: 300px;
+  }
+}
+
+.map-full {
+  .angular-google-map-container {
+    width: 100%;
+  }
+}
+
+//== Margins ==//
+
+.m-l-s-md {
+  @media (min-width: @screen-md-min) {
+    margin-left: 15px !important;
+  }
+}
+
+.m-r-s-md {
+  @media (min-width: @screen-md-min) {
+    margin-right: 15px !important;
+  }
+}
+
+.m-t-s-md {
+  @media (min-width: @screen-md-min) {
+    margin-top: 15px !important;
+  }
+}
+
+.m-b-s-md {
+  @media (min-width: @screen-md-min) {
+    margin-bottom: 15px !important;
+  }
+}
+
+//== Borders ==//
+
+.b-t-none {
+  border-top: 0 !important;
+}
+
+.b-l-none {
+  border-left: 0 !important;
+}
+
+.b-r-none {
+  border-right: 0 !important;
+}
+
+.b-b-none {
+  border-bottom: 0 !important;
+}
+
+pre {
+  color: @text-color;
+}

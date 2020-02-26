@@ -1,0 +1,75 @@
+.user-dashboard {
+
+  .content {
+
+    .control-panel {
+
+      .panel {
+
+        @media (min-width: @screen-sm-min) {
+          margin: 0;
+        }
+
+      }
+
+      .tab-content {
+
+        #to-do {
+
+          ul {
+
+            li {
+              padding: 13px 0;
+
+              + li {
+                border-top: 1px solid @gray-lighter;
+              }
+
+              p{
+                padding-left: 25px;
+                position: relative;
+
+                @media (min-width: @screen-sm-min) {
+                  display: inline-block;
+                }
+
+                span {
+                  margin-top: -11px;
+                  position: absolute;
+                  left: 0;
+                  top: 50%;
+                  padding-right: 8px;
+                  display: inline-block;
+                  font-size: 22px;
+                }
+              }
+
+              .btn {
+                margin-left: 25px;
+
+                @media (min-width: @screen-sm-min) {
+                  margin-left: 20px;
+                }
+              }
+            }
+          }
+        }
+
+        #my-bids,
+        #my-jobs {
+
+          ul {
+
+            li {
+              padding: 10px 15px;
+
+              +li {
+                border-top: 1px solid @gray-lighter;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

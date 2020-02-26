@@ -1,0 +1,176 @@
+<style>
+    .ngrs-range-slider { background: transparent; border: 0; }
+    .ngrs-range-slider .ngrs-handle {border: 0; background: transparent; }
+    .ngrs-range-slider .ngrs-handle i {border-radius: 20px; width: 20px; height: 20px; background-color: #f4a703; box-shadow: 0 1px 1px 0 rgba(0,0,0,.4); }
+    .ngrs-range-slider .ngrs-handle-min i, .ngrs-range-slider .ngrs-handle-max i {background: #f4a703; }
+    .ngrs-range-slider .ngrs-join {background: #1298e6; height: 10px;}
+</style>
+
+<div class="row row-offcanvas row-offcanvas-right">
+
+    <div class="content col-sm-8">
+        <!-- <div class="alert alert-warning" role="alert" data-ng-if="!$auth.user().can('see-bid')"> -->
+        <div class="alert alert-warning" role="alert" data-ng-if="! $auth.isUser()">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Warning:</span>
+            Please note this area is for paying members only. Please contact us. @TODO verbiage for this
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading buttons">
+                <h3 class="panel-title">
+                    Browse Members Directory
+                    <div class="panel-heading-buttons">
+                        <button class="btn btn-default btn-xs" data-ng-click="tableParams.reload()">
+                            <i class="icon-refresh"></i>
+                            <span class="hidden-xs">Refresh</span>
+                        </button>
+                        <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                </h3>
+            </div>
+            <div class="panel-body no-padder-v no-padder-h">
+                <div sdcn-loader size="lg" data-ng-show="loading"></div>
+
+                <div class="not-found" data-ng-show="!tableParams.total() && !loading">
+                    <h1>0</h1>
+                    <div class="text">Sorry, no teams matching your criteria.</div>
+                </div>
+
+                <div class="table-responsive job-list job-list-md" data-ng-show="tableParams.total() && !loading">
+                    <table
+                        class="table"
+                        data-ng-table="tableParams"
+                        template-header="src/user/layout/elements/thead.html"
+                        template-pagination="src/user/layout/elements/tfoot.html"
+                    >
+                        <tbody>
+                            <tr
+                                data-ng-repeat="data in $data"
+                                data-ng-include="'src/user/layout/elements/member-directory-single.html'"
+                            >
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <aside class="sidebar col-sm-4 sidebar-offcanvas" role="complementary">
+        <div class="widget members-job-filters">
+
+            <div class="panel panel-primary panel-sm">
+                <div class="panel-heading">
+                    <h3 class="panel-title toggle" ng-init="isCollapsed = $app.isSmartDevice"
+                        ng-click="isCollapsed = !isCollapsed">
+                        <span>Filter Results</span>
+                        <i class="pull-right fa fa-angle-up"
+                           ng-class="{'fa-angle-down': isCollapsed, 'fa-angle-up': !isCollapsed}"></i>
+                    </h3>
+                </div>
+
+                <div collapse="isCollapsed" class="panel-collapse">
+                    <div class="panel-body">
+                        <form class="form" role="form">
+
+                            <div class="form-group">
+                                <label>Search by Name
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Member name"
+                                    ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 200, 'blur': 0 } }"
+                                    ng-model="tableParams.filter()['search']"
+                                    ng-model-options="{ updateOn: 'blur' }"
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox checkbox-secondary">
+                                    <label class="text-white">
+                                        <input type="checkbox" data-ng-model="filterByLocation"/>
+                                        <i></i>
+                                        Filter by Location
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group" data-ng-show="filterByLocation">
+                                <label>Member Location
+                                    <small>(Town/city/post code)</small>
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Member Location"
+                                    ng-model="tableParams.filter()['member_address']"
+                                    ng-model-options="{ updateOn: 'blur' }"
+                                    lng="tableParams.filter()['member_longitude']"
+                                    lat="tableParams.filter()['member_latitude']" googleplace required
+                                />
+                            </div>
+
+                            <div
+                                class="form-group slider-horizontal-value"
+                                ng-if="tableParams.filter()['member_longitude']"
+                            >
+                                <label>Search Radius
+                                    <small>({{ filters.member_miles }} miles)</small>
+                                </label>
+                                <slider
+                                    class="slider-primary"
+                                    ng-model="filters.member_miles"
+                                    max="50"
+                                    step="5"
+                                ></slider>
+                                <span class="value">{{ filters.member_miles }}</span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox checkbox-secondary">
+                                    <label class="text-white">
+                                        <input type="checkbox" data-ng-model="filterByVehicle"/>
+                                        <i></i>
+                                        Filter by Vehicle Size
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group" data-ng-show="filterByVehicle">
+                                <label>Vehicle Size
+                                    <small>From: {{ vehicles[(filters.vehicle_min/100) - 1].name }} To: {{ vehicles[(filters.vehicle_max/100) - 1].name }}</small>
+                                </label>
+                                <div
+                                    range-slider
+                                    min="min"
+                                    max="max"
+                                    model-min="filters.vehicle_min"
+                                    model-max="filters.vehicle_max"
+                                    ng-model-options="{ updateOn: 'blur' }"
+                                    step="100"
+                                ></div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox checkbox-secondary">
+                                    <label class="text-white">
+                                        <input type="checkbox" data-ng-model="filterByBlockedMembers"/>
+                                        <i></i>
+                                        Filter by Blocked Members
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </aside>
+
+</div>

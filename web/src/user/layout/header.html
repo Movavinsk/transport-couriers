@@ -1,0 +1,133 @@
+<!-- navbar header -->
+<div class="container pos-rlt" data-ng-init="isNavbarCollapsed = true">
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="brand" data-ui-sref="user.dashboard" title="Same Day Courier Network">
+                <img src="/assets/img/sdcn-logo.png" title="Same Day Courier Network" alt="Same Day Courier Network"/>
+            </a>
+        </div>
+
+        <div class="col-sm-9 pos-stc text-right-sm">
+            <div class="collapse navbar-collapse pos-rlt" collapse="isNavbarCollapsed">
+                <nav class="navbar nav-main"role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li data-ui-sref-active="active">
+                            <a data-ui-sref="user.dashboard" title="Dashboard" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                <i class="glyphicon glyphicon-stats"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a data-ui-sref="user.jobs.post" title="Post a Job" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                Post a Job
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a data-ui-sref="user.jobs.allocate" title="Allocate a Job" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                Allocate a Job
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a data-ui-sref="user.jobs.browse" title="Browse Jobs" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                <i class="glyphicon glyphicon-list"></i>
+                                Browse Jobs
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a data-ui-sref="user.directory" title="Members Directory" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                <i class="glyphicon glyphicon-folder-open"></i>
+                                Directory
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <a href="http://samedaycouriernetwork.com/#contact" target="_blank" title="Help" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                <i class="fa fa-question-circle"></i>
+                                Help
+                            </a>
+                        </li>
+                        <li data-ui-sref-active="active">
+                            <span class="dropdown pos-stc" dropdown>
+                                <a class="dropdown-toggle" dropdown-toggle title="Account">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    Account
+                                    <i class="fa"></i>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li data-ui-sref-active="active">
+                                        <a data-ui-sref="user.benefits" title="Member Benefits" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                            Member Benefits
+                                        </a>
+                                    </li>
+                                    <li data-ui-sref-active="active">
+                                        <a data-ui-sref="user.account.jobs" title="My Jobs" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                            Jobs Posted
+                                        </a>
+                                    </li>
+                                    <li data-ui-sref-active="active">
+                                        <a data-ui-sref="user.account.work" title="My Work" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                            My Work
+                                        </a>
+                                    </li>
+                                    <li data-ui-sref-active="active">
+                                        <a data-ui-sref="user.account.team" title="My Users" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                            My Users
+                                        </a>
+                                    </li>
+                                    <li data-ui-sref-active="active">
+                                        <a data-ui-sref="user.account.feedback" title="Feedback" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                            Feedback
+                                        </a>
+                                    </li>
+                                    <li data-ui-sref-active="active">
+                                        <a data-ui-sref="user.account.profile" title="Profile" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li data-ui-sref-active="active" data-ng-if="$auth.isAdmin()">
+                                        <a data-ui-sref="admin.dashboard" title="Admin Dashboard" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+                                            Admin Dashboard
+                                        </a>
+                                    </li>
+                                    <li data-ng-controller="LoginController">
+                                        <a href ng-click="logout()" title="Logout">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
+            <a class="avatar hidden-xs hidden-sm" href="#" title="Company Name" data-ng-controller="LoginController">
+                <img data-ng-src="{{auth.user().getAvatar()}}" title="{{auth.user().name_full}}" alt="{{auth.user().name_full}}"/>
+            </a>
+
+            <nav class="navbar nav-settings pull-right visible-xs">
+                <ul class="navbar-nav nav">
+                    <li>
+                        <a href="#" data-ui-sref="user.help"><span class="fa fa-question-circle"></span></a>
+                    </li>
+                    <li>
+                        <a href="#" data-ui-sref="user.account.profile"><span class="fa fa-user"></span></a>
+                    </li>
+                    <li>
+                        <button type="button" class="navbar-toggle collapsed" data-ng-click="isNavbarCollapsed = !isNavbarCollapsed"
+                                data-target="#nav-main-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bars">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

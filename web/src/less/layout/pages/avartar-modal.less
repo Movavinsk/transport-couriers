@@ -1,0 +1,38 @@
+.avatar-image-crop-wrap {
+  width:400px;
+  height:400px;
+  position: relative;
+
+  .loading {
+    position: absolute;
+    margin-top: -10px;
+    top: 50%;
+    left: 0;
+    right: 0;
+    z-index: 300;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .avatar-image-crop-content {
+    background: @gray-lighter;
+    overflow: hidden;
+    width:400px;
+    height:400px;
+    border: 1px solid @gray-light;
+    border-radius: @border-radius-base;
+  }
+}
+
+.avatar-holder {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 75px;
+
+  img {
+    .img-responsive();
+  }
+}

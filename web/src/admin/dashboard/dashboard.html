@@ -1,0 +1,169 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    $app.settings.asideFolded = false;
+    $app.settings.asideDock = false;
+  ">
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-light h3"><i class="icon-home"></i> Dashboard</h1>
+        </div>
+        <!-- / main header -->
+        <div class="wrapper-md">
+            <!-- service -->
+            <div class="panel hbox hbox-auto-xs no-border">
+                <div class="col wrapper">
+                    <i class="fa fa-circle-o text-info m-r-sm pull-right"></i>
+                    <h4 class="font-light m-t-none m-b-none text-primary-lt">SDCN Jobs</h4>
+                    <span class="m-b block text-sm text-muted">Jobs report of the last 30 days</span>
+                    <flot dataset="jobMonthlyStat" options="jobMonthlyChartOptions" width="100%" height="240px"></flot>
+                </div>
+                <div class="col wrapper-lg w-lg bg-light dk r-r hidden">
+                    <h4 class="font-thin m-t-none m-b">Reports</h4>
+                    <div class="">
+                        <div class="">
+                            <span class="pull-right text-primary">60%</span>
+                            <span>Consulting</span>
+                        </div>
+                        <progressbar value="60" class="progress-xs m-t-sm bg-white" animate="true" type="primary"></progressbar>
+                        <div class="">
+                            <span class="pull-right text-info">35%</span>
+                            <span>Online tutorials</span>
+                        </div>
+                        <progressbar value="35" class="progress-xs m-t-sm bg-white" animate="true" type="info"></progressbar>
+                        <div class="">
+                            <span class="pull-right text-warning">25%</span>
+                            <span>EDU management</span>
+                        </div>
+                        <progressbar value="25" class="progress-xs m-t-sm bg-white" animate="true" type="warning"></progressbar>
+                    </div>
+                    <p class="text-muted">Dales nisi nec adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis</p>
+                </div>
+            </div> <!-- / service -->
+            <div class="row">
+                <div class="col-lg-6">
+                     <div class="panel hbox hbox-auto-xs no-border col-lg-6">
+                        <div class="wrapper">
+                            <h4 class="font-light m-t-none m-b-none text-primary-lt">SDCN Expiring Members</h4>
+                            <span class="m-b block text-sm text-muted">Members expirations</span>
+
+                                <div class="row wrapper b-t b-light">
+                                    <div class="col-sm-3">
+                                        Members expiring in:
+                                    </div>
+
+                                    <div class="col-sm-9 text-right">
+                                        <div class="btn-group" ng-init="radioModel = 'Male'">
+                                            <label
+                                                class="btn btn-xs btn-white"
+                                                ng-class="{active: expiring_members.filter()['expires_in'] === '2'}"
+                                                ng-click="expiring_members.filter()['expires_in'] = '2'"
+                                            > Day </label>
+                                            <label
+                                                class="btn btn-xs btn-white"
+                                                ng-class="{active: expiring_members.filter()['expires_in'] === '7'}"
+                                                ng-click="expiring_members.filter()['expires_in'] = '7'"
+                                            > Week </label>
+                                            <label
+                                                class="btn btn-xs btn-white"
+                                                ng-class="{active: expiring_members.filter()['expires_in'] === '30'}"
+                                                ng-click="expiring_members.filter()['expires_in'] = '30'"
+                                            > Month </label>
+                                            <label
+                                                class="btn btn-xs btn-white"
+                                                ng-class="{active: expiring_members.filter()['expires_in'] === '120'}"
+                                                ng-click="expiring_members.filter()['expires_in'] = '120'"
+                                            > Quarter </label>
+                                            <label
+                                                class="btn btn-xs btn-white"
+                                                ng-class="{active: expiring_members.filter()['expires_in'] === '365'}"
+                                                ng-click="expiring_members.filter()['expires_in'] = '365'"
+                                            > Year </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive job-list job-list-md">
+                                    <table
+                                        class="table table-striped b-t b-light text-left"
+                                        data-ng-table="expiring_members"
+                                        template-pagination="src/user/layout/elements/tfoot.html"
+                                    >
+                                        <tbody>
+                                            <tr
+                                                data-ng-repeat="data in $data"
+                                            >
+                                                <td data-title="'Member Name'" data-sortable="'company_name'"><a ui-sref="admin.teams.edit({id: data.id})">{{ data.company_name }}</a></td>
+                                                <td data-title="'Expiring In'" data-sortable="'expire_at'">{{ data.expire_in_days }} days</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                     <div class="panel hbox hbox-auto-xs no-border col-lg-6">
+                        <div class="wrapper">
+                            <h4 class="font-light m-t-none m-b-none text-primary-lt">SDCN Expiring Insurances</h4>
+                            <span class="m-b block text-sm text-muted">SDCN Members Expiring Insurances</span>
+
+                            <div class="row wrapper b-t b-light">
+                                <div class="col-sm-3">
+                                    Insurances expiring in:
+                                </div>
+
+                                <div class="col-sm-9 text-right">
+                                    <div class="btn-group">
+                                        <label
+                                            class="btn btn-xs btn-white"
+                                            ng-class="{active: expiring_insurances.filter()['expires_in'] === '2'}"
+                                            ng-click="expiring_insurances.filter()['expires_in'] = '2'"
+                                        > Day </label>
+                                        <label
+                                            class="btn btn-xs btn-white"
+                                            ng-class="{active: expiring_insurances.filter()['expires_in'] === '7'}"
+                                            ng-click="expiring_insurances.filter()['expires_in'] = '7'"
+                                        > Week </label>
+                                        <label
+                                            class="btn btn-xs btn-white"
+                                            ng-class="{active: expiring_insurances.filter()['expires_in'] === '30'}"
+                                            ng-click="expiring_insurances.filter()['expires_in'] = '30'"
+                                        > Month </label>
+                                        <label
+                                            class="btn btn-xs btn-white"
+                                            ng-class="{active: expiring_insurances.filter()['expires_in'] === '120'}"
+                                            ng-click="expiring_insurances.filter()['expires_in'] = '120'"
+                                        > Quarter </label>
+                                        <label
+                                            class="btn btn-xs btn-white"
+                                            ng-class="{active: expiring_insurances.filter()['expires_in'] === '365'}"
+                                            ng-click="expiring_insurances.filter()['expires_in'] = '365'"
+                                        > Year </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive job-list job-list-md">
+                                <table
+                                    class="table table-striped b-t b-light text-left"
+                                    data-ng-table="expiring_insurances"
+                                    template-pagination="src/user/layout/elements/tfoot.html"
+                                >
+                                    <tbody>
+                                        <tr
+                                            data-ng-repeat="data in $data"
+                                        >
+                                            <td data-title="'Member Name'" data-sortable="'teams.company_name'"><a ui-sref="admin.teams.edit({id: data.id})">{{ data.company_name }}</a></td>
+                                            <td data-title="'Expiring Documents'">{{ data.expiring_amount }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div> <!--  / row -->
+        </div> <!-- / main -->
+    </div> <!-- / right col -->
+</div>

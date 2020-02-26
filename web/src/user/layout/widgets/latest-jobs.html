@@ -1,0 +1,28 @@
+<div class="panel panel-default" data-ng-controller="LatestJobsController">
+    <div class="panel-heading">
+        <h3 class="panel-title">Latest jobs in your area</h3>
+        <h6 class="panel-sub-title">Results based on your location settings. (<a data-ui-sref="user.account.profile.locations" title="Edit locations">Edit locations</a>)</h6>
+    </div>
+
+    <div class="panel-body">
+        <div class="not-found not-found-sm" data-ng-show="!data.length">
+            <h1>0</h1>
+            <div class="text">It appears there are no jobs near you at the moment.</div>
+        </div>
+
+        <ul class="jobs list-unstyled" data-ng-show="data.length">
+            <li class="job" data-ng-repeat="job in data" >
+                <p class="from"><span>From</span> {{job.pickup_point}}</p>
+
+                <p class="to"><span>To</span> {{job.destination_point}}</p>
+                <div class="text-right">
+                    <a class="btn btn-xs btn-warning" href data-ui-sref="user.dashboard.details({job_id: job.id})" title="Details" role="button">Details</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="panel-footer text-right" data-ng-show="data.length">
+        <a class="btn btn-xs btn-default" href data-ui-sref="user.jobs.browse" title="View All">View All</a>
+    </div>
+</div>

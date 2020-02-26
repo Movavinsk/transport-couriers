@@ -1,0 +1,203 @@
+<td class="member member-browse">
+    <div class="row">
+        <div class="col-sm-6">
+            <strong class="clearfix">{{ data.company_name }}</strong>
+            <img ng-src="{{ data.logo }}" style="max-width: 11vw; max-height: 8vw; margin: 1rem 0;">
+            <!-- <p>{{ data.address_line_1 }}, {{ data.address_line_2}} {{ data.town }}, {{ data.postal_code }}</p> -->
+        </div>
+        <div class="col-sm-6 text-right">
+            <rating
+                class="rating read-only"
+                ng-model="data.score"
+                max="5"
+                state-on="'glyphicon glyphicon-star text-info'"
+                state-off="'glyphicon glyphicon-star-empty text-info'"
+                data-readonly="true"
+            ></rating>
+            <div class="clearfix"></div>
+            (from <a href="#" ng-click="data.isCollapsed = false; data.showFeedback = true;">{{ data.ratings_count }} reviews</a>)
+            <div style="margin-top: 1rem;" class="clearfix"></div>
+            <!-- <h1>{{ data.invoice_recipient_phone }} </h1> -->
+            <button
+                type="button"
+                class="btn m-t-xs btn-sm btn-danger"
+                ng-click="data.isCollapsed = true"
+                ng-if="! data.isCollapsed">Close
+            </button>
+            <button
+                type="button"
+                class="btn m-t-xs btn-sm btn-primary"
+                ng-click="data.isCollapsed = false"
+                ng-if="data.isCollapsed">View Profile
+            </button>
+            <button
+                type="button"
+                class="btn btn-sm m-t-xs btn-warning"
+                ng-if="data.is_blocked == true"
+                ng-click="unBlockMember(data.id)"
+            >
+                Unblock
+            </button>
+            <button
+                ng-if="data.is_blocked == false"
+                type="button"
+                class="btn btn-sm m-t-xs btn-secondary"
+                ng-click="blockMember(data.id)"
+            >
+                Block
+            </button>
+            <!-- <button type="button" class="btn btn-sm btn-primary">Contact</button> -->
+        </div>
+    </div>
+    <div collapse="data.isCollapsed" class="panel-collapse collapse">
+        <tabset>
+            <tab heading="Company">
+                <div class="wrapper" style="padding: 0">
+                    <!-- <strong>{{ data.company_name }}</strong> -->
+                    <table class="table striped">
+                        <tr ng-if="data.primary_member.name_first">
+                            <td><strong>Primary Contact</strong></td>
+                            <td>{{ data.primary_member.name_first }} {{ data.primary_member.name_last }}</td>
+                        </tr>
+                        <tr ng-if="data.invoice_recipient_phone">
+                            <td><strong>Phone Number</strong></td>
+                            <td>{{ data.invoice_recipient_phone }}</td>
+                        </tr>
+                        <tr ng-if="data.primary_member.email">
+                            <td><strong>Email</strong></td>
+                            <td>{{ data.primary_member.email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address</strong></td>
+                            <td>
+                                <p>
+                                    <span ng-if="data.address_line_1">{{ data.address_line_1 }},<br></span>
+                                    <span ng-if="data.address_line_2">{{ data.address_line_2 }},<br></span>
+                                    {{ data.town }}<br>
+                                    {{ data.postal_code }}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr ng-if="data.vat_number">
+                            <td><strong>Vat Number</strong></td>
+                            <td>{{ data.vat_number }}</td>
+                        </tr>
+                        <tr ng-if="data.company_number">
+                            <td><strong>Company Registration</strong></td>
+                            <td>{{ data.company_number }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="Locations" select="getLocations(data)">
+                <div class="m-b padder-v">
+                    <table
+                        class="table"
+                        ng-table="data.locations"
+                        template-pagination="src/user/layout/elements/tfoot.html"
+                    >
+                        <tbody>
+                            <tr
+                                ng-repeat="data in data.locations.data"
+                            >
+                                <td data-title="'Location'">{{ data.location }}</td>
+                                <td data-title="'Range'">{{ data.miles }}</td>
+                                <td>
+                                    <a
+                                        href
+                                        class="btn btn-xs btn-primary"
+                                        data-ui-sref=".map({lat: data.latitude, lng: data.longitude, radius: data.miles})"
+                                    >Map</a>
+                                    <!-- ng-click="setLocation(data)" -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="Documents" select="getDocuments(data)">
+                <div class="m-b padder-v">
+                    <div class="table-responsive documents">
+                        <table
+                            class="table"
+                            ng-table="data.documents"
+                            template-pagination="src/user/layout/elements/tfoot.html"
+                        >
+                            <tbody>
+                                <tr
+                                    ng-repeat="data in data.documents.data"
+                                >
+                                    <td data-title="'Document'">
+                                        <p>{{ data.type.name }}</p>
+                                        <div class="visible-xs">
+                                            <p>
+                                                <strong>Expiry Date: </strong>
+                                                {{ data.expiry || 'not set' }}
+                                            </p>
+                                            <p>
+                                                <strong>Amount Insured: </strong>
+                                                {{ data.insured_amount | currency:"GBP" }}
+                                            </p>
+                                            <a target="_blank" ng-href="{{ data.upload }}" class="btn btn-primary btn-xs">
+                                                Download
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td data-title="'Expiry Date'">
+                                        {{ data.expiry || 'not set' }}
+                                    </td>
+                                    <td data-title="'Amount Insured'">
+                                        {{ data.insured_amount | currency:"GBP" }}
+                                    </td>
+                                    <td>
+                                        <a target="_blank" ng-href="{{ data.upload }}" class="btn btn-primary btn-xs">
+                                            Download
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Feedback" select="getFeedback(data)" ng-attr-active="data.showFeedback">
+                <div class="streamline b-l b-default m-l-lg m-b padder-v">
+                    <table
+                        class="table"
+                        ng-table="data.feedback"
+                        template-pagination="src/user/layout/elements/tfoot.html"
+                    >
+                        <tbody>
+                            <tr
+                                ng-repeat="data in data.feedback.data"
+                                ng-include="'src/user/layout/elements/feedback.html'"
+                            >
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="Vehicles" select="getVehicles(data)">
+                <div class="m-b padder-v">
+                    <table
+                        class="table"
+                        ng-table="data.vehicles"
+                        template-pagination="src/user/layout/elements/tfoot.html"
+                    >
+                        <tbody>
+                            <tr
+                                ng-repeat="data in data.vehicles.data"
+                            >
+                                <td data-title="'Icon'"><svg-image class="vehicle" data-ng-src="data.icon" title="{{ data.name }}"></svg-image></td>
+                                <td data-title="'Vehicle Name'">{{ data.name }}</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</td>

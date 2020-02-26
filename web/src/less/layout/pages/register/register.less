@@ -1,0 +1,197 @@
+.app-register {
+    width: 100%;
+    height: auto;
+    min-height: 100% !important;
+    position: relative;
+    background: fade(@brand-primary, 90%) url('@{img-path}/bg-login.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    .col-half-width {
+        .make-md-column(6);
+        &:extend(.has-feedback);
+    }
+
+    .col-full-width {
+        .make-md-column(12);
+    }
+
+    .register-form {
+        padding: 70px 0;
+        max-width: 620px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .panel-default {
+            background-color: rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            color: @white;
+            padding: 18px 10px;
+            .panel-body {
+                font-size: 16px;
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.15px;
+        }
+
+        .alert-danger {
+            color: @brand-danger-darker;
+        }
+
+        form {
+            a {
+                color: @registration-color;
+                &:hover {
+                    color: @registration-color;
+                }
+            }
+
+            .disabled {
+                opacity: 0.4;
+            }
+
+            .form-field-transparent {
+                height: 45px;
+                border-radius: 0;
+                border: none;
+                border-bottom: 1px solid @white;
+                background: transparent;
+                color: @white;
+                font-size: 16px;
+                font-weight: 400;
+                padding-left: 35px;
+                margin-bottom: 15px;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+
+                &::placeholder {
+                    color: @white;
+                }
+            }
+
+            .form-control-feedback {
+                top: 6px;
+                color: @registration-color;
+                font-size: 25px;
+                &.icons8-email-envelope {
+                    font-size: 20px;
+                }
+            }
+
+            .feedback-left {
+                left: 6px;
+            }
+
+            input {
+                &:-webkit-autofill {
+                    -webkit-animation-name: autofill;
+                    -webkit-animation-fill-mode: both;
+                }
+                &::placeholder {
+                    opacity: 0.8;
+                }
+            }
+            //removes yellow autofill background on chrome
+            @-webkit-keyframes autofill {
+                to {
+                    color: @white;
+                    background: transparent;
+                }
+            }
+
+            .form-checkbox {
+                display: block;
+                position: relative;
+                padding-left: 35px;
+                cursor: pointer;
+                user-select: none;
+                font-size: 14px;
+                font-weight: 400;
+                letter-spacing: -0.09px;
+                .text {
+                    line-height: 2;
+                    font-size: 16px;
+                    font-weight: 400;
+                    letter-spacing: -0.1px
+                }
+                input {
+                    margin-right: 7px;
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    &:checked ~ .checkmark {
+                        &:after {
+                            display: block;
+                        }
+                    }
+                }
+
+                .checkmark {
+                    position: absolute;
+                    top: 3px;
+                    left: 0;
+                    background-color: transparent;
+                    width: 23px;
+                    height: 23px;
+                    border-radius: 3px;
+                    border: 1px solid @white;
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                        left: 9px;
+                        top: 5px;
+                        width: 5px;
+                        height: 10px;
+                        transform: rotate(45deg);
+                        border: solid @registration-color;
+                        border-width: 0 1px 1px 0;
+                    }
+                }
+            }
+
+            button {
+                margin-top: 35px;
+                font-size: 15px;
+                font-weight: 700;
+                text-transform: none;
+                padding: 18px 10px;
+            }
+        }
+
+        .block-2 {
+            .panel-body {
+                button {
+                    font-size: 15px;
+                    font-weight: 700;
+                    text-transform: none;
+                    padding: 18px 10px;
+                }
+
+                p {
+                    font-size: 15px;
+                    text-align: center;
+                    font-weight: 400;
+                    a {
+                        color: @white;
+                    }
+                }
+            }
+        }
+
+        .skip {
+            text-align: center;
+            width: 100%;
+            display: block;
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: 400;
+            color: @registration-color;
+        }
+    }
+}

@@ -1,0 +1,365 @@
+<div class="row row-offcanvas row-offcanvas-right">
+
+    <div class="content col-sm-8">
+        <form class="form" role="form" name="form">
+            <div class="panel panel-default">
+                <div class="panel-heading buttons">
+                    <h3 class="panel-title">
+                        Allocate A Job
+                        <div class="panel-heading-buttons">
+                            <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Pickup point *</label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Pickup point"
+                                       ng-model="data.pickup_point"
+                                       details="data.pickup_details"
+                                       lng="data.pickup_longitude"
+                                       lat="data.pickup_latitude" googleplace required/>
+                            </div>
+
+                            <div class="form-group" ng-if="! data.pickup_asap">
+                                <label ng-if="!data.flexible_pickup">Pickup time *</label>
+                                <label ng-if="data.flexible_pickup">Pickup time start *</label>
+                                <i-dtp ng-model="data.pickup_date"
+                                       icon="calendar"
+                                       placeholder="Pickup time"
+                                       min-date="minDate"
+                                       required/>
+                            </div>
+
+                            <div class="checkbox checkbox-success form-group clearfix">
+
+                               <label class="pull-left" ng-if="! data.flexible_pickup">
+                                   <input
+                                       class="pull-right"
+                                       type="checkbox"
+                                       ng-true-value="1"
+                                       ng-false-value="0"
+                                       ng-model="data.pickup_asap"
+                                   >
+                                   <i></i> Pickup ASAP
+                               </label>
+
+                               <label class="pull-right" ng-if="! data.pickup_asap">
+                                   <input
+                                       class="pull-right"
+                                       type="checkbox"
+                                       ng-true-value="1"
+                                       ng-false-value="0"
+                                       ng-model="data.flexible_pickup"
+                                   >
+                                   <i></i> Flexible Pickup
+                               </label>
+                           </div>
+
+                           <div class="form-group" ng-if="data.flexible_pickup && ! data.pickup_asap" >
+                               <label ng-else>Pickup time end *</label>
+                               <i-dtp ng-model="data.pickup_date_end"
+                                      icon="calendar"
+                                      placeholder="Pickup time end"
+                                      min-date="minDate"/>
+                           </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Final destination *</label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Final destination"
+                                       ng-model="data.destination_point"
+                                       details="data.destination_details"
+                                       lng="data.destination_longitude"
+                                       lat="data.destination_latitude" googleplace required/>
+                            </div>
+
+                            <div class="form-group" ng-if="! data.destination_asap">
+                                <label ng-if="!data.flexible_destination">Delivery time *</label>
+                                <label ng-if="data.flexible_destination">Delivery time start *</label>
+                                <i-dtp ng-model="data.destination_date"
+                                       icon="calendar"
+                                       placeholder="Delivery time"
+                                       min-date="minDate"
+                                       required/>
+                            </div>
+                             <div class="checkbox checkbox-success form-group clearfix">
+
+                                <label class="pull-left" ng-if="! data.flexible_destination">
+                                    <input
+                                        class="pull-right"
+                                        type="checkbox"
+                                        ng-true-value="1"
+                                        ng-false-value="0"
+                                        ng-model="data.destination_asap"
+                                    >
+                                    <i></i> Deliver ASAP
+                                </label>
+
+                                <label class="pull-right" ng-if="! data.destination_asap">
+                                    <input
+                                        type="checkbox"
+                                        ng-true-value="1"
+                                        ng-false-value="0"
+                                        ng-model="data.flexible_destination"
+                                    >
+                                    <i></i> Flexible Delivery
+                                </label>
+                            </div>
+                            <div class="form-group" ng-if="data.flexible_destination && ! data.destination_asap">
+                                <label ng-else>Delivery time end*</label>
+                                <i-dtp ng-model="data.destination_date_end"
+                                       icon="calendar"
+                                       placeholder="Delivery time end"
+                                       min-date="minDate"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Customer Job Reference Number (optional)</label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Custom job reference number"
+                                       ng-model="data.customer_job_reference_number"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 hidden">
+                            <div class="form-group">
+                                <hr />
+                                <div class="media">
+                                    <div class="waypoint m-b-sm" ng-repeat="item in data.way_points">
+                                        <div class="media-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           placeholder="Waypoint"
+                                                           ng-model="item.waypoint"
+                                                           details="item.pickup_details"
+                                                           lng="item.longitude"
+                                                           lat="item.latitude" googleplace required/>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <i-dtp ng-model="item.stopoff_date"
+                                                           icon="calendar"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media-right">
+                                            <a class="btn btn-link" href="#" ng-click="removeFromWayPoints(item)">
+                                                <h3 class="text-danger m-t-none m-b-none"><span class="icon-close"></span></h3>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <a class="btn btn-link btn text-success" href="#" ng-click="addToWayPoints()">
+                                            <span class="icon-plus"></span> Add a way point
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" data-ng-if="data.distance">
+                            <div class="well well-lg text-center">
+                                <div>Approximate mileage: <b>{{drivingDistance}} miles</b></div>
+                                <div>Approximate duration: <b>{{data.duration}}</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-google-maps">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Map preview</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ui-gmap-google-map id="map-canvas" center="map.center" zoom="map.zoom" options="mapOptions" bounds="map.bounds"></ui-gmap-google-map>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Allocate Manually
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group" ng-class="{
+                      'has-error': form.amount.$error.number,
+                      'has-success': form.amount.$valid,
+                      'has-feedback': form.amount.$valid || form.amount.$error.number,
+                    }">
+                      <label for="amount">Amount:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon" id="currency">£</span>
+                        <input type="number"
+                           name="amount"
+                           id="amount"
+                           class="form-control"
+                           data-ng-model="data.bid_amount"
+                           min="0"
+                           aria-describedby="currency"
+                           placeholder="0"
+                           required/>
+                      </div>
+                      <span class="fa fa-check-circle form-control-feedback" aria-hidden="true"
+                        data-ng-if="form.amount.$valid"></span>
+                      <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                        data-ng-if="form.amount.$error.number"></span>
+                      <span class="label label-danger" data-ng-if="form.amount.$error.number">Numbers Only!</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group" data-ng-class="{'has-feedback': loadingUsers}">
+                        <label>Driver:</label>
+                        <div class="autocomplete">
+                          <input type="text" ng-model="selectedUser"
+                             placeholder="Type name or email"
+                             typeahead="user as user.name_full for user in getUsers($viewValue)"
+                             typeahead-loading="loadingUsers"
+                             typeahead-template-url="src/user/layout/elements/user-autocomplete.html"
+                             typeahead-wait-ms="300"
+                             typeahead-on-select="setUserId($item, $model, $label)"
+                             class="form-control">
+                          <span class="form-control-feedback" aria-hidden="true"
+                            data-ng-show="loadingUsers"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Vehicle required *</label>
+
+                        <div class="row">
+                            <div class="radio radio-success col-sm-6 radio-vehicle" data-ng-repeat="vehicle in vehicles">
+                                <input id="vehicle-{{vehicle.id}}" type="radio" name="vehicle-type" data-ng-model="data.vehicle_id"
+                                       value="{{vehicle.id}}" ng-required="!data.vehicle_id"/>
+                                <label for="vehicle-{{vehicle.id}}">
+                                    <span class="vehicle pull-left" data-ng-if="vehicle.icon">
+                                        <svg-image data-ng-src="vehicle.icon"></svg-image>
+                                    </span>
+                                    <span class="pull-left">{{ vehicle.name }}</span>
+                                    <div class="clearfix"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Options</label>
+
+                        <div class="row">
+                            <div class="col-sm-6 checkbox checkbox-success" data-ng-repeat="option in vehicle_options">
+                                <label for="v-option-{{ $index }}">
+                                    <input
+                                        id="v-option-{{ $index }}"
+                                        type="checkbox"
+                                        name="vehicle-options[]"
+                                        value="{{ option.id }}"
+                                        data-ng-checked="data.options.indexOf(option) > -1"
+                                        data-ng-click="toggleSelection(option)"
+                                    >
+                                    {{ option.label }} <i></i>
+                                </label>
+                            </div>
+                            <div class="col-sm-6 checkbox checkbox-success">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        ng-true-value="1"
+                                        ng-false-value="0"
+                                        ng-model="data.backload"
+                                    >
+                                    <i></i> Back Load
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" class="form-control" rows="3" data-ng-model="data.details"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Time</label>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <i-dtp ng-model="data.expiry_time" icon="calendar" placeholder="Expiry Time" controls="false"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Accept responses via</label>
+
+                        <div class="checkbox checkbox-success">
+                            <label>
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                       ng-model="data.accept_phone"/>
+                                Phone
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-show="data.accept_phone == 1">
+                        <label>Specify phone number if different from {{user.phone}}</label>
+                        <input type="text" class="form-control" placeholder="Phone" ng-model="data.phone"/>
+                    </div>
+                    <!--
+                    <div class="form-group">
+                        <div class="checkbox checkbox-success">
+                            <label>
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                       ng-model="data.accept_email"/>
+                                Email
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-show="data.accept_email == 1">
+                        <label>Specify email address if different from {{user.email}}</label>
+                        <input type="text" class="form-control" placeholder="Email" ng-model="data.email"/>
+                    </div>-->
+                </div>
+            </div>
+
+            <footer class="form-footer">
+                <button type="button" class="btn btn-lg btn-success pull-right" ng-click="store()"
+                        ng-disabled="form.$invalid || formSubmited || !selectedUser">
+                    <span data-ng-show="!formSubmited">Allocate Job</span>
+                    <span data-ng-show="formSubmited"><i class="fa fa-spin fa-circle-o-notch"></i> Allocate Job</span>
+                </button>
+                <span class="info">Make sure that you’ve filled in all of the key information to get the best response from our couriers...</span>
+
+                <div class="clearfix"></div>
+            </footer>
+        </form>
+    </div>
+
+    <aside class="sidebar col-sm-4 sidebar-offcanvas" role="complementary">
+        <div class="widget widget-useful-links" data-ng-include="'src/user/layout/widgets/useful-links.html'"></div>
+    </aside>
+
+</div>

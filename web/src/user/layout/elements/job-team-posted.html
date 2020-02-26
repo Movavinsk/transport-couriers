@@ -1,0 +1,205 @@
+<td class="job status-{{data.status}}">
+    <div class="job-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>
+                    {{job.bid}}
+                    Job ID: #{{data.id}}
+                    <div class="btn-group visible-xs pull-right" dropdown is-open="status.isopen" data-ng-show="data.status != 'expire'">
+                        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="true">
+                            Job Actions <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <!--View POD-->
+                            <li data-ng-if="data.status == 'delivered' || data.status == 'invoice' || data.status == 'complete' ">
+                                <a ui-sref="user.account.jobs.pod({job_id: data.id})">View POD</a>
+                            </li>
+                            <!--View Invoice-->
+                            <li data-ng-if="data.status == 'invoice' || data.status == 'complete'">
+                                <a ui-sref="user.account.jobs.invoice({job_id: data.id})">View Invoice</a>
+                            </li>
+                            <!--Cancel job-->
+                            <li data-ng-if="data.status == 'active' ">
+                                <a ui-sref="user.account.jobs.cancel({job_id: data.id})">Cancel</a>
+                            </li>
+                            <!--Allocate the job manually-->
+                            <li data-ng-if="data.status == 'active' ">
+                                <a ui-sref="user.account.jobs.manual({job_id: data.id})">Allocate Manual</a>
+                            </li>
+                            <!--Add POD-->
+                            <li data-ng-if="data.status == 'progress' ">
+                                <a ui-sref="user.account.work.pod({job_id: data.id})">Upload POD</a>
+                            </li>
+                            <!--Leave feedback-->
+                            <li data-ng-if="(data.status == 'invoice' || data.status == 'delivered' || data.status == 'complete') && !data.bid.feedback">
+                                <a ui-sref="user.account.feedback.add({job_id: data.id, bid_id: data.bid.id})">Leave feedback</a>
+                            </li>
+                            <!--Complete the job-->
+                            <li data-ng-if=" data.status == 'invoice' && data.payment_received && data.status != 'completed' ">
+                                <a data-ng-click="complete(data)">Complete Job</a>
+                            </li>
+                            <!--Read feedback-->
+                            <li data-ng-if="data.feedback || (data.bid && data.bid.feedback)">
+                                <a ui-sref="user.account.jobs.feedback({job_id: data.id})">Read feedback</a>
+                            </li>
+                            <!--Review bids-->
+                            <li data-ng-if="data.status != 'complete'">
+                                <a ui-sref="user.account.jobs.bids({job_id: data.id})">Review Bids ({{data.bids_count}})</a>
+                            </li>
+                        </ul>
+                    </div>
+                </h3>
+            </div>
+            <div class="col-sm-6">
+                <h3 class="text-right-sm text-u-f">
+                    <span class="label label-default label-{{data.status}}">
+                        Status: {{ getJobStatus(data) }}
+                    </span>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="media">
+        <div class="media-left hidden-xs">
+            <div class="vehicle">
+                <svg-image data-ng-src="data.vehicle_icon"></svg-image>
+            </div>
+        </div>
+        <div class="media-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="pick-up">
+                        <small class="text-info">Pick Up</small>
+                        <span class="point">{{data.pickup_point}}</span>
+                        <span ng-if="!data.flexible_pickup && !data.pickup_asap">
+                            <span class="date">{{ data.pickup_date | amDateFormat:'DD/MM/YYYY HH:mm' }}</span>
+                        </span>
+                        <span ng-if="data.flexible_pickup && !data.pickup_asap">
+                            <span class="date">
+                                <strong>FROM</strong>
+                                {{ data.pickup_date | amDateFormat:'DD/MM/YYYY HH:mm' }}
+                            </span>
+                            <span class="date">
+                                <strong>TO</strong>
+                                {{ data.pickup_date_end | amDateFormat:'DD/MM/YYYY HH:mm' }}
+                            </span>
+                        </span>
+                        <span class="date" ng-if="data.pickup_asap"><strong class="text-success">Pickup ASAP</strong></span>
+                    </div>
+                    <div class="drop-off">
+                        <small class="text-info">Drop Off</small>
+                        <span class="point">{{data.destination_point}}</span>
+                        <span ng-if="!data.flexible_destination && !data.destination_asap">
+                            <span class="date">{{ data.destination_date | amDateFormat:'DD/MM/YYYY HH:mm' }}</span>
+                        </span>
+                        <span ng-if="data.flexible_destination && !data.destination_asap">
+                            <span class="date">
+                                <strong>FROM </strong>
+                                {{ data.destination_date | amDateFormat:'DD/MM/YYYY HH:mm' }}
+                            </span>
+                            <span class="date">
+                                <strong>TO </strong>
+                                {{ data.destination_date_end | amDateFormat:'DD/MM/YYYY HH:mm' }}
+                            </span>
+                        </span>
+                        <span class="date" ng-if="data.destination_asap"><strong class="text-success">Deliver ASAP</strong></span>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="well">
+
+                        <!--Job info-->
+                        <h5 class="m-t-none">Job Info</h5>
+
+                        <div class="m-t-xs b-t">
+
+                            <!--Progress-->
+                            <p class="m-b-none text-muted m-t-xs">
+                                <span class="font-bold">Progress:</span> {{ getJobInfo(data) }}
+                            </p>
+
+                            <!-- Posted by-->
+                            <div class="text-muted m-b-none" data-ng-if="$state.$current.name=='user.account.team.jobs'">
+                                <span class="font-bold">Posted by:</span> {{data.user_info.name_full}}
+                            </div>
+
+                            <!--Expiry time-->
+                            <p class="text-muted m-b-none" data-ng-if="data.status == 'active' || data.status == 'expire'">
+                                <span class="font-bold">Expiry time:</span> {{data.expiry_time | amDateFormat:'DD/MM/YYYY HH:mm'}}
+                            </p>
+
+                            <!--Payment status-->
+                            <p class="text-muted m-b-none" data-ng-if="data.status == 'invoice' || data.status == 'complete'">
+                                <span class="font-bold">Payment status:</span> {{data.payment_received ? 'Paid' : 'Unpaid'}}
+                            </p>
+
+                            <!--Member name-->
+                            <p class="text-muted m-b-none" data-ng-show="data.bid.user.name_full">
+                                <span class="font-bold">Member:</span> {{data.bid.user.name_full}}
+                            </p>
+
+                            <!--Accepted price-->
+                            <p class="text-muted m-b-none" data-ng-show="data.bid_amount">
+                                <span class="font-bold">Accepted price:</span> {{data.bid_amount | currency:'£'}} <span data-ng-if="data.bid.add_vat">+ VAT</span>
+                            </p>
+
+                            <!--Feedback-->
+                            <div class="ratings ratings-sm" data-ng-if="data.feedback.rating">
+                                <span class="text-muted font-bold">Feedback: </span>
+                                <rating class="rating read-only" ng-model="data.feedback.rating" max="5" state-on="'glyphicon glyphicon-star text-info'" state-off="'glyphicon glyphicon-star-empty text-info'" data-readonly="true"></rating>
+                            </div>
+
+                            <!--Bid notes-->
+                            <p class="text-muted m-b-none" data-ng-if="data.bid.details">
+                                <span class="font-bold">Notes:</span> {{data.bid.details}}
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="job-actions well well-sm text-right m-b-none hidden-xs" data-ng-show="data.status != 'expire'">
+
+        <!--Cancel job-->
+        <a class="btn btn-xs btn-danger" data-ng-if=" data.status == 'active' "
+           ui-sref="user.account.jobs.cancel({job_id: data.id})">Cancel</a>
+
+        <!--Allocate the job manually-->
+        <a class="btn btn-xs btn-primary" data-ng-if=" data.status == 'active' "
+           ui-sref="user.account.jobs.manual({job_id: data.id})">Allocate Manual</a>
+
+        <!--Review bids-->
+        <a class="btn btn-xs" data-ng-if="data.status != 'complete'" data-ng-class="{'btn-info' : data.status == 'active', 'btn-primary' : data.status != 'active'}"
+           ui-sref="user.account.jobs.bids({job_id: data.id})">Review Bids ({{data.bids_count}})</a>
+
+        <!--Upload POD-->
+        <a class="btn btn-xs btn-secondary" data-ng-show=" data.status == 'progress' "
+           ui-sref="user.account.work.pod({job_id: data.id})">Upload POD</a>
+
+        <!--Read feedback-->
+        <a class="btn btn-xs btn-primary" data-ng-if="data.feedback || (data.bid && data.bid.feedback)"
+           ui-sref="user.account.jobs.feedback({job_id: data.id})">Read feedback</a>
+
+        <!--View POD-->
+        <a class="btn btn-xs btn-primary" data-ng-if=" data.status == 'delivered' || data.status == 'invoice' || data.status == 'complete' "
+           ui-sref="user.account.jobs.pod({job_id: data.id})">View POD</a>
+
+        <!--View Invoice-->
+        <a class="btn btn-xs btn-primary" data-ng-if=" data.status == 'invoice' || data.status == 'complete'"
+           ui-sref="user.account.jobs.invoice({job_id: data.id})">View Invoice</a>
+
+        <!--Leave feedback-->
+        <a class="btn btn-xs btn-info" data-ng-if="(data.status == 'invoice' || data.status == 'delivered' || data.status == 'complete') && !data.bid.feedback"
+           ui-sref="user.account.feedback.add({job_id: data.id, bid_id: data.bid.id})">Leave feedback</a>
+
+        <!--Complete the job-->
+        <a class="btn btn-xs btn-complete" data-ng-click="complete(data)"
+           data-ng-disabled="formSubmitted"
+           data-ng-if=" data.status == 'invoice' && data.payment_received && data.status != 'completed' ">
+            <span data-ng-show="!formSubmitted">Complete Job</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Complete Job</span>
+        </a>
+    </div>
+</td>

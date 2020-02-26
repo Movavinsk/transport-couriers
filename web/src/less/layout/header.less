@@ -1,0 +1,287 @@
+.app-header.user {
+  min-height: @app-header-mh;
+  background-color: @header-bg;
+
+  @media (min-width: @screen-sm-min) {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-height: @app-header-sm-mh;
+  }
+
+  .brand {
+    display: block;
+
+    @media (max-width: @screen-xs-max) {
+      padding: 8px 0;
+      margin-bottom: 14px;
+    }
+
+    img {
+      .img-responsive();
+    }
+  }
+
+  .avatar {
+    padding: 4px 0;
+    padding-left: 8px;
+    display: inline-block;
+    float: right;
+
+    img {
+      width: 60px;
+      max-width: 100%;
+    }
+  }
+
+  .navbar-collapse {
+    @media (max-width: @screen-xs-max) {
+      margin-left: -(@grid-gutter-width / 2);
+      margin-right: -(@grid-gutter-width / 2);
+      background-color: @header-secondary;
+      border: 0;
+      .box-shadow(none);
+    }
+
+    @media (min-width: @screen-sm-min) {
+      height: auto !important;
+      padding: 0;
+      margin: 0;
+      display: inline-block !important;
+    }
+  }
+
+  .nav-settings,
+  .nav-main {
+    min-height: 0;
+
+    .nav {
+
+      > li {
+
+        > .dropdown > a,
+        > a {
+          padding: 6px 10px;
+          color: @white;
+          text-transform: uppercase;
+          white-space: nowrap;
+          .border-top-radius(0);
+          .border-bottom-radius(0);
+          .box-shadow(none);
+
+          @media (min-width: @screen-sm-min) {
+            .border-top-radius(3px);
+            .border-bottom-radius(3px);
+            font-size: 13px;
+          }
+
+          @media (min-width: @screen-md-min) {
+            font-size: 14px;
+          }
+
+          &:focus {
+            background: none;
+          }
+
+          &:hover {
+            background-color: @header-primary;
+          }
+
+        }
+
+        > .dropdown {
+          > a .fa {
+            padding-left: 3px;
+            padding-right: 0;
+            &:before {
+              content: "\f107"
+            }
+          }
+
+          &.open a {
+            .border-bottom-radius(0);
+
+            .fa {
+              &:before {
+                content: "\f106"
+              }
+            }
+          }
+        }
+
+        > .dropdown.open > a,
+        &.active a {
+          background-color: @header-primary;
+        }
+
+        .dropdown-menu {
+          margin: 0;
+          background-color: @header-primary;
+          border-color: @header-primary;
+          .box-shadow(0 1px 1px 0 fade(@black, 30%));
+          .border-top-radius(0);
+          .border-bottom-radius(0);
+
+          @media (min-width: @screen-sm-min) {
+            .border-right-radius(@border-radius-base);
+            .border-bottom-radius(@border-radius-base);
+          }
+
+          > li {
+            margin-bottom: 1px;
+
+            &.logout {
+              margin-top: 3px;
+              border-top: 1px solid fade(@black, 10%);
+            }
+
+            > a {
+              color: @white;
+
+              &:hover {
+                background-color: fade(@black, 10%) !important;
+              }
+            }
+
+            &.active {
+              a{
+                background-color: fade(@black, 10%) !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .nav-main {
+    padding: 10px 0;
+    float: none;
+
+    @media (min-width: @screen-sm-min) {
+      padding: 18px 0 0;
+    }
+
+    .nav {
+      float: none;
+
+      > li {
+        padding: 0 1px 0 0;
+        margin-bottom: 1px;
+
+        @media (min-width: @screen-sm-min) {
+          margin: 0;
+        }
+
+        @media (min-width: @screen-md-min) {
+          padding: 0 3px 0 0;
+        }
+
+        > span > a,
+        > a {
+          display: block;
+          font-weight: 500;
+
+          @media (min-width: @screen-sm-min) {
+            padding: 6px 8px;
+          }
+
+          i {
+            padding-right: 3px;
+            color: @white;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+  }
+
+  .nav-settings {
+
+    @media (max-width: @screen-xs-max) {
+      position: absolute;
+      top: 0;
+      right: (@grid-gutter-width / 2);
+    }
+
+    .nav {
+
+      > li {
+
+        @media (max-width: @screen-xs-max) {
+          border-left: 1px solid darken(@header-primary, 10%);
+          border-bottom: 1px solid darken(@header-primary, 10%);
+
+          &:last-child {
+            border-bottom: 0;
+          }
+        }
+
+        > a {
+          padding: 5.5px 10px;
+          font-size: 20px;
+          color: @brand-info;
+          text-align: center;
+
+          @media (max-width: @screen-xs-max) {
+            background: @header-secondary;
+          }
+
+          &:hover {
+            color: @white;
+          }
+        }
+
+        .navbar-toggle {
+          padding: 5px 10px;
+          margin: 0;
+          float: none;
+          background: @header-secondary;
+          .border-top-radius(0);
+          .border-bottom-radius(0);
+          .box-shadow(none);
+
+          .icon-bar {
+            background-color: @header-primary;
+
+            &:first-child,
+            &:last-child {
+              background-color: @header-secondary;
+            }
+          }
+
+          &:hover {
+            background-color: @header-primary;
+
+            .icon-bar {
+              background-color: @white;
+
+              &:first-child,
+              &:last-child {
+                background-color: @header-primary;
+              }
+            }
+          }
+
+          &.collapsed {
+
+            .icon-bar {
+              &:first-child,
+              &:last-child {
+                background-color: @header-primary;
+              }
+            }
+
+            &:hover {
+              .icon-bar {
+                &:first-child,
+                &:last-child {
+                  background-color: @white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <h3 class="modal-title">Allocate Manual
+      <div class="pull-right">
+        <button class="btn btn-primary btn-sm" data-ng-click="$dismiss()">Close</button>
+      </div>
+    </h3>
+</div>
+<form class="form-horizontal" role="form" name="form">
+<div class="modal-body">
+    <div class="form-group">
+        <label class="col-sm-2 control-label font-bold">Job ID:</label>
+
+        <div class="col-sm-10">
+            <p class="form-control-static">#{{job.id}}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label font-bold">Pickup Point:</label>
+
+        <div class="col-sm-10">
+            <p class="form-control-static">{{job.pickup_point}}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label font-bold">Destination Point:</label>
+
+        <div class="col-sm-10">
+            <p class="form-control-static">{{job.destination_point}}</p>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{
+        'has-error': form.amount.$error.number,
+        'has-success': form.amount.$valid,
+        'has-feedback': form.amount.$valid || form.amount.$error.number,
+    }">
+        <label class="col-sm-2 control-label font-bold" for="amount">Amount:</label>
+
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="currency">£</span>
+                <input type="number"
+                       name="amount"
+                       id="amount"
+                       class="form-control"
+                       data-ng-model="job.bid_amount"
+                       min="0"
+                       aria-describedby="currency"
+                       placeholder="0"
+                       required/>
+            </div>
+            <span class="fa fa-check-circle form-control-feedback" aria-hidden="true"
+                  data-ng-if="form.amount.$valid"></span>
+            <span class="fa fa-times-circle form-control-feedback" aria-hidden="true"
+                  data-ng-if="form.amount.$error.number"></span>
+            <span class="label label-danger" data-ng-if="form.amount.$error.number">Numbers Only!</span>
+        </div>
+    </div>
+
+    <div class="form-group"data-ng-class="{'has-feedback': loadingUsers}">
+        <label class="col-sm-2 control-label font-bold">Driver:</label>
+
+        <div class="col-sm-4 autocomplete">
+            <input type="text" ng-model="selectedUser"
+                   placeholder="Type name or email"
+                   typeahead="user as user.name_full for user in getUsers($viewValue) | filter:{name_full:$viewValue}"
+                   typeahead-loading="loadingUsers"
+                   typeahead-template-url="src/user/layout/elements/user-autocomplete.html"
+                   typeahead-wait-ms="300"
+                   typeahead-on-select="setUserId($item, $model, $label)"
+                   class="form-control">
+            <span class="form-control-feedback" aria-hidden="true"
+                  data-ng-show="loadingUsers"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label font-bold">Details</label>
+
+        <div class="col-sm-10">
+            <textarea class="form-control" data-ng-model="job.bid_details" placeholder="Details"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox checkbox-primary">
+                <label>
+                    <input type="checkbox" data-ng-model="confirm"/>
+                    Allocate job
+                    <i></i>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer text-right">
+    <button type="button" class="btn btn-lg btn-primary" ng-click="store()"
+            ng-disabled="form.$invalid || !confirm || !job.bid_user_id || loading || formSubmitted">
+        <span data-ng-show="!formSubmitted">Allocate Job</span>
+        <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Allocate Job</span>
+    </button>
+</div>
+</form>

@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">Upload Profile Picture
+    </h3>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" data-ng-click="$dismiss()">Cancel</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<form class="form form-horizontal" role="form" name="form">
+    <div class="modal-body">
+        <div class="form-group" data-ng-show="!noFile">
+            <label class="col-sm-2 control-label font-bold">Select An Image:</label>
+
+            <div class="col-sm-10">
+                <span class="btn btn-secondary btn-file">
+                    <span>Select image from your computer</span>
+                    <input type="file" class="form-control" id="avatar-upload"
+                           name="avatar-upload" data-ng-model="upload"
+                           nv-file-select="" uploader="uploader" valid-file required/>
+                </span>
+            </div>
+        </div>
+        <div class="form-group" data-ng-show="status">
+            <label class="col-sm-2 control-label font-bold">Selected Image:</label>
+
+            <div class="col-sm-10">
+                <div class="avatar-image-crop-wrap">
+                    <div class="loading" data-ng-show="status == 'loading'">
+                        <h2 class="text-center text-dark">Loading ...</h2>
+                    </div>
+                    <div class="avatar-image-crop-content">
+                        <img-crop
+                            image="myImage"
+                            result-image-size="150"
+                            result-image="myCroppedImage" ></img-crop>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" data-ng-show="status == 'loaded'">
+            <label class="col-sm-2 control-label font-bold">Your Profile Picture:</label>
+
+            <div class="col-sm-10">
+                <div class="avatar-holder">
+                    <img ng-src="{{myCroppedImage}}" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group" data-ng-show="progress">
+            <label class="col-sm-2 control-label font-bold">Progress:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    <progressbar value="progress" class="progress-xs m-t" type="info" ng-show="progress"></progressbar>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-right">
+        <button type="button" class="btn btn-lg btn-primary" ng-click="store()" ng-disabled="form.$invalid">
+            Save
+        </button>
+    </div>
+</form>

@@ -1,0 +1,112 @@
+<div class="app app-login" ng-class="{
+	'app-header-fixed': $app.settings.headerFixed,
+	'app-aside-fixed' : $app.settings.asideFixed,
+	'app-aside-folded': $app.settings.asideFolded,
+	'app-aside-dock'  : $app.settings.asideDock,
+	'container'       : $app.settings.container
+}">
+    <div class="container" ng-controller="LoginController" ng-init="$app.settings.container = false;" data-ui-view>
+        <a class="brand text-center" data-ui-sref="login" title="Same Day Courier Network">
+            <div class="image-wrapper">
+                <img
+                    src="/assets/img/sdcn-login.png"
+                    title="Same Day Courier Network"
+                    alt="Same Day Courier Network"
+                />
+            </div>
+            <p class="logo-subtitle">A TRADING PLATFORM FOR COURIERS & HAULIERS</p>
+        </a>
+
+        <div class="row">
+            <div class="login-form">
+                <div class="panel panel-default sign-in">
+                    <div class="panel-body">
+                        <h1 class="m-t-none m-b-sm">Customer Login</h1>
+                        <p>Login to view, bid and post jobs.</p>
+
+                        <form name="form" class="m-t-md">
+                            <div class="text-danger wrapper text-center" ng-show="authError">
+                                {{authError}}
+                            </div>
+                            <div
+                                class="form-group has-feedback"
+                                ng-class="{
+                                    'has-error': form.email.$error.email,
+                                    'has-success': form.email.$valid,
+                                }">
+                                <i class="icons8-email-envelope form-control-feedback feedback-left"></i>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    class="form-control"
+                                    data-ng-model="email"
+                                    required
+                                >
+                                <span
+                                    class="fa fa-check-circle form-control-feedback"
+                                    aria-hidden="true"
+                                    data-ng-if="form.email.$valid"
+                                >
+                                </span>
+                                <span
+                                    class="fa fa-times-circle form-control-feedback"
+                                    aria-hidden="true"
+                                    data-ng-if="form.email.$error.email"
+                                >
+                                </span>
+                                <span class="label label-danger" data-ng-if="form.email.$error.email">Not valid email!</span>
+                            </div>
+
+                            <div
+                                class="form-group has-feedback"
+                                ng-class="{
+                                    'has-success': form.password.$valid,
+                                }">
+                                <i class="icons8-lock form-control-feedback feedback-left"></i>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    class="form-control"
+                                    data-ng-model="password"
+                                    required
+                                >
+                                <span
+                                    class="fa fa-check-circle form-control-feedback"
+                                    aria-hidden="true"
+                                    data-ng-if="form.password.$valid"
+                                >
+                                </span>
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="btn btn-lg btn-info btn-block"
+                                ng-click="login(email, password)"
+                                data-ng-disabled="!form.$valid"
+                            >
+                                Log in
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default forgot-password">
+                    <div class="panel-body">
+                        <div>
+                            <span>
+                                Not got an account?
+                                <a data-ui-sref="register"><strong>Register</strong></a>
+                            </span>
+                            <span>
+                                <a data-ui-sref="login.recover">Forgotten password?</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

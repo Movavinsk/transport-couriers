@@ -1,0 +1,35 @@
+<style>
+    .angular-google-map-container { height: 400px; width: 867px; }
+</style>
+
+<div class="modal-header">
+    <h3 class="modal-title">User Location
+        <button class="btn btn-default btn-sm pull-right" ng-click="$dismiss()">Cancel</button>
+    </h3>
+</div>
+<div class="modal-body" style="min-height: 410px;">
+    <div class="map-canvas" ng-if="$displayMap">
+
+        <ui-gmap-google-map
+            id="map-canvas"
+            center="map.center"
+            zoom="map.zoom"
+            options="mapOptions"
+            control="map.control"
+        >
+            <ui-gmap-marker coords="map.center" idKey="map.marker.key"></ui-gmap-marker>
+            <ui-gmap-circle
+                center="map.circle.center"
+                fill="{color: '#063f60', opacity: 0.3}"
+                stroke="{color: '#063f60', weight: 1, opacity: 1}"
+                radius="map.circle.radius"
+                clickable="false"
+                draggable="false"
+                editable="false"
+                visible="true"
+                events="map.circle.events"
+                fit="true"
+            >
+        </ui-gmap-google-map>
+    </div>
+</div>

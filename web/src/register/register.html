@@ -1,0 +1,134 @@
+<div ng-include="'src/register/layout/nav.html'" class="header-registration"></div>
+<div class="app app-register">
+    <div data-ng-include=" 'src/register/layout/progress.html' " class="progress-status"></div>
+    <div ng-controller="RegisterController" data-ui-view>
+        <div class="container">
+            <div class="register-form m-t-lg">
+                <div class="panel panel-default">
+                    <div class="panel-body registration-success" data-ng-show="success">
+                        <h2>
+                            <i class="icons8-check-mark-symbol"></i>
+                            Your registration was successful
+                        </h2>
+                        <p class="m-t-md">
+                            Please check your registered email address and click on the link in the email we have just sent you to verify your account.
+                            You will be able to choose a password and complete the registration process.
+                        </p>
+                        <p class="m-t-md">
+                            The verification email will be sent from noreply@samedaycouriernetwork.com
+                        </p>
+                        <p class="m-t-md">
+                            If you do not receive the email please check for it in your Junk/Spam folders in your email client.
+                        </p>
+                        <p class="m-t-md">
+                            If you still cannot find it then you can email us for support at
+                            <a href="mailto:info@samedaycouriernetwork.com">info@samedaycouriernetwork.com</a> or
+                            call us on <a href="tel:01202511559">01202 511 559</a>
+                        </p>
+                    </div>
+
+                    <div class="panel-body" data-ng-show="!success">
+                        <h2>Your Details</h2>
+                        <div class="alert alert-danger" data-ng-show="errors">
+                            <p ng-repeat="(key, error) in errors">*{{ error }}</p>
+                        </div>
+                        <form name="form" class="m-t-md">
+                            <div class="row">
+                                <div class="col-half-width">
+                                    <i
+                                        class="icons8-user form-control-feedback feedback-left"
+                                        aria-hidden="true">
+                                    </i>
+                                    <input
+                                        type="text"
+                                        placeholder="First name"
+                                        class="form-control form-field-transparent"
+                                        data-ng-model="formData.first_name"
+                                        required>
+                                </div>
+                                <div class="col-half-width">
+                                    <i
+                                        class="icons8-user form-control-feedback feedback-left"
+                                        aria-hidden="true">
+                                    </i>
+                                    <input
+                                        type="text"
+                                        placeholder="Last name"
+                                        class="form-control form-field-transparent"
+                                        data-ng-model="formData.last_name"
+                                        required>
+                                </div>
+                                <div class="col-half-width">
+                                    <i
+                                        class="icons8-email-envelope form-control-feedback feedback-left"
+                                        aria-hidden="true">
+                                    </i>
+                                    <input
+                                        type="email"
+                                        placeholder="Email address"
+                                        class="form-control form-field-transparent"
+                                        data-ng-model="formData.email"
+                                        name="email"
+                                        required>
+                                    <span
+                                        class="label label-danger"
+                                        ng-show="form.email.$invalid && form.email.$touched">
+                                        Invalid email address.
+                                    </span>
+                                </div>
+                                <div class="col-half-width">
+                                    <i
+                                        class="icons8-call form-control-feedback feedback-left"
+                                        aria-hidden="true">
+                                    </i>
+                                    <input
+                                        type="text"
+                                        placeholder="Phone number"
+                                        class="form-control form-field-transparent"
+                                        data-ng-model="formData.phone"
+                                        required>
+                                </div>
+                                <div class="col-full-width">
+                                    <label class="form-checkbox m-t-lg">
+                                        I agree that I am happy to be contacted by Same Day Courier Network and selected partners
+                                        <input type="checkbox" data-ng-model="formData.subscribe">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="col-full-width">
+                                    <label class="form-checkbox m-t-md">
+                                        I Confirm that I have read and agree to the terms & conditions, and that I am over 18 years of age
+                                        <input
+                                            type="checkbox"
+                                            data-ng-model="formData.agreeTermsConditions"
+                                            required>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default block-2" data-ng-show="!success">
+                    <div class="panel-body">
+                        <p class="m-t-sm m-b-md">
+                            SDCN is a subscription based transport trading exchange platform. Membership is just £10 per month including VAT for full access and unlimited use. The SDCN team will be in contact to set up payment schedule upon completion of registration
+                        </p>
+                        <button
+                            type="submit"
+                            class="btn btn-lg btn-info btn-block"
+                            ng-click="register()"
+                            data-ng-disabled="!form.$valid">
+                            Sign in
+                        </button>
+                        <div>
+                            <p class="m-t-md">
+                                Already have an account? <a data-ui-sref="login">Sign in</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

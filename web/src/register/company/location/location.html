@@ -1,0 +1,113 @@
+<div class="container" ng-controller="LocationController" ui-view>
+    <div class="register-form m-t-md">
+        <form name="form">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="m-t-sm">Company Address</h2>
+                    <div class="alert alert-danger" ng-show="errors">
+                        <p ng-repeat="(key, error) in errors">*{{ error[0] }}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-half-width m-t-lg">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Search address"
+                                class="form-control form-field-transparent"
+                                ng-required="!enterManually"
+                                details="data.address"
+                                ng-model="data.location"
+                                autocomplete="off"
+                                googleplace>
+                        </div>
+                        <div class="col-full-width m-t-sm">
+                            <a ng-click="isEnterManually()">Enter address manually</a>
+                        </div>
+                        <div class="col-full-width" ng-if="!enterManually">
+                            <button
+                                type="button"
+                                class="btn btn-lg btn-info btn-block"
+                                ng-click="location()"
+                                ng-disabled="!form.$valid">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default block-2" ng-if="enterManually">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-half-width">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Address line 1"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.address_line_1">
+                        </div>
+                        <div class="col-half-width">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Address line 2"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.address_line_2">
+                        </div>
+                        <div class="col-half-width">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Town/city"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.town">
+                        </div>
+                        <div class="col-half-width">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="County"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.county">
+                        </div>
+                        <div class="col-half-width">
+                            <i
+                                class="icons8-location-marker form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Postcode"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.postal_code">
+                        </div>
+                        <div class="col-full-width">
+                            <button
+                                type="submit"
+                                class="btn btn-lg btn-info btn-block"
+                                ng-click="location()"
+                                data-ng-disabled="!form.$valid">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

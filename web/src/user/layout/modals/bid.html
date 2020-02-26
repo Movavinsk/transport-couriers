@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h3 class="modal-title">Submit Your Bid
+        <button class="btn btn-default btn-sm pull-right" ng-click="cancel()">Cancel</button>
+    </h3>
+</div>
+<div class="modal-body">
+    <h3 class="headline-light m-t-none m-b-lg">Job Details</h3>
+
+    <div class="media job-details">
+        <div class="media-left">
+            <img src="/assets/img/default-veh.png" title="LWB" alt="LWB"/>
+        </div>
+        <div class="media-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <small class="text-info">Pick Up</small>
+                    <span class="point">{{job.pickup_town}}, {{job.pickup_postcode_prefix}}</span>
+                    <span class="date">{{job.pickup_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                </div>
+                <div class="col-sm-6">
+                    <small class="text-info">Drop Off</small>
+                    <span class="point">{{job.destination_town}}, {{job.destination_postcode_prefix}}</span>
+                    <span class="date">{{job.destination_date | amDateFormat:'DD/MM/YYYY HH:mm'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <form class="form form-validation" name="form">
+        <h3 class="headline-light m-b-lg">Your Bid</h3>
+
+        <div class="row">
+            <div class="col-sm-8 col-md-5">
+                <div class="form-group">
+                    <label class="label-info">Bid amount</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="amount" placeholder="Bid amount" data-ng-model="data.amount" required aria-describedby="amount-addon"/>
+                        <span class="input-group-addon" id="amount-addon">£</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label-info">Your note</label>
+            <textarea id="notes" class="form-control" rows="3" data-ng-model="data.details" placeholder="Your note"></textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning btn-lg" data-ng-click="ok()" data-ng-disabled="form.$invalid">Submit Bid</button>
+</div>

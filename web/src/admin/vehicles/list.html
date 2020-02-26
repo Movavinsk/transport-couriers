@@ -1,0 +1,47 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-light h3"><i class="fa fa-car"></i> Vehicles</h1>
+</div>
+<div class="wrapper-md" data-ui-view>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">List of vehicles</h3>
+        </div>
+        <div class="panel-body no-padder">
+            <div class="row wrapper">
+                <div class="col-sm-4">
+                    <div class="form-group m-b-none">
+                        <input class="form-control input-sm" type="search" placeholder="Search..."
+                               ng-model="tableParams.filter()['search']"/>
+                    </div>
+                </div>
+                <div class="col-sm-8 text-right">
+                    <a class="btn btn-secondary btn-sm" data-ui-sref=".add"><i class="icon-plus"></i> Add</a>
+                    <a class="btn btn-success btn-sm" data-ng-click="tableParams.reload()"><i class="icon-refresh"></i>
+                        Refresh</a>
+                    <a class="btn btn-warning btn-sm" data-ng-click="tableParams.sorting({name: 'asc'})"><i class="fa fa-eraser"></i> Clear
+                        sorting</a>
+                    <a class="btn btn-danger btn-sm" data-ng-click="tableParams.filter({})"><i class="fa fa-eraser"></i> Clear filter</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light text-left" data-ng-table="tableParams"
+                       template-pagination="src/admin/layout/pagination.html">
+                    <tbody>
+                    <tr class="odd gradeX" data-ng-repeat="data in $data">
+                        <td class="text-middle" data-title="'#'" data-sortable="'sort_no'" width="50">{{data.sort_no}}
+                        </td>
+                        <td class="text-middle" data-title="'Icon'" width="150" width="80">
+                            <svg-image class="vehicle" data-ng-src="data.icon" title="{{ data.name }}"></svg-image>
+                        </td>
+                        <td class="text-middle" data-title="'Name'" data-sortable="'name'">{{data.name}}</td>
+                        <td class="text-middle text-right" data-title="'Actions'">
+                            <a class="btn btn-primary btn-sm" data-ui-sref=".edit({id:data.id})"><i
+                                    class="fa fa-edit"></i> Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

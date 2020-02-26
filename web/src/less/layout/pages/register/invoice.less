@@ -1,0 +1,33 @@
+.register-invoice {
+    .row {
+        > div {
+            .make-md-column(12);
+        }
+    }
+    .invoice-logo-wrapper {
+        max-width: 90px;
+        display: inline-block;
+        vertical-align: middle;
+        img {
+            border-radius: 50%;
+            width: 85px;
+            height: 85px;
+            background-image: url('@{img-path}/p0.jpg');
+            background-size: cover;
+            background-position: center;
+            object-fit: contain;
+        }
+    }
+    .add-image {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: -0.1px;
+        padding-left: 10px;
+        @media (min-width: @screen-sm-min) {
+            padding-left: 20px;
+            font-size: 16px;
+        }
+    }
+}

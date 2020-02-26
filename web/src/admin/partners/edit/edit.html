@@ -1,0 +1,117 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{mode}} Partner</h3>
+    </div>
+
+    <tabset>
+
+        <tab heading="Partner Details">
+            <form class="form-horizontal form-validation" name="form">
+                <div class="wrapper">
+                    <h4 class="page-header">Partner Details:</h4>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Company Name <em>*</em></label>
+
+                        <div class="col-sm-10">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Company Name"
+                                ng-model="data.name"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Company Description <em>*</em></label>
+
+                        <div class="col-sm-10">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                placeholder="Company Description"
+                                ng-model="data.description"
+                                required
+                            >
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group" data-ng-if="isEdit()">
+                        <div class="col-sm-9 col-sm-offset-2">
+                            <img ng-src="{{ data.logo }}" ng-if="data.logo" style="max-width: 250px">
+                            <br>
+                            <a
+                                class="btn btn-secondary"
+                                href
+                                data-ui-sref=".logo"
+                                title="Add Profile Picture"
+                                role="button"
+                                data-ng-show="! data.logo"
+                            >Add Company Logo</a>
+                            <a
+                                class="btn btn-secondary"
+                                href
+                                data-ui-sref=".logo"
+                                title="Edit Profile Picture"
+                                role="button"
+                                data-ng-show="data.logo"
+                            >Edit Company Logo</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <footer class="panel-footer text-right">
+                    <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-primary" ng-click="store()" ng-if="isAdd()"
+                            ng-disabled="form.$invalid || userCreated">Save
+                    </button>
+                    <!--<button type="button" class="btn btn-sm btn-danger" confirm-delete="destroy()" ng-if="isEdit()">-->
+                        <!--Delete-->
+                    <!--</button>-->
+                    <button type="button" class="btn btn-sm btn-primary" ng-click="update()" ng-if="isEdit()"
+                            ng-disabled="form.$invalid">Save
+                    </button>
+                </footer>
+
+            </form>
+        </tab>
+
+        <tab heading="Benefits" ng-if="isEdit()">
+            <div class="wrapper">
+                <h4 class="page-header">Benefits:
+                    <a
+                        href
+                        class="btn btn-secondary btn-xs pull-right"
+                        data-ui-sref=".benefits.edit"
+                    >
+                        <span><i class="fa fa-plus"></i> Add Benefit</span>
+                    </a>
+                </h4>
+                <div class="table-responsive">
+                    <table class="table table-striped text-left" data-ng-table="benefits">
+                        <tbody>
+                            <tr ng-repeat="benefit in $data">
+                                <td data-title="'Description'">{{ benefit.description }}</td>
+                                <td data-title="'Url'">{{ benefit.url }}</td>
+                                <td data-title="'Actions'" class="text-right">
+                                    <a class="btn btn-primary btn-sm" data-ui-sref=".benefits.edit({partner_id: partner_id, benefit_id:benefit.id})"><i
+                                            class="fa fa-edit"></i> Edit</a>
+                                    <!-- <a class="btn btn-sm" data-ng-click="deactivate(benefit)" data-ng-class="{'btn-danger': !data.deactivated_at, 'btn-success': data.deactivated_at}"><i class="fa fa-trash-o"></i> {{data.deactivated_at ? 'Activate' : 'Deactivate'}}</a> -->
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>  <!-- /wrapper  -->
+        </tab>
+
+    </tabset>
+
+</div>
+

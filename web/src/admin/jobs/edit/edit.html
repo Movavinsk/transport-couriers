@@ -1,0 +1,284 @@
+<form class="form-horizontal form-validation" name="form">
+    <div class="panel panel-default">
+        <div class="panel-heading font-bold">
+            <h3 class="panel-title">{{mode}} Job</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Pickup Point * </label>
+
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Pickup point"
+                           ng-model="data.pickup_point"
+                           details="data.pickup_details"
+                           lng="data.pickup_longitude"
+                           lat="data.pickup_latitude" googleplace required/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="! data.pickup_asap">
+                <label class="col-sm-2 control-label">Pickup Date/Time</label>
+
+                <div class="col-sm-10">
+                    <i-dtp ng-model="data.pickup_date" icon="calendar"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="! data.flexible_pickup">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="checkbox checkbox-primary">
+                        <label class="pull-left">
+                            <input
+                                class="pull-right"
+                                type="checkbox"
+                                ng-true-value="1"
+                                ng-false-value="0"
+                                ng-model="data.pickup_asap"
+                            >
+                            <i></i> Pickup ASAP
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"  ng-if="! data.pickup_asap">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="checkbox checkbox-primary">
+                        <label>
+                            <input
+                                type="checkbox"
+                                ng-true-value="1"
+                                ng-false-value="0"
+                                ng-model="data.flexible_pickup"
+                            >
+                            <i></i> Flexible Pickup
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="data.flexible_pickup">
+                <label class="col-sm-2 control-label">Pickup Date/Time End</label>
+
+                <div class="col-sm-10">
+                    <i-dtp ng-model="data.pickup_date_end" icon="calendar"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Destination Point *</label>
+
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Final destination"
+                           ng-model="data.destination_point"
+                           details="data.destination_details"
+                           lng="data.destination_longitude"
+                           lat="data.destination_latitude" googleplace required/>
+                </div>
+            </div>
+            <div class="form-group"  ng-if="! data.destination_asap">
+                <label class="col-sm-2 control-label">Destination Date/Time</label>
+
+                <div class="col-sm-10">
+                    <i-dtp ng-model="data.destination_date" icon="calendar"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="! data.flexible_destination">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="checkbox checkbox-primary">
+                        <label class="pull-left">
+                            <input
+                                class="pull-right"
+                                type="checkbox"
+                                ng-true-value="1"
+                                ng-false-value="0"
+                                ng-model="data.destination_asap"
+                            >
+                            <span><i></i> Deliver ASAP</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="! data.destination_asap">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="checkbox checkbox-primary">
+                        <label ng-if="! data.destination_asap">
+                            <input
+                                type="checkbox"
+                                ng-true-value="1"
+                                ng-false-value="0"
+                                ng-model="data.flexible_destination"
+                            />
+                            Flexible Delivery
+                            <i></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="data.flexible_destination">
+                <label class="col-sm-2 control-label">Destination Date/Time End</label>
+
+                <div class="col-sm-10">
+                    <i-dtp ng-model="data.destination_date_end" icon="calendar"/>
+                </div>
+            </div>
+            <div class="form-group hidden">
+                <div class="col-lg-offset-2 col-sm-10">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                        <tr class="headingTr">
+                            <th align="middle"><a href="#" ng-click="addToWayPoints()"><span class="fa fa-plus"></span></a>
+                            </th>
+                            <th align="middle">Way point</th>
+                            <th align="middle">Stopoff Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in data.way_points">
+                            <td align="middle">
+                                <a href="#" ng-click="removeFromWayPoints(item)"><span class="fa fa-minus"></span></a>
+                            </td>
+                            <td align="middle">
+                                <input type="text" class="form-control" ng-model="item.way_point"/>
+                            </td>
+                            <td align="middle">
+                                <i-dtp ng-model="item.stopoff_date" icon="calendar"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Vehicle *</label>
+
+                <div class="col-sm-10">
+                    <ui-select ng-required="true" data-ng-model="data.vehicle_id" theme="bootstrap" data-search-enabled="false"
+                               style="width: 100%">
+                        <ui-select-match placeholder="Select a vehicle...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="value.id as value in vehicles">
+                            <div ng-bind-html="value.name"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Details</label>
+
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" ng-model="data.details"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Expiry Time</label>
+
+                <div class="col-sm-10">
+                    <i-dtp ng-model="data.expiry_time" icon="calendar" placeholder="Expiry Time"
+                           required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="checkbox checkbox-primary">
+                        <label>
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                   ng-model="data.accept_email"/>
+                            Accept Email
+                            <i></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" data-ng-show="data.accept_email">
+                <label class="col-sm-2 control-label">Email</label>
+
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="data.email"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="checkbox checkbox-primary">
+                        <label>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                               ng-model="data.accept_phone"/>
+                            Accept Phone
+                            <i></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-show="data.accept_phone">
+                <label class="col-sm-2 control-label">Phone</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Phone" ng-model="data.phone"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">User ID # *</label>
+
+                <div class="col-sm-10">
+                    <input type="text" ng-model="data.user_id"
+                       placeholder="Type name or email"
+                       typeahead="user as user.name_full for user in getUsers($viewValue) | filter:{name_full:$viewValue}"
+                       typeahead-loading="loadingUsers"
+                       typeahead-template-url="src/user/layout/elements/user-autocomplete.html"
+                       typeahead-wait-ms="300"
+                       typeahead-on-select="setUserId($item, $model, $label)"
+                       class="form-control">
+                        <span class="form-control-feedback" aria-hidden="true"
+                              data-ng-show="loadingUsers"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+
+                </div>
+            </div>
+
+            <h4 class="page-header m-t-none  m-t-none">Job details</h4>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">User</label>
+
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{ data.user_info.name_full }} ({{ data.user_info.email }})</p>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-if="drivingDistance">
+                <label class="col-sm-2 control-label">Distance</label>
+
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{drivingDistance}} miles</p>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-if="data.duration">
+                <label class="col-sm-2 control-label">Duration</label>
+
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{data.duration}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Map</label>
+
+                <div class="col-sm-10">
+                    <ui-gmap-google-map class="map-md" id="map-canvas" center="map.center" zoom="map.zoom" options="mapOptions" bounds="map.bounds"></ui-gmap-google-map>
+                </div>
+            </div>
+        </div>
+        <footer class="panel-footer text-right">
+            <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+
+            <button type="button" class="btn btn-sm btn-danger" confirm-delete="destroy()"
+                    ng-if="type() == 'edit'">Delete
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-sm btn-primary"
+                ng-click="store()">Save
+            </button>
+
+        </footer>
+    </div>
+</form>

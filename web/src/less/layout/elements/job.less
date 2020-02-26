@@ -1,0 +1,113 @@
+.job {
+
+  &.status-active {
+    border-left: 5px solid @status-active;
+  }
+
+  .label-active {
+    .label-variant(@status-active);
+  }
+
+  &.status-cancel {
+    border-left: 5px solid @status-cancel;
+  }
+
+  .label-cancel {
+    .label-variant(@status-cancel);
+  }
+
+  &.status-expire {
+    border-left: 5px solid @status-expire;
+  }
+
+  .label-expire {
+    .label-variant(@status-expire);
+  }
+
+  &.status-progress {
+    border-left: 5px solid @status-progress;
+  }
+
+  .label-progress {
+    .label-variant(@status-progress);
+  }
+
+  &.status-delivered {
+    border-left: 5px solid @status-delivered;
+  }
+
+  .label-delivered {
+    .label-variant(@status-delivered);
+  }
+
+  &.status-invoice {
+    border-left: 5px solid @status-invoiced;
+  }
+
+  .label-invoice {
+    .label-variant(@status-invoiced);
+  }
+
+  &.status-complete {
+    border-left: 5px solid @status-complete;
+  }
+
+  .label-complete {
+    .label-variant(@status-complete);
+  }
+
+  .job-header {
+
+    .label {
+      text-shadow: none;
+    }
+  }
+
+  &.bid-sent {
+    background-color: @status-bid-sent;
+
+    .panel-body {
+      .arrow:after {
+        border-top-color: @status-bid-sent !important;
+      }
+
+      .btn {
+        background-color: fade(@black, 30%);
+        border-color: fade(@black, 15%);
+        .opacity(1);
+      }
+
+      .contact-details {
+        background-color: @status-bid-sent !important;
+      }
+    }
+  }
+}
+
+.job-actions {
+  .btn {
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+}
+
+.job-stat-tooltip {
+  padding: @padding-xs-vertical @padding-xs-horizontal;
+  background-color: #fff;
+  border-radius: @border-radius-small;
+  .box-shadow(0 0 3px 0 fade(#000, 30%));
+}
+
+.status-invoice {
+  white-space: normal !important;
+}
+
+.job {
+    .media-left span {
+        display: block;
+        color: #808082;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 7px;
+    }
+}

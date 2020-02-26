@@ -1,0 +1,614 @@
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{mode}} Company</h3>
+        </div>
+
+        <tabset>
+
+            <tab heading="Company Details">
+
+                <form class="form-horizontal form-validation" name="form">
+                    <div class="wrapper">
+                        <h4 class="page-header">Company Details:</h4>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Company Name <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Company Name" ng-model="data.company_name"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Company Number <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Company Number" ng-model="data.company_number"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">VAT Number</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="VAT Number" ng-model="data.vat_number"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Address Line 1 <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Address Line 1" ng-model="data.address_line_1"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Address Line 2</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Address Line 2"
+                                       ng-model="data.address_line_2"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Town <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Town" ng-model="data.town"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">County <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="County" ng-model="data.county"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Postal Code <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Postal Code" ng-model="data.postal_code"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Lat/Lng <em>*</em></label>
+
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" ng-model="data.lat">
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" ng-model="data.lng">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="wrapper">
+                        <h4 class="page-header  m-t-none  m-t-none">Billing Details:</h4>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Subscription amount <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="currency">£</span>
+                                    <input type="text" class="form-control" placeholder="Subscription amount"
+                                           ng-model="data.subscription_amount"
+                                           required/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Payment Method</label>
+
+                            <div class="col-sm-10">
+                                <select data-ng-model="data.payment_method" class="form-control">
+                                    <option value="">Choose a payment method</option>
+                                    <option value="bacs">BACS</option>
+                                    <option value="credit_card">Credit Card</option>
+                                    <option value="direct_debit">Direct Debit</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Billing frequency</label>
+
+                            <div class="col-sm-10">
+                                <select data-ng-model="data.billing_frequency" class="form-control" ng-change="updateExpiry()">
+                                    <option value="">Choose the frequency</option>
+                                    <option value="30">Monthly</option>
+                                    <option value="90">Quarterly</option>
+                                    <option value="180">Biannually</option>
+                                    <option value="365">Annually</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Expire at <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <i-dtp ng-model="data.expire_at" icon="calendar" placeholder="Expire at"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wrapper">
+                        <h4 class="page-header  m-t-none  m-t-none">Invoice Details:</h4>
+
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <div class="checkbox checkbox-primary">
+                                    <label>
+                                        <input type="checkbox" data-ng-true-value="1" data-ng-false-value="0"
+                                               data-ng-model="data.use_company_address"/>
+                                        Use company address
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-show="!data.use_company_address">
+                            <label class="col-sm-2 control-label">Address Line 1 <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Address Line 1"
+                                       ng-model="data.invoice_address_line_1"
+                                       data-ng-required="!data.use_company_address"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-show="!data.use_company_address">
+                            <label class="col-sm-2 control-label">Address Line 2</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Address Line 2"
+                                       ng-model="data.invoice_address_line_2"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-show="!data.use_company_address">
+                            <label class="col-sm-2 control-label">Town <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Town" ng-model="data.invoice_town"
+                                       data-ng-required="!data.use_company_address"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-show="!data.use_company_address">
+                            <label class="col-sm-2 control-label">County <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="County" ng-model="data.invoice_county"
+                                       data-ng-required="!data.use_company_address"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-show="!data.use_company_address">
+                            <label class="col-sm-2 control-label">Postal Code <em>*</em></label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Postal Code"
+                                       ng-model="data.invoice_postal_code"
+                                       data-ng-required="!data.use_company_address"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Invoice footer text</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" ng-model="data.invoice_footer_text"
+                                          placeholder="Invoice footer text"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="isEdit()" data-ng-show="!data.external_invoice_recipient">
+                            <label class="col-sm-2 control-label">Invoice recipient</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="team.invoice_recipient_id"
+                                        ng-options="recipient.id as recipient.name_full for recipient in team.members">
+                                    <option value="">Select a team member</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-show="isEdit()">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <div class="checkbox checkbox-primary">
+                                    <label>
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                               ng-model="data.external_invoice_recipient"/>
+                                        External invoice recipient
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="isEdit()" data-ng-show="data.external_invoice_recipient">
+                            <label class="col-sm-2 control-label">Invoice Recipient Name</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Invoice Recipient Name"
+                                       ng-model="data.invoice_recipient_name" data-ng-required="data.external_invoice_recipient"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="isEdit()" data-ng-show="data.external_invoice_recipient">
+                            <label class="col-sm-2 control-label">Invoice Recipient Email</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Invoice Recipient Email"
+                                       ng-model="data.invoice_recipient_email" data-ng-required="data.external_invoice_recipient"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-if="isEdit()" data-ng-show="data.external_invoice_recipient">
+                            <label class="col-sm-2 control-label">Invoice Recipient Phone</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Invoice Recipient Phone"
+                                       ng-model="data.invoice_recipient_phone" data-ng-required="data.external_invoice_recipient"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <div class="checkbox checkbox-primary">
+                                    <label>
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                               ng-model="data.invoice_including_vat"/>
+                                        Add VAT by default to invoices
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="page-header" data-ng-if="isAdd()">Primary team member:</h4>
+
+                        <div class="form-group" data-ng-if="isAdd()">
+                            <label class="col-sm-3 control-label">First Name *</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="First Name" ng-model="user.name_first"
+                                       required/>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-if="isAdd()">
+                            <label class="col-sm-3 control-label">Last Name</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Last Name" ng-model="user.name_last"/>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-if="isAdd()">
+                            <label class="col-sm-3 control-label">Email *</label>
+
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" placeholder="Email" ng-model="user.email"/>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-if="isAdd()">
+                            <label class="col-sm-3 control-label">Phone *</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Phone" ng-model="user.phone" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wrapper" ng-if="isEdit()">
+                        <h4 class="page-header  m-t-none  m-t-none">Company Logo:</h4>
+                        <div class="form-group" data-ng-if="isEdit()">
+                            <div class="col-sm-9 col-sm-offset-2">
+                                <img ng-src="{{ data.logo }}" ng-if="data.logo" style="max-width: 250px">
+                                <br>
+                                <a
+                                    class="btn btn-secondary"
+                                    href
+                                    data-ui-sref=".logo({team_id:data.id})"
+                                    title="Add Profile Picture"
+                                    role="button"
+                                    data-ng-show="! data.logo"
+                                >Add Company Logo</a>
+                                <a
+                                    class="btn btn-secondary"
+                                    href
+                                    data-ui-sref=".logo({team_id:data.id})"
+                                    title="Edit Profile Picture"
+                                    role="button"
+                                    data-ng-show="data.logo"
+                                >Edit Company Logo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="panel-footer text-right">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+                        <button type="button" class="btn btn-sm btn-primary" ng-click="store()" ng-if="isAdd()"
+                                ng-disabled="form.$invalid || userCreated">Save
+                        </button>
+                        <!--<button type="button" class="btn btn-sm btn-danger" confirm-delete="destroy()" ng-if="isEdit()">-->
+                            <!--Delete-->
+                        <!--</button>-->
+                        <button type="button" class="btn btn-sm btn-primary" ng-click="update()" ng-if="isEdit()"
+                                ng-disabled="form.$invalid">Save
+                        </button>
+                    </footer>
+
+                </form>
+
+            </tab>
+
+            <tab heading="Users">
+                <div class="panel-body" data-ng-if="team.members">
+                    <h4 class="page-header">Users</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped team-members text-left" data-ng-table="teamMembers">
+                            <tbody>
+                            <tr ng-repeat="member in $data">
+                                <td>
+                                    <img class="avatar" data-ng-src="{{member.avatar ? member.avatar : member.avatar_url}}" width="50">
+                                </td>
+                                <td data-title="'Name'">
+                                    {{member.name_full}}
+                                </td>
+                                <td data-title="'Email'">
+                                    {{member.email}}
+                                </td>
+                                <td class="text-u-f">
+                                    <i data-ng-show="member.team_role == 'primary'">({{member.team_role}} User)</i>
+                                </td>
+                                <td class="text-right">
+                                    <a ui-sref="admin.users.edit({id: member.id})" class="btn btn-sm btn-primary">Edit</a>
+                                    <a data-ng-click="transferPrimaryUser(member)" class="btn btn-sm btn-secondary" data-ng-show="member.team_role != 'primary'">Set as Primary</a>
+                                    <a ng-hide="member.id == $auth.user().id" data-ng-class="{'btn-danger': !member.inactivated, 'btn-success': member.inactivated}" ng-click="team.deactivateMember(member)"
+                                       class="btn btn-sm">{{member.inactivated ? 'Activate' : 'Deactivate'}}</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </tab>
+
+            <tab heading="Documents">
+                <div class="wrapper">
+                    <h4 class="page-header">Documents:
+                        <a
+                            class="btn btn-secondary btn-sm pull-right"
+                            href
+                            data-ui-sref=".adddocument"
+                        >
+                            <span class="fa fa-plus"></span> Add Document
+                        </a>
+                    </h4>
+
+                    <div class="table-responsive">
+                        <table
+                            class="table table-striped team-documents text-left"
+                            data-ng-table="teamDocuments"
+                        >
+
+                            <tr
+                                ng-repeat="document in $data"
+                            >
+                                <form name="document{{ document.id }}"></form>
+                                    <td data-title="'Type'"> {{ document.type.name }} </td>
+                                    <td data-title="'Status'"> {{ document.status }} </td>
+                                    <td data-title="'User'"> {{ document.user.name_full }} </td>
+                                    <td data-title="'Expiry'">
+                                        <span ng-if="document.expiry != '0000-00-00' && document.type.expiry_required">{{createDate(document.expiry) | date: 'dd/MM/yyyy'}}</span>
+                                        <span ng-if="document.expiry == '0000-00-00'">N/A</span>
+                                    </td>
+                                    <td data-title="'Insured Amount'">
+                                        <span ng-if="document.type.amount_required">{{ document.insured_amount | currency : 'GBP' }}</span>
+                                        <span ng-if="!document.type.amount_required">N/A</span>
+                                    </td>
+                                    <td data-title="" class="text-right">
+                                        <a
+                                            class="btn btn-sm btn-success"
+                                            href=""
+                                            data-ng-click="approveDocument(document)"
+                                            data-ng-show="document.status != 'approved'"
+                                        >
+                                            <span class="fa fa-check"> Approve</span>
+                                        </a>
+
+                                        <a
+                                            class="btn btn-sm btn-secondary"
+                                            href="{{ document.upload }}"
+                                            download="{{ document.upload | split:'/':'last' }}"
+                                            target="_self"
+                                        >
+                                            <span class="fa fa-download"> Download</span>
+                                        </a>
+
+                                        <a
+                                            class="btn btn-sm btn-primary"
+                                            data-ui-sref=".editdocument({ document_id: document.id })"
+                                        >
+                                            <span class="fa fa-pencil"></span> Edit</a>
+
+                                        <a
+                                            class="btn btn-sm btn-danger"
+                                            href
+                                            confirm-delete="destroyDocument(document)"
+                                        >
+                                            <span class="fa fa-trash"></span> Delete</a>
+                                    </td>
+                                </form>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </tab>
+
+            <tab heading="Locations">
+                <div class="wrapper">
+                    <h4 class="page-header">Locations:
+                        <a class="btn btn-secondary btn-sm pull-right"  data-ui-sref=".addlocation"><span class="fa fa-plus"></span> Add Location</a>
+                    </h4>
+                    <div class="table-responsive">
+                        <table
+                            class="table table-striped team-documents text-left"
+                            data-ng-table="teamLocations"
+                        >
+
+                            <tr
+                                ng-repeat="location in $data"
+                            >
+                                <form name="location{{ location.id }}"></form>
+                                    <td data-title="'Location'"> {{ location.location }} </td>
+                                    <td data-title="'Miles'"> {{ location.miles }} </td>
+                                    <td data-title="'User'"> {{ location.user.name_full }}</td>
+                                    <td data-title="" class="text-right">
+                                        <a
+                                            class="btn btn-sm btn-primary"
+                                            href
+                                            data-ui-sref=".editlocation({location_id: location.id})"
+                                        ><span class="fa fa-pencil"> Edit</span>
+                                        </a>
+
+                                        <a
+                                            class="btn btn-sm btn-danger"
+                                            href
+                                            confirm-delete="destroyLocation(location)"
+                                        >
+                                            <span class="fa fa-trash"> Delete</span>
+                                        </a>
+                                    </td>
+                                </form>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </tab>
+
+            <tab heading="Feedback">
+                <div class="wrapper">
+                    <h4 class="page-header">Feedback:</h4>
+
+                    <div data-ng-repeat="fb in feedback">
+                        <div class="pull-left thumb-sm avatar m-l-n-sm m-t">
+                            <img data-ng-src="{{fb.sender.avatar_url}}" alt="{{fb.sender.name_full}}">
+                        </div>
+                        <div class="m-l-xl m-b-lg panel b-a bg-light pos-rlt">
+                            <span class="arrow arrow-light left"></span>
+                            <div class="panel-body" data-ng-if="fb">
+                                <div class="m-b"><i>“{{fb.comment}}”</i></div>
+                                <rating
+                                    class="rating read-only"
+                                    ng-model="fb.rating"
+                                    max="5"
+                                    state-on="'glyphicon glyphicon-star text-info'"
+                                    state-off="'glyphicon glyphicon-star-empty text-info'"
+                                    data-readonly="true"
+                                ></rating>
+                                <small class="text-muted"> - {{fb.sender.name_full}} ({{fb.sender.team_info.company_name}}) - <i>{{fb.created_at | amDateFormat:'DD/MM/YYYY HH:mm'}}</i></small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </tab>
+
+            <tab heading="Notes">
+                <div class="wrapper">
+                    <h4 class="page-header">
+                        Notes:
+                        <a
+                            class="btn btn-secondary btn-sm pull-right"
+                            href
+                            data-ui-sref=".addnote"
+                        >
+                            <span class="fa fa-plus"></span> Add Note
+                        </a>
+                    </h4>
+
+                    <div class="table-responsive">
+                        <table
+                            class="table table-striped team-notes text-left"
+                            data-ng-table="notes"
+                        >
+                            <tr ng-repeat="note in $data">
+                                <form name="note{{ note.id }}">
+                                    <td data-title="'User'">{{ note.user.name_full }}</td>
+                                    <td data-title="'Content'">{{ note.content }}</td>
+                                    <td data-title="'Created'">
+                                        <span>{{ createDate(note.created_at) | date: 'dd/MM/yyyy H:mm' }}</span>
+                                    </td>
+                                    <td data-title="" class="text-right">
+                                        <a
+                                            class="btn btn-sm btn-primary "
+                                            data-ui-sref=".editnote({ note_id: note.id })"
+                                        >
+                                            <span class="fa fa-pencil"></span> Edit
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" href confirm-delete="destroyNote(note)">
+                                            <span class="fa fa-trash"></span> Delete
+                                        </a>
+                                    </td>
+                                </form>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+
+            <tab heading="Settings">
+                <div class="wrapper">
+                    <h4 class="page-header">Settings:</h4>
+                    <form class="form-horizontal form-validation" name="form">
+
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <div class="checkbox checkbox-primary">
+                                    <label>
+                                        <input type="checkbox" data-ng-true-value="0" data-ng-false-value="1"
+                                               data-ng-model="data.members_directory"/>
+                                        Exclude from Members Directory
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <footer class="panel-footer text-right">
+                            <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="store()" ng-if="isAdd()"
+                                    ng-disabled="form.$invalid || userCreated">Save
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="update()" ng-if="isEdit()"
+                                    ng-disabled="form.$invalid">Save
+                            </button>
+                        </footer>
+
+                    </form>
+                </div>
+            </tab>
+        </tabset>
+    </div>

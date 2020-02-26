@@ -1,0 +1,68 @@
+<div class="container" ng-controller="RecipientController" ui-view>
+    <div class="register-form m-t-lg">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2 class="m-t-sm">Recipient Details</h2>
+                <div class="alert alert-danger" ng-show="errors">
+                    <p ng-repeat="(key, error) in errors">*{{ error }}</p>
+                </div>
+                <form name="form">
+                    <div class="row m-t-lg">
+                        <div
+                            class="col-half-width">
+                            <i
+                                class="icons8-user form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Invoice recipient name"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_recipient_name">
+                        </div>
+                        <div
+                            class="col-half-width">
+                            <i
+                                class="icons8-email-envelope form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Recipient email"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_recipient_email">
+                            <span
+                                class="label label-danger"
+                                ng-show="form.email.$invalid && form.email.$touched">
+                                Invalid email address.
+                            </span>
+                        </div>
+                        <div
+                            class="col-half-width">
+                            <i
+                                class="icons8-call form-control-feedback feedback-left"
+                                aria-hidden="true">
+                            </i>
+                            <input
+                                type="text"
+                                placeholder="Recipient phone"
+                                class="form-control form-field-transparent"
+                                ng-model="formData.invoice_recipient_phone">
+                        </div>
+                        <div class="col-full-width">
+                            <button
+                                type="submit"
+                                class="btn btn-lg btn-info btn-block"
+                                data-ng-disabled="!form.$valid"
+                                ng-click="submit()">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <a class="skip" ng-click="nextStep()">Skip</a>
+    </div>
+</div>

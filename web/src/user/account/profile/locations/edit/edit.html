@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">{{mode}} location</h3>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" data-ng-click="$dismiss(true)">Cancel</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<form class="form form-horizontal" role="form" name="form">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label font-bold">Location:</label>
+
+            <div class="col-sm-9">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Location"
+                       details="details"
+                       ng-model="data.location"
+                       lng="data.longitude"
+                       lat="data.latitude" googleplace required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label font-bold">Accept job within:</label>
+
+            <div class="col-sm-9">
+                <ui-select ng-model="data.miles" theme="bootstrap"
+                           data-search-enabled="false" style="width: 100%">
+                    <ui-select-match allow-clear="false" placeholder="Select miles...">
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="value.id as value in miles">
+                        <div ng-bind-html="value.name"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label font-bold">Map preview:</label>
+
+            <div class="col-sm-9">
+                <div class="map map-md map-full m-t">
+                    <ui-gmap-google-map
+                            id="map-canvas"
+                            center="map.center"
+                            zoom="map.zoom"
+                            options="map.options"
+                            control="map.control"
+                            fit="true">
+                        <ui-gmap-marker coords="{latitude: data.latitude, longitude: data.longitude}"
+                                        idkey="0"
+                                        ng-if="data.latitude && data.longitude"
+                                >
+                        </ui-gmap-marker>
+                        <ui-gmap-circle ng-repeat="c in map.circles"
+                                        center="c.center"
+                                        fill="{color: '#063f60', opacity: 0.3}"
+                                        stroke="{color: '#063f60', weight: 1, opacity: 1}"
+                                        radius="c.radius"
+                                        clickable="false"
+                                        draggable="false"
+                                        editable="false"
+                                        visible="true"
+                                        ng-if="c.center"
+                                >
+                    </ui-gmap-google-map>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-right">
+        <button type="button" class="btn btn-lg btn-primary" data-ng-click="store()" data-ng-disabled="form.$invalid || formSubmitted" data-ng-if="isAdd()">
+            <span data-ng-show="!formSubmitted">Add location</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Add location</span>
+        </button>
+        <button type="button" class="btn btn-lg btn-primary" data-ng-click="update()" data-ng-disabled="form.$invalid || formSubmitted" data-ng-if="isEdit()">
+            <span data-ng-show="!formSubmitted">Update location</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Update location</span>
+        </button>
+    </div>
+</form>

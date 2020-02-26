@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">View POD
+    </h3>
+
+    <div class="pull-right">
+        <button class="btn btn-primary btn-sm" data-ng-click="$dismiss()">Close</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<form class="form form-horizontal" role="form" name="form">
+    <div class="modal-body">
+        <h4 class="page-header">POD Details</h4>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Recipient:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">{{pod.recipient}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Delivery Date:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">{{pod.delivery_date}}</p>
+            </div>
+        </div>
+        <div class="form-group" data-ng-show="pod.no_pod_reason">
+            <label class="col-sm-2 control-label font-bold">Missing file reason:</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">{{pod.no_pod_reason}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-right" data-ng-show="pod.upload">
+        <a class="btn btn-lg btn-primary" href="{{pod.upload}}" download="{{pod.upload | split:'/':'last'}}" target="_self" data-ng-click="$dismiss()">
+            Download POD
+        </a>
+    </div>
+</form>

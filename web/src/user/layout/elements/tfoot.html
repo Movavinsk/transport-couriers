@@ -1,0 +1,18 @@
+<footer class="tfoot tfoot-default">
+    <div class="pull-left hidden-xs">
+        <small class="text-muted inline m-t-sm m-b-sm">Showing {{ ((params.$params.page * params.count()) - params.count() + 1) }}-{{ (params.$params.page * params.count()) > params.total() ? params.total() : (params.$params.page * params.count()) }} of {{ params.total() }} results</small>
+    </div>
+
+    <div class="pull-right text-right text-center-xs">
+        <pagination total-items="params.total()"
+                    ng-model="params.$params.page"
+                    items-per-page="params.count()"
+                    max-size="4"
+                    class="pagination-sm pagination-default m-t-xs m-b-none"
+                    boundary-links="false"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    rotate="false"></pagination>
+    </div>
+    <div class="clearfix"></div>
+</footer>

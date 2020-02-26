@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">Leave feedback
+    </h3>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" data-ng-click="$dismiss()">Cancel</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<form class="form form-horizontal" name="form">
+    <div class="modal-body job-feedback">
+        <div class="form-group">
+            <div class="rating">
+                <label class="col-sm-2 control-label font-bold">Your rating:</label>
+
+                <div class="col-sm-10">
+                    <rating
+                            class="rating"
+                            ng-model="feedback.rating"
+                            max="5"
+                            state-on="'glyphicon glyphicon-star text-info'"
+                            state-off="'glyphicon glyphicon-star-empty text-info'"
+                            required
+                            >
+                    </rating>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Your comment:</label>
+
+            <div class="col-sm-10">
+                <textarea class="form-control" name="comment" ng-model="feedback.comment" placeholder="Your comment"
+                          required></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-right">
+        <button class="btn btn-primary" ng-click="create()" data-ng-disabled="form.$invalid || formSubmitted">
+            <span data-ng-show="!formSubmitted">Submit feedback</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Submit feedback</span>
+        </button>
+    </div>
+</form>

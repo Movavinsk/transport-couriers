@@ -1,0 +1,73 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-light h3"><i class="icon-layers"></i> Jobs</h1>
+</div>
+<div class="wrapper-md" data-ui-view>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">List of jobs</h3>
+        </div>
+        <div class="panel-body no-padder">
+            <div class="row wrapper">
+                <div class="col-sm-4">
+                    <div class="form-group m-b-none">
+                        <input class="form-control input-sm" type="search" placeholder="Search..."
+                               ng-model="tableParams.filter()['search']"/>
+                    </div>
+                </div>
+                <div class="col-sm-8 text-right">
+                    <a class="btn btn-secondary btn-sm" data-ui-sref=".add"><i class="icon-plus"></i> Add</a>
+                    <a class="btn btn-success btn-sm" data-ng-click="tableParams.reload()"><i class="icon-refresh"></i>
+                        Refresh</a>
+                    <a class="btn btn-warning btn-sm" data-ng-click="tableParams.sorting({name: 'asc'})"><i class="fa fa-eraser"></i> Clear
+                        sorting</a>
+                    <a class="btn btn-danger btn-sm" data-ng-click="tableParams.filter({})"><i class="fa fa-eraser"></i> Clear filter</a>
+                    <a class="btn btn-primary btn-sm"
+                       ng-mousedown="csv.generate()" ng-href="{{ csv.link() }}"
+                       download="jobs.csv"><i class="icon-arrow-down"></i> Export to CSV</a>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light text-left" data-ng-table="tableParams" export-csv="csv"
+                       template-pagination="src/admin/layout/pagination.html">
+                    <tbody>
+                    <tr class="odd gradeX" data-ng-repeat="data in $data">
+                        <td data-title="'#'" data-sortable="'id'">{{data.id}}</td>
+
+                        <td class="point" data-title="'From'">       
+                            <span ng-if="data.pickup_formatted_address == null || data.pickup_formatted_address == ''">
+                                {{data.pickup_point}}
+                            </span>
+                            <span ng-if="data.pickup_formatted_address != null && data.pickup_formatted_address != ''">
+                                {{data.pickup_formatted_address}}
+                            </span>
+                        </td>
+
+                        <td class="point" data-title="'To'">       
+                            <span ng-if="data.destination_formatted_address == null || data.destination_formatted_address == ''">
+                                {{data.destination_point}}
+                            </span>
+                            <span ng-if="data.destination_formatted_address != null && data.destination_formatted_address != ''">
+                                {{data.destination_formatted_address}}
+                            </span>
+                        </td>
+
+                        <td data-title="'Requester'">{{ data.team.company_name }}</td>
+                        <td data-title="'Status'">{{data.status}}</td>
+
+                        <td class="text-right table-buttons" width="250">
+                            <a class="btn btn-primary btn-sm" data-ui-sref=".edit({id:data.id, edit_job: data})"><i
+                                    class="fa fa-edit"></i>
+                                Edit</a>
+                            <a class="btn btn-primary btn-sm" data-ui-sref=".bids({id:data.id})"><i
+                                    class="fa fa-list"></i> Bids</a>
+                            <a class="btn btn-primary btn-sm" data-ui-sref=".add({id:data.id, repost_job: data})"><i
+                                    class="fa fa-repeat"></i> Repost</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

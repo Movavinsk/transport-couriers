@@ -1,0 +1,48 @@
+<div class="aside-wrap">
+  <!-- if you want to use a custom scroll when aside fixed, use the slimScroll
+    <div class="navi-wrap" ui-jq="slimScroll" ui-options="{height:'100%', size:'8px'}">
+  -->
+  <div class="navi-wrap" data-ng-controller="LoginController">
+    <!-- user -->
+    <div class="clearfix hidden-xs text-center hide" id="aside-user">
+      <div class="dropdown wrapper" dropdown>
+        <a ui-sref="{{$app.mode()}}.profile">
+          <span class="thumb-lg w-auto-folded avatar m-t-sm">
+            <img data-ng-src="{{$auth.user().getAvatar()}}" class="img-full" alt="...">
+          </span>
+        </a>
+        <a href class="dropdown-toggle hidden-folded" dropdown-toggle>
+          <span class="clear">
+            <span class="block m-t-sm">
+              <strong class="font-bold text-lt">{{auth.user().name_full}}</strong>
+              <b class="caret"></b>
+            </span>
+          </span>
+        </a>
+        <!-- dropdown -->
+        <ul class="dropdown-menu animated fadeInRight w hidden-folded">
+          <li>
+            <a ng-if="$app.mode()=='user'" data-ui-sref="user.profile">Profile</a>
+          </li>
+          <li ng-if="$app.mode()=='user'" class="divider"></li>
+          <li>
+            <a ng-click="logout()">Logout</a>
+          </li>
+        </ul>
+        <!-- / dropdown -->
+      </div>
+      <div class="line dk hidden-folded"></div>
+    </div>
+    <!-- / user -->
+
+    <!-- nav -->
+    <nav ui-nav class="navi clearfix" ng-include="'src/admin/layout/nav.html'"></nav>
+    <!-- nav -->
+
+    <!-- aside footer -->
+    <div class="wrapper m-t">
+
+    </div>
+    <!-- / aside footer -->
+  </div>
+</div>

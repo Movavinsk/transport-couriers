@@ -1,0 +1,288 @@
+//== Panels ==//
+.panel {
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  .box-shadow(none);
+
+  .panel-heading {
+
+    .panel-title {
+
+      &.toggle {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .panel-sub-title {
+      margin: 5px 0 0;
+      color: @gray-darker;
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .nav {
+      margin: 0;
+    }
+
+    .panel-body {
+      padding: 0;
+    }
+
+    &.buttons {
+      position: relative;
+      &:extend(.clearfix all);
+    }
+
+    .panel-heading-buttons {
+      float: right;
+
+      @media (max-width: @screen-xs-max) {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+      }
+
+      .btn {
+        @media (max-width: @screen-xs-max) {
+          width: 37px;
+          height: 37px;
+          list-height: 37px;
+          color: @gray !important;
+          background-color: #fff;
+          border: 0;
+          border-left: 1px solid @gray-lighter;
+          border-radius: 0;
+
+          i {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  .panel-body {
+    .panel-row {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+
+  .panel-footer {
+
+    small {
+      font-size: 13px;
+      font-style: italic;
+    }
+  }
+}
+
+.panel-default {
+  border: 0;
+  box-shadow: 0 4px 0 0 fade(@black, 10%);
+}
+
+.panel-primary {
+
+  .panel-heading,
+  .panel-footer {
+    border-color: fade(@white, 10%);
+  }
+
+  .panel-body {
+    color: @white;
+    background-color: @brand-primary;
+  }
+}
+
+.panel-sm {
+
+  .panel-heading {
+    padding: @panel-heading-sm-padding;
+  }
+
+  .panel-body {
+    padding: @panel-body-sm-padding;
+  }
+
+  .panel-footer {
+    padding: @panel-footer-sm-padding;
+  }
+}
+
+.panel-tab {
+  margin-bottom: 0;
+
+  .panel-heading {
+    padding: 0;
+
+    @media (min-width: @screen-sm-min) {
+      .responsive-invisibility();
+    }
+  }
+
+  .panel-collapse {
+    @media (min-width: @screen-sm-min) {
+      height: auto !important;
+      margin-bottom: -(@panel-heading-padding-v + 1);
+      display: block !important;
+    }
+  }
+}
+
+.pagination-default {
+  > li {
+    > a,
+    > span {
+      margin-left: 1px;
+      margin-right: 1px;
+      color: @gray-dark;
+      background-color: @gray-light;
+      border: 1px solid @gray-light;
+      .border-left-radius(@border-radius-small);
+      .border-right-radius(@border-radius-small);
+    }
+  }
+
+  > li > a,
+  > li > span {
+    &:hover,
+    &:focus {
+      color: @pagination-hover-color;
+      background-color: @pagination-hover-bg;
+      border-color: @pagination-hover-bg;
+    }
+  }
+
+  > .active > a,
+  > .active > span {
+    &,
+    &:hover,
+    &:focus {
+      color: @pagination-active-color;
+      background-color: @pagination-active-bg;
+      border-color: @pagination-active-bg;
+    }
+  }
+
+  > .disabled {
+    > span,
+    > span:hover,
+    > span:focus,
+    > a,
+    > a:hover,
+    > a:focus {
+      color: @gray-dark;
+      background-color: @gray-light;
+      border-color: @gray-light;
+    }
+  }
+}
+
+//== Modals ==//
+.modal-backdrop{
+  background-color: @modal-backdrop-bg;
+
+  &.in{
+    .opacity(@modal-backdrop-opacity);
+  }
+}
+
+.modal-header {
+  padding: @modal-title-padding-v @modal-title-padding-h;
+  border-bottom: 1px solid @modal-header-border-color;
+  min-height: (@modal-title-padding + @modal-title-line-height);
+}
+
+.modal-title {
+
+  @media (min-width: @screen-md-min) {
+    font-size: 25px;
+  }
+}
+
+.modal-content {
+  .box-shadow(none);
+}
+
+.modal-footer {
+
+  .btn {
+    margin-left: 8px;
+  }
+
+  .info {
+    color: @gray-dark;
+    font-size: 15px;
+    font-style: italic;
+
+    @media (min-width: @screen-md-min) {
+      font-size: 17px;
+    }
+  }
+}
+
+//== Wells ==//
+.well, pre {
+  padding: 10px 15px;
+  background-color: @well-bg;
+  border-color: @well-border;
+  .box-shadow(none);
+}
+
+.well-lg {
+  font-size: 16px;
+}
+
+//== Navs ==//
+
+.nav-pills-primary {
+
+  >li {
+
+    > a {
+      color: @brand-primary;
+    }
+    
+    &.active > a {
+      background: @brand-primary;
+    }
+  }
+}
+
+.nav-pills-secondary {
+
+  >li {
+
+    > a {
+      color: @brand-secondary;
+    }
+
+    &.active > a {
+      background: @brand-secondary;
+    }
+  }
+}
+
+.pac-container {
+  z-index: 1100;
+}
+
+//==  Table  ==//
+
+.table-row-variant(success; lighten(@brand-success, 30%));
+
+//== Label ==//
+.label-xs {
+  padding: 1px 5px;
+}
+
+//== Arrow ==//
+
+.arrow {
+  border: 0;
+}

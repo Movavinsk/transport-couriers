@@ -1,0 +1,49 @@
+<div class="container register-documents" ng-controller="DocumentController" ui-view>
+    <div class="register-form m-t-sm">
+        <p class="title">Please add any other of the following documents:</p>
+        <div class="panel panel-default m-t-lg">
+            <div class="panel-body">
+                <div ng-repeat="data in list">
+                    <div class="block">
+                        <div class="col-left">
+                            {{ data.type.name }}
+                        </div>
+                        <div class="col-right">
+                            <a target="_blank" href="{{ data.upload }}">
+                                <i class="icons8-pdf"></i>
+                            </a>
+                            <a confirm-delete="delete(data.id, data.type_id)">
+                                <i class="icons8-close-button"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div
+                    ng-repeat="data in defaultDocuments"
+                    ng-if="data.isUploaded == false">
+                    <div class="block">
+                        <div class="col-left">
+                            {{ data.title }}
+                        </div>
+                        <div class="col-right">
+                            <a class="add-doc" ng-click="openModal(data.type_id)">
+                                <span>+</span>
+                            </a>
+                        </div>
+                    </div>
+                    <hr ng-if="!$last"/>
+                </div>
+            </div>
+        </div>
+        <a class="add" ng-click="openModal()"><span>+</span> Add another document</a>
+        <button
+            type="submit"
+            class="btn btn-lg btn-info btn-block"
+            ng-click="submit()">
+            Continue
+        </button>
+        <a class="skip" ng-click="nextStep()">Skip</a>
+    </div>
+    <div ng-include="'src/register/documents/upload-modal.html'"></div>
+</div>

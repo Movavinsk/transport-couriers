@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h3 class="modal-title pull-left">Feedback
+    </h3>
+
+    <div class="pull-right">
+        <button class="btn btn-primary btn-sm" data-ng-click="$dismiss()">Close</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-body">
+    <div sdcn-loader size="lg" data-ng-show="loading"></div>
+
+    <div class="streamline b-l b-default m-l-lg m-b padder-v" data-ng-show="!loading">
+        <div>
+            <div class="pull-left thumb-sm avatar m-l-n-md">
+                <img data-ng-src="{{data.user_info.avatar_url}}" alt="{{data.user_info.name_full}}">
+            </div>
+            <div class="m-l-lg m-b-lg panel b-a bg-light">
+                <div class="panel-heading pos-rlt b-b">
+                    <span class="arrow arrow-light left"></span>
+                    <small class="text-muted" data-ng-if="data.team_id == $auth.user().team_info.id">Feedback you left:</small>
+                    <small class="text-muted" data-ng-if="data.team_id != $auth.user().team_info.id">Feedback you received:</small>
+                    <span class="text-muted m-l-sm pull-right" data-ng-if="data.bid.feedback">
+                        <small class="text-muted">{{data.bid.feedback.created_at | amDateFormat:'DD/MM/YYYY HH:mm'}}</small>
+                    </span>
+                </div>
+                <div class="panel-body" data-ng-if="!data.bid.feedback"><i>Waiting for {{data.user_info.name_first}} to leave feedback.</i></div>
+                <div class="panel-body" data-ng-if="data.bid.feedback">
+                    <div class="m-b"><i>“{{data.bid.feedback.comment}}”</i></div>
+                    <rating class="rating read-only" ng-model="data.bid.feedback.rating" max="5" state-on="'glyphicon glyphicon-star text-info'" state-off="'glyphicon glyphicon-star-empty text-info'" data-readonly="true"></rating><small class="text-muted"> - {{data.user_info.name_full}} ({{data.user_info.team_info.company_name}})</small>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <a class="pull-left thumb-sm avatar m-l-n-md">
+                <img data-ng-src="{{data.bid.user.avatar_url}}" alt="{{data.bid.user.name_full}}">
+            </a>
+            <div class="m-l-lg m-b-none panel b-a bg-light">
+                <div class="panel-heading pos-rlt b-b">
+                    <span class="arrow arrow-light left"></span>
+                    <small class="text-muted" data-ng-if="data.team_id != $auth.user().team_info.id">Feedback you left:</small>
+                    <small class="text-muted" data-ng-if="data.team_id == $auth.user().team_info.id">Feedback you received:</small>
+                    <span class="text-muted m-l-sm pull-right" data-ng-if="data.feedback">
+                        <small class="text-muted">{{data.feedback.created_at | amDateFormat:'DD/MM/YYYY HH:mm'}}</small>
+                    </span>
+                </div>
+                <div class="panel-body" data-ng-if="!data.feedback"><i>Waiting for {{data.bid.user.name_first}} to leave feedback.</i></div>
+                <div class="panel-body" data-ng-if="data.feedback">
+                    <div class="m-b"><i>“{{data.feedback.comment}}”</i></div>
+                    <rating class="rating read-only" ng-model="data.feedback.rating" max="5" state-on="'glyphicon glyphicon-star text-info'" state-off="'glyphicon glyphicon-star-empty text-info'" data-readonly="true"></rating><small class="text-muted"> - {{data.bid.user.name_full}} ({{data.bid.user.team_info.company_name}})</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

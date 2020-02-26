@@ -1,0 +1,224 @@
+<div class="panel-heading buttons">
+    <h3 class="panel-title">
+        {{$state.current.page.title}} {{team.company_name}}
+        <div class="panel-heading-buttons">
+            <button class="btn btn-default btn-xs btn-offcanvas-toggle" offcanvas-toggle>
+                <i class="fa fa-ellipsis-v"></i>
+            </button>
+        </div>
+    </h3>
+</div>
+<form class="form" name="form">
+    <div class="panel-body">
+        <h4 class="page-header m-t">Company details:</h4>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">Company Name</label>
+
+                <input type="text" class="form-control" ng-model="team.company_name" disabled/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Company Number</label>
+
+                <input type="text" class="form-control" ng-model="team.company_number" disabled/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">VAT NUMBER</label>
+
+                <input type="text" class="form-control" ng-model="team.vat_number" disabled/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Postal code</label>
+
+                <input type="text" class="form-control" ng-model="team.postal_code" disabled />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">Address Line 1</label>
+
+                <input type="text" class="form-control" ng-model="team.address_line_1" disabled />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Address Line 2</label>
+
+                <input type="text" class="form-control" ng-model="team.address_line_2" disabled />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">Town</label>
+
+                <input type="text" class="form-control" ng-model="team.town" disabled />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">County</label>
+
+                <input type="text" class="form-control" ng-model="team.county" disabled />
+            </div>
+
+        </div>
+
+        <p>
+            If would like to change any of the information above please contact us:
+            <a href="mailto:info@samedaycouriernetwork.com">info@samedaycouriernetwork.com</a>
+        </p>
+
+        <h4 class="page-header m-t">Invoice address:</h4>
+
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <div class="checkbox checkbox-secondary">
+                    <label>
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="team.use_company_address">
+                        <i></i>
+                        Use company address
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-show="!team.use_company_address">
+            <div class="form-group col-sm-6">
+                <label class="control-label">Address Line 1</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_address_line_1" data-ng-required="!team.use_company_address"/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Address Line 2</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_address_line_2"/>
+            </div>
+        </div>
+
+        <div class="row" data-ng-show="!team.use_company_address">
+            <div class="form-group col-sm-4">
+                <label class="control-label">Town</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_town" data-ng-required="!team.use_company_address"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label class="control-label">County</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_county" data-ng-required="!team.use_company_address"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label class="control-label">Postal code</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_postal_code" data-ng-required="!team.use_company_address"/>
+            </div>
+        </div>
+
+        <h4 class="page-header m-t">Invoice recipient:</h4>
+
+        <div class="row" data-ng-show="!team.external_invoice_recipient">
+            <div class="form-group col-sm-12">
+                <label  class="control-label">Invoice Recipient</label>
+
+                <select class="form-control" ng-model="team.invoice_recipient_id" ng-options="recipient.id as recipient.name_full for recipient in team.members">
+                    <option value="">Select a team member</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <div class="checkbox checkbox-secondary">
+                    <label>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="team.external_invoice_recipient">
+                        <i></i>
+                        External invoice recipient
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-show="team.external_invoice_recipient">
+            <div class="form-group col-sm-6">
+                <label class="control-label">Invoice Recipient Name</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_recipient_name" data-ng-required="team.external_invoice_recipient"/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Invoice Recipient Phone</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_recipient_phone"/>
+            </div>
+        </div>
+
+        <div class="row" data-ng-show="team.external_invoice_recipient">
+            <div class="form-group col-sm-12">
+                <label class="control-label">Invoice Recipient Email</label>
+
+                <input type="text" class="form-control" ng-model="team.invoice_recipient_email" data-ng-required="team.external_invoice_recipient"/>
+            </div>
+        </div>
+
+        <h4 class="page-header m-t">Invoice details:</h4>
+
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">Invoice footer text</label>
+
+                <textarea class="form-control" ng-model="team.invoice_footer_text"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <div class="checkbox checkbox-secondary">
+                    <label>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="team.invoice_including_vat">
+                        <i></i>
+                        Invoice including vat
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" data-ng-if="team.invoice_logo">
+            <label class="control-label">Invoice logo:</label>
+
+            <div class="thumbnail invoice-logo">
+                <img data-ng-src="{{team.invoice_logo + '?decache=' + rand}}" title="{{team.company_name}}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="btn btn-sm btn-secondary btn-file">
+                <span data-ng-show="!team.invoice_logo">Upload invoice logo</span>
+                <span data-ng-show="team.invoice_logo">Change invoice logo</span>
+                <input type="file" class="form-control" id="invoice-upload"
+                       name="invoice-upload" data-ng-model="upload"
+                       nv-file-select="" uploader="uploader"/>
+            </span>
+        </div>
+        <div class="form-group" data-ng-show="file">
+            <label class="control-label">
+                Selected file: {{file.name}} - {{file.size | bytes}}
+                <progressbar value="progress" class="progress-xs m-t-xs" type="info" ng-show="progress"></progressbar>
+            </label>
+        </div>
+    </div>
+
+    <footer class="panel-footer text-right">
+        <button type="button" class="btn btn-lg btn-primary" ng-click="update()"
+                ng-disabled="form.$invalid || formSubmitted">
+            <span data-ng-show="!formSubmitted">Save</span>
+            <span data-ng-show="formSubmitted"><i class="fa fa-spin fa-circle-o-notch"></i> Save</span>
+        </button>
+    </footer>
+</form>
